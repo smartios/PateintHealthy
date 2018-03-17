@@ -47,10 +47,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gRQ-t1-Fpp">
-                                <rect key="frame" x="245" y="0.0" width="25" height="25"/>
+                                <rect key="frame" x="238" y="0.0" width="35" height="25"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="25" id="BIc-oG-oA3"/>
-                                    <constraint firstAttribute="width" constant="25" id="GYj-P7-vCL"/>
+                                    <constraint firstAttribute="width" constant="35" id="GYj-P7-vCL"/>
                                 </constraints>
                                 <state key="normal" image="A5"/>
                                 <state key="selected" image="A6"/>
@@ -144,14 +144,14 @@
                             <constraint firstAttribute="trailing" secondItem="oXR-bO-PGO" secondAttribute="trailing" id="ADg-vn-PXb"/>
                             <constraint firstAttribute="trailing" secondItem="lya-4r-LQL" secondAttribute="trailing" id="B1Y-Sr-aBm"/>
                             <constraint firstItem="TQI-0s-OP4" firstAttribute="top" secondItem="gRQ-t1-Fpp" secondAttribute="bottom" constant="5.5" id="DmY-Jr-mlD"/>
-                            <constraint firstAttribute="trailing" secondItem="gRQ-t1-Fpp" secondAttribute="trailing" constant="5" id="Dsn-5p-gNS"/>
+                            <constraint firstAttribute="trailing" secondItem="gRQ-t1-Fpp" secondAttribute="trailing" constant="2" id="Dsn-5p-gNS"/>
                             <constraint firstItem="lya-4r-LQL" firstAttribute="top" secondItem="oXR-bO-PGO" secondAttribute="bottom" constant="10" id="FqT-eF-QsQ"/>
                             <constraint firstItem="gRQ-t1-Fpp" firstAttribute="top" secondItem="NIN-PE-Iho" secondAttribute="top" id="IID-6v-2zv"/>
                             <constraint firstItem="oXR-bO-PGO" firstAttribute="leading" secondItem="NIN-PE-Iho" secondAttribute="leading" id="R2U-B7-sl4"/>
                             <constraint firstAttribute="trailing" secondItem="ITU-SJ-S4p" secondAttribute="trailing" constant="5" id="Tez-Sq-0f9"/>
                             <constraint firstItem="hlG-EW-xhq" firstAttribute="leading" secondItem="NIN-PE-Iho" secondAttribute="leading" id="UMF-DY-Ugf"/>
                             <constraint firstItem="lya-4r-LQL" firstAttribute="leading" secondItem="NIN-PE-Iho" secondAttribute="leading" id="ZJP-IO-Bir"/>
-                            <constraint firstItem="gRQ-t1-Fpp" firstAttribute="leading" secondItem="5q6-FY-lY3" secondAttribute="trailing" constant="10" id="aOh-Sz-tPM"/>
+                            <constraint firstItem="gRQ-t1-Fpp" firstAttribute="leading" secondItem="5q6-FY-lY3" secondAttribute="trailing" constant="3" id="aOh-Sz-tPM"/>
                             <constraint firstItem="oXR-bO-PGO" firstAttribute="top" secondItem="TQI-0s-OP4" secondAttribute="bottom" constant="10" id="gqP-uq-BLx"/>
                             <constraint firstItem="ITU-SJ-S4p" firstAttribute="centerY" secondItem="hlG-EW-xhq" secondAttribute="centerY" id="jgN-kM-EGS"/>
                             <constraint firstItem="hlG-EW-xhq" firstAttribute="top" secondItem="lya-4r-LQL" secondAttribute="bottom" constant="10.5" id="pmK-S5-idZ"/>

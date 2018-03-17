@@ -153,6 +153,7 @@
 		503ECE4C2037FEA700094FFF /* WebSocket.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503ECE4B2037FEA700094FFF /* WebSocket.swift */; };
 		503ECE4E2037FEF800094FFF /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503ECE4D2037FEF800094FFF /* SocketIOManager.swift */; };
 		50E1A3412033216B003FB2B9 /* MedicalHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E1A3402033216B003FB2B9 /* MedicalHistory.swift */; };
+		8023B1C8205BAA81005B11AB /* CosmosDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8023B1C7205BAA7F005B11AB /* CosmosDistrib.swift */; };
 		B11BB27C201F4ACA00776AC3 /* MedicalHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11BB27B201F4ACA00776AC3 /* MedicalHistoryView.swift */; };
 		B1283B45203EBA0900490176 /* InboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1283B44203EBA0900490176 /* InboxView.swift */; };
 		B1300F7F2047E22500C3C2B1 /* AppDelegate+Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1300F7E2047E22300C3C2B1 /* AppDelegate+Notification.swift */; };
@@ -374,6 +375,7 @@
 		503ECE4B2037FEA700094FFF /* WebSocket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebSocket.swift; sourceTree = "<group>"; };
 		503ECE4D2037FEF800094FFF /* SocketIOManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
 		50E1A3402033216B003FB2B9 /* MedicalHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalHistory.swift; sourceTree = "<group>"; };
+		8023B1C7205BAA7F005B11AB /* CosmosDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CosmosDistrib.swift; sourceTree = "<group>"; };
 		B11BB27B201F4ACA00776AC3 /* MedicalHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalHistoryView.swift; sourceTree = "<group>"; };
 		B1283B44203EBA0900490176 /* InboxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxView.swift; sourceTree = "<group>"; };
 		B1300F7E2047E22300C3C2B1 /* AppDelegate+Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Notification.swift"; sourceTree = "<group>"; };
@@ -513,6 +515,7 @@
 				23703B6F1FC7DF6B00299E64 /* ProfileSection */,
 				23E7BEBF203E813200061938 /* videoCall */,
 				230D81AF200A174600EC2901 /* pdf.png */,
+				8023B1C7205BAA7F005B11AB /* CosmosDistrib.swift */,
 				230D81B1200A19C700EC2901 /* PresentConditionViewController.swift */,
 				B19F7F56203BD8F3004E92D5 /* ChatOn.swift */,
 				B19F7F58203BD8FC004E92D5 /* WaitingRoomView.swift */,
@@ -1088,6 +1091,7 @@
 				B181BB7E20259654007FCDD9 /* RatingViewController.swift in Sources */,
 				50191616202C13B5003E7469 /* AppointmentDeatilsView.swift in Sources */,
 				238E858F1FB1B5F9000ACF2B /* UIImage+PECrop.m in Sources */,
+				8023B1C8205BAA81005B11AB /* CosmosDistrib.swift in Sources */,
 				23106A76202AACEA00A82882 /* TrackViewController.swift in Sources */,
 				503ECE3F2037FD7D00094FFF /* SocketExtensions.swift in Sources */,
 				23F4CD9F20073B06002F2ECF /* FSCalendarConstants.m in Sources */,
@@ -1345,16 +1349,16 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = QuickHealthPatient/QuickHealthPatient.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Sri Shukla (2R9NDXTZVC)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sri Shukla (2R9NDXTZVC)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: SINGSYS PTE. LTD.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: SINGSYS PTE. LTD.";
 				DEVELOPMENT_TEAM = J6XQ9CB78Q;
 				INFOPLIST_FILE = QuickHealthPatient/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.singsys.enterprise.QuickHealthPatientDev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f0b456d4-b011-4a02-b36b-4c73759fe5ec";
-				PROVISIONING_PROFILE_SPECIFIER = QuickHealthDev;
+				PROVISIONING_PROFILE = "49805ddb-888d-40aa-9961-a78205566cf3";
+				PROVISIONING_PROFILE_SPECIFIER = QuickHealthPatientPro;
 				SWIFT_OBJC_BRIDGING_HEADER = "QuickHealthPatient/QuickHealthPatient-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
@@ -1377,7 +1381,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.singsys.enterprise.QuickHealthPatientDev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "49805ddb-888d-40aa-9961-a78205566cf3";
+				PROVISIONING_PROFILE = "82c5207c-9ce0-4659-b150-5eaa87304eb7";
 				PROVISIONING_PROFILE_SPECIFIER = QuickHealthPatientPro;
 				SWIFT_OBJC_BRIDGING_HEADER = "QuickHealthPatient/QuickHealthPatient-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;

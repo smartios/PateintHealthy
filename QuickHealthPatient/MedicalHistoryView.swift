@@ -191,7 +191,7 @@ class MedicalHistoryView: UIViewController, UITableViewDelegate, UITableViewData
         else{
             dict.setObject(id_appointment, forKey: "id_appointment" as NSCopying)
         }
-        dict.setValue("\((UserDefaults.standard.value(forKey: "user_detail") as! NSDictionary).value(forKey: "user_api_key")!)", forKey: "user_api_key")
+      //  dict.setValue("\((UserDefaults.standard.value(forKey: "user_detail") as! NSDictionary).value(forKey: "user_api_key")!)", forKey: "user_api_key")
         
         let apiSniper = APISniper()
         apiSniper.getDataFromWebAPI(WebAPI.medication,dict, {(operation, responseObject) in

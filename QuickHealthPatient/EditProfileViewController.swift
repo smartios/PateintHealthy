@@ -89,6 +89,11 @@ class EditProfileViewController: UIViewController,UITableViewDataSource,UITableV
         
     }
     
+    override func viewWillAppear(_ animated: Bool)
+    {
+        super.viewWillAppear(animated)
+        UIApplication.shared.statusBarView?.backgroundColor = .clear
+    }
     
     /// Hide keyboard when user taps anywhere on the screen.
     @objc func hideKeyboard()
@@ -358,6 +363,8 @@ class EditProfileViewController: UIViewController,UITableViewDataSource,UITableV
         let profileImg = headerView.viewWithTag(12) as! UIImageView
         let userName = headerView.viewWithTag(13) as! UILabel
         let idLbl = headerView.viewWithTag(-40) as! UILabel
+        let editImg = headerView.viewWithTag(10) as! UIImageView
+        editImg.isHidden = false
         
         let editProfile = headerView.viewWithTag(-111) as! UIButton
         editProfile.isUserInteractionEnabled = true
@@ -381,20 +388,20 @@ class EditProfileViewController: UIViewController,UITableViewDataSource,UITableV
             }
         }
         
-        if let x = ((signupDataDict.object(forKey: "first_name") as? String))?.uppercased()
-        {
-            if let y = ((signupDataDict.object(forKey: "last_name") as? String))?.uppercased()
-            {
-                userName.text = x + " " +  y
-            }
-        }
-        
-        idLbl.isHidden = false
-        
-        if let x = (signupDataDict.object(forKey: "unique_number") as? String)
-        {
-            idLbl.text = "ID-\(x)"
-        }
+        //        if let x = ((signupDataDict.object(forKey: "first_name") as? String))?.uppercased()
+        //        {
+        //            if let y = ((signupDataDict.object(forKey: "last_name") as? String))?.uppercased()
+        //            {
+        //                userName.text = x + " " +  y
+        //            }
+        //        }
+        userName.isHidden = true
+        idLbl.isHidden = true
+        //
+        //        if let x = (signupDataDict.object(forKey: "unique_number") as? String)
+        //        {
+        //            idLbl.text = "ID-\(x)"
+        //        }
         
         return headerView
     }
@@ -447,6 +454,7 @@ class EditProfileViewController: UIViewController,UITableViewDataSource,UITableV
                 cell = tableView.dequeueReusableCell(withIdentifier: "cell1")
                 let profileImg = cell.viewWithTag(999) as! UIImageView
                 let bgimage = cell.viewWithTag(1) as! UIImageView
+                
                 bgimage.image = UIImage(named: imagetoset)
                 
                 profileImg.layer.cornerRadius = profileImg.frame.width/2
@@ -984,12 +992,13 @@ class EditProfileViewController: UIViewController,UITableViewDataSource,UITableV
                 
                 if childDataArray.count > 0
                 {
-                    nameLbl.text = ((childDataArray.object(at: indexPath.row - 1) as! NSDictionary).object(forKey: "first_name") as! String)
+                    
+                    nameLbl.text = "\(((childDataArray.object(at: indexPath.row - 1) as! NSDictionary).object(forKey: "first_name")!)) \(((childDataArray.object(at: indexPath.row - 1) as! NSDictionary).object(forKey: "last_name")!))"
                     dobLbl.text = ((childDataArray.object(at: indexPath.row - 1) as! NSDictionary).object(forKey: "dob") as! String)
                     
                     if let x = ((childDataArray.object(at: indexPath.row - 1) as! NSDictionary).object(forKey: "gender") as? String)
                     {
-                        genderLbl.text = ((childDataArray.object(at: indexPath.row - 1) as! NSDictionary).object(forKey: "gender") as! String)
+                        genderLbl.text = ((childDataArray.object(at: indexPath.row - 1) as! NSDictionary).object(forKey: "gender") as! String).capitalized
                         
                         //                        if x.lowercased() == "female"
                         //                        {
@@ -1000,8 +1009,10 @@ class EditProfileViewController: UIViewController,UITableViewDataSource,UITableV
                         //                        }
                     }
                     
-                    
-                    idLbl.text = ((childDataArray.object(at: indexPath.row - 1) as! NSDictionary).object(forKey: "id_child") as! String)
+                    if let x = ((childDataArray.object(at: indexPath.row - 1) as! NSDictionary).object(forKey: "unique_number") as? String)
+                    {
+                        idLbl.text = "ID- \(x)"
+                    }
                 }
             }
         }
@@ -1400,7 +1411,7 @@ class EditProfileViewController: UIViewController,UITableViewDataSource,UITableV
         {
             dict.setObject(x, forKey: "child_id" as NSCopying)
         }
-        dict.setValue("\((UserDefaults.standard.value(forKey: "user_detail") as! NSDictionary).value(forKey: "user_api_key")!)", forKey: "user_api_key")
+        //dict.setValue("\((UserDefaults.standard.value(forKey: "user_detail") as! NSDictionary).value(forKey: "user_api_key")!)", forKey: "user_api_key")
         
         let apiSniper = APISniper()
         

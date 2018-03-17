@@ -35,6 +35,7 @@ class UserScreenViewController: BaseViewController,UITableViewDelegate,UITableVi
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         self.tableView?.reloadData()
     }
     
@@ -42,6 +43,12 @@ class UserScreenViewController: BaseViewController,UITableViewDelegate,UITableVi
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UIApplication.shared.statusBarView?.backgroundColor = .clear
+    }
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         
         //login-2ipad
@@ -73,6 +80,8 @@ class UserScreenViewController: BaseViewController,UITableViewDelegate,UITableVi
         let headerView = Bundle.main.loadNibNamed("FAQHeader", owner: self, options: nil)?[0] as! UIView
         let bgImage = headerView.viewWithTag(11) as! UIImageView
         let profileImg = headerView.viewWithTag(12) as! UIImageView
+        let editImg = headerView.viewWithTag(10) as! UIImageView
+        editImg.isHidden = true
         let userName = headerView.viewWithTag(13) as! UILabel
         let idLbl = headerView.viewWithTag(-40) as! UILabel
         
@@ -229,6 +238,8 @@ class UserScreenViewController: BaseViewController,UITableViewDelegate,UITableVi
             else if indexPath.row == 2
             {
                 let vc = HistoryListViewController(nibName: "HistoryListViewController", bundle: nil)
+//               let vc = RatingViewController(nibName: "RatingViewController", bundle: nil)
+//                vc.from = "doctor"
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             else if indexPath.row == 3
@@ -355,9 +366,8 @@ class UserScreenViewController: BaseViewController,UITableViewDelegate,UITableVi
     func logoutUser()
     {
         UserDefaults.standard.removeObject(forKey: "user_id")
-        UserDefaults.standard.removeObject(forKey: "is_firstTime")
         UserDefaults.standard.removeObject(forKey: "user_detail")
-        
+        appDelegate.socketManager.closeConnection()
         let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let pushVC = mainStoryboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
         let rootViewController = appDelegate.window!.rootViewController as! UINavigationController

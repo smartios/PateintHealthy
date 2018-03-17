@@ -10,10 +10,12 @@ import UIKit
 
 class PhysicalStatsViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
-        var from = ""
-      @IBOutlet weak var tableView: UITableView?
-      var physicalDataDict = NSMutableDictionary()
+    var from = ""
+    @IBOutlet weak var tableView: UITableView?
+    var physicalDataDict = NSMutableDictionary()
     var id_appointment = ""
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         if(!appDelegate.hasConnectivity())
         {
@@ -21,26 +23,27 @@ class PhysicalStatsViewController: UIViewController,UITableViewDelegate,UITableV
         }
         else
         {
-           getUserData()
+            getUserData()
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     // MARK: - backBtn action
     @IBAction func backBtnTapper(sender: UIButton)
     {
         _ = self.navigationController?.popViewController(animated: true)
     }
-
+    
     // MARK: - tableview delegates\\
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -74,7 +77,7 @@ class PhysicalStatsViewController: UIViewController,UITableViewDelegate,UITableV
             {
                 if x.lowercased() == "yes"
                 {
-                     return 2
+                    return 2
                 }else
                 {
                     return 1
@@ -83,13 +86,13 @@ class PhysicalStatsViewController: UIViewController,UITableViewDelegate,UITableV
             {
                 return 1
             }
-           
+            
         }else if section == 3
         {
             return 1
         }else
         {
-           return 1
+            return 1
         }
     }
     
@@ -106,7 +109,7 @@ class PhysicalStatsViewController: UIViewController,UITableViewDelegate,UITableV
                 return 100
             }else if indexPath.row == 2 || indexPath.row == 3
             {
-                 return 70
+                return 70
             }else
             {
                 return 60
@@ -130,16 +133,13 @@ class PhysicalStatsViewController: UIViewController,UITableViewDelegate,UITableV
             {
                 return UITableViewAutomaticDimension
             }
-        }else if indexPath.section == 3
+        }else if indexPath.section == 3 || indexPath.section == 4
         {
             return 70
         }else
         {
             return UITableViewAutomaticDimension
         }
-        
-       
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -162,29 +162,29 @@ class PhysicalStatsViewController: UIViewController,UITableViewDelegate,UITableV
                 
                 if let x = (physicalDataDict.object(forKey: "height") as? String)
                 {
-                   heightLbl.text = x + " Cm"
+                    heightLbl.text = x + " Cm"
                 }
                 else
                 {
-                    heightLbl.text = "N/A"
+                    heightLbl.text = "NA"
                 }
                 
-                 if let x = (physicalDataDict.object(forKey: "weight") as? String)
-                 {
-                     weightLbl.text = x + " Kg"
+                if let x = (physicalDataDict.object(forKey: "weight") as? String)
+                {
+                    weightLbl.text = x + " Kg"
                 }
-                 else
-                 {
-                    weightLbl.text = "N/A"
+                else
+                {
+                    weightLbl.text = "NA"
                 }
-               
+                
                 if let x = (physicalDataDict.object(forKey: "height_weight_taken") as? String)
                 {
                     measuredLbl.text = x
                 }
                 else
                 {
-                    measuredLbl.text = "N/A"
+                    measuredLbl.text = "NA"
                 }
                 
             }else if indexPath.row == 1  // diastolic systolic  cell
@@ -207,28 +207,28 @@ class PhysicalStatsViewController: UIViewController,UITableViewDelegate,UITableV
                 }
                 else
                 {
-                    heightLbl.text = "N/A"
+                    heightLbl.text = "NA"
                 }
                 
                 if let x = (physicalDataDict.object(forKey: "systolic_blood_pressure") as? String)
                 {
-                   weightLbl.text = x + " mmHg"
+                    weightLbl.text = x + " mmHg"
                 }
                 else
                 {
-                    weightLbl.text = "N/A"
+                    weightLbl.text = "NA"
                 }
                 
-               if let x = (physicalDataDict.object(forKey: "diastolic_systolic_pressure_taken") as? String)
-               {
-                measuredLbl.text = x
+                if let x = (physicalDataDict.object(forKey: "diastolic_systolic_pressure_taken") as? String)
+                {
+                    measuredLbl.text = x
                 }
-               else
-               {
-                measuredLbl.text = "N/A"
+                else
+                {
+                    measuredLbl.text = "NA"
                 }
                 
-
+                
             }else if indexPath.row == 2 // hypoCount  cell
             {
                 cell = tableView.dequeueReusableCell(withIdentifier: "hypoCount")
@@ -240,20 +240,20 @@ class PhysicalStatsViewController: UIViewController,UITableViewDelegate,UITableV
                 measuredheadingLbl.text = "Measured On :"
                 if let x = (physicalDataDict.object(forKey: "heartbeat") as? String)
                 {
-                  heightLbl.text = x + " Bpm"
+                    heightLbl.text = x + " Bpm"
                 }
                 else
                 {
-                    heightLbl.text = "N/A"
+                    heightLbl.text = "NA"
                 }
                 
                 if let x = (physicalDataDict.object(forKey: "heartbeat_taken") as? String)
                 {
-                weightLbl.text = x
+                    weightLbl.text = x
                 }
                 else
                 {
-                    weightLbl.text = "N/A"
+                    weightLbl.text = "NA"
                 }
                 
             }else if indexPath.row == 3 // heartbeat cell
@@ -267,20 +267,20 @@ class PhysicalStatsViewController: UIViewController,UITableViewDelegate,UITableV
                 measuredheadingLbl.text = "Measured On :"
                 if let x = (physicalDataDict.object(forKey: "highest_temperature_recorded") as? String)
                 {
-                heightLbl.text = x + "°C"
+                    heightLbl.text = x + "°C"
                 }
                 else
                 {
-                    heightLbl.text = "N/A"
+                    heightLbl.text = "NA"
                 }
                 
                 if let x = (physicalDataDict.object(forKey: "highest_temperature_recorded_taken") as? String)
                 {
-                weightLbl.text = x
+                    weightLbl.text = x
                 }
                 else
                 {
-                    weightLbl.text = "N/A"
+                    weightLbl.text = "NA"
                 }
                 
             }else if indexPath.row == 4 // heartbeat cell
@@ -294,22 +294,22 @@ class PhysicalStatsViewController: UIViewController,UITableViewDelegate,UITableV
                 measuredheadingLbl.text = "Measured On :"
                 if let x = (physicalDataDict.object(forKey: "oxygen_level") as? String)
                 {
-                heightLbl.text = x
+                    heightLbl.text = x
                 }
                 else
                 {
-                    heightLbl.text = "N/A"
+                    heightLbl.text = "NA"
                 }
                 
                 if let x = (physicalDataDict.object(forKey: "oxygen_level_taken") as? String)
                 {
-                     weightLbl.text = x
+                    weightLbl.text = x
                 }
                 else
                 {
-                    weightLbl.text = "N/A"
+                    weightLbl.text = "NA"
                 }
-               
+                
             }else if indexPath.row == 5 // heartbeat cell
             {
                 cell = tableView.dequeueReusableCell(withIdentifier: "hypoCount")
@@ -321,21 +321,21 @@ class PhysicalStatsViewController: UIViewController,UITableViewDelegate,UITableV
                 measuredheadingLbl.text = "Measured On :"
                 if let x = (physicalDataDict.object(forKey: "glucose_level") as? String)
                 {
-                  heightLbl.text = x
+                    heightLbl.text = x
                 }
                 else
                 {
-                    heightLbl.text = "N/A"
+                    heightLbl.text = "NA"
                 }
                 
                 
                 if let x = (physicalDataDict.object(forKey: "glucose_level_taken") as? String)
                 {
-                weightLbl.text = x
+                    weightLbl.text = x
                 }
                 else
                 {
-                    weightLbl.text = "N/A"
+                    weightLbl.text = "NA"
                 }
                 
             }else if indexPath.row == 6 // heartbeat cell
@@ -353,7 +353,7 @@ class PhysicalStatsViewController: UIViewController,UITableViewDelegate,UITableV
                 }
                 else
                 {
-                    heightLbl.text = "N/A"
+                    heightLbl.text = "NA"
                 }
                 
                 if let x = (physicalDataDict.object(forKey: "pregnancy_test_taken") as? String)
@@ -362,9 +362,9 @@ class PhysicalStatsViewController: UIViewController,UITableViewDelegate,UITableV
                 }
                 else
                 {
-                    weightLbl.text = "N/A"
+                    weightLbl.text = "NA"
                 }
-               
+                
             }
             else if indexPath.row == 6 // heartbeat cell
             {
@@ -377,11 +377,11 @@ class PhysicalStatsViewController: UIViewController,UITableViewDelegate,UITableV
                 measuredheadingLbl.text = "Measured On :"
                 if let x =  (physicalDataDict.object(forKey: "other") as? String)
                 {
-                   heightLbl.text = x
+                    heightLbl.text = x
                 }
                 else
                 {
-                    heightLbl.text = "N/A"
+                    heightLbl.text = "NA"
                 }
                 
                 if let x = (physicalDataDict.object(forKey: "other_taken") as? String)
@@ -390,48 +390,48 @@ class PhysicalStatsViewController: UIViewController,UITableViewDelegate,UITableV
                 }
                 else
                 {
-                    weightLbl.text = "N/A"
+                    weightLbl.text = "NA"
                 }
                 
             }
-            
+                
             else // lifestyle cell
             {
                 cell = tableView.dequeueReusableCell(withIdentifier: "headingCell")
             }
         }else if indexPath.section == 1
         {
-           if indexPath.row == 0
-           {
-            cell = tableView.dequeueReusableCell(withIdentifier: "generalCell")
-            let quesLbl = cell.viewWithTag(1) as! UILabel
-            let ansLbl = cell.viewWithTag(2) as! UILabel
-            let imgview = cell.viewWithTag(-99) as! UIImageView
-            
-            quesLbl.text = "Do you smoke or used used any tobacco products?"
-            //
-            if let x = (physicalDataDict.object(forKey: "is_smoked") as? String)
+            if indexPath.row == 0
             {
-               ansLbl.text = x
-                if x.lowercased() == "yes"
-                {
-                    imgview.isHidden = true
-                }else
-                {
-                     imgview.isHidden = false
-                }
-            }
-            
-            
-            
-            
-            }
-           else if indexPath.row == 1
-            {
-             cell = tableView.dequeueReusableCell(withIdentifier: "optionCell")
+                cell = tableView.dequeueReusableCell(withIdentifier: "generalCell")
                 let quesLbl = cell.viewWithTag(1) as! UILabel
                 let ansLbl = cell.viewWithTag(2) as! UILabel
-                 let imgview = cell.viewWithTag(-99) as! UIImageView
+                let imgview = cell.viewWithTag(-99) as! UIImageView
+                
+                quesLbl.text = "Do you smoke or used used any tobacco products?"
+                //
+                if let x = (physicalDataDict.object(forKey: "is_smoked") as? String)
+                {
+                    ansLbl.text = x
+                    if x.lowercased() == "yes"
+                    {
+                        imgview.isHidden = true
+                    }else
+                    {
+                        imgview.isHidden = false
+                    }
+                }
+                
+                
+                
+                
+            }
+            else if indexPath.row == 1
+            {
+                cell = tableView.dequeueReusableCell(withIdentifier: "optionCell")
+                let quesLbl = cell.viewWithTag(1) as! UILabel
+                let ansLbl = cell.viewWithTag(2) as! UILabel
+                let imgview = cell.viewWithTag(-99) as! UIImageView
                 imgview.isHidden = true
                 quesLbl.text = "NUMBER OF STICKS A DAY ON AVERAGE?"
                 
@@ -441,57 +441,57 @@ class PhysicalStatsViewController: UIViewController,UITableViewDelegate,UITableV
                 }
                 else
                 {
-                    ansLbl.text = "N/A"
+                    ansLbl.text = "NA"
                 }
             }
-           else if indexPath.row == 2
-           {
-            cell = tableView.dequeueReusableCell(withIdentifier: "optionCell")
-            let quesLbl = cell.viewWithTag(1) as! UILabel
-            let ansLbl = cell.viewWithTag(2) as! UILabel
-            let imgview = cell.viewWithTag(-99) as! UIImageView
-            imgview.isHidden = true
-            quesLbl.text = "NUMBER OF YEARS OF SMOKING?"
-            
-            if let x = (physicalDataDict.object(forKey: "smoked_2") as? String)
+            else if indexPath.row == 2
             {
-                ansLbl.text = x
+                cell = tableView.dequeueReusableCell(withIdentifier: "optionCell")
+                let quesLbl = cell.viewWithTag(1) as! UILabel
+                let ansLbl = cell.viewWithTag(2) as! UILabel
+                let imgview = cell.viewWithTag(-99) as! UIImageView
+                imgview.isHidden = true
+                quesLbl.text = "NUMBER OF YEARS OF SMOKING?"
+                
+                if let x = (physicalDataDict.object(forKey: "smoked_2") as? String)
+                {
+                    ansLbl.text = x
+                }
             }
-           }
-           else if indexPath.row == 3
-           {
-            cell = tableView.dequeueReusableCell(withIdentifier: "optionCell")
-            let quesLbl = cell.viewWithTag(1) as! UILabel
-            let ansLbl = cell.viewWithTag(2) as! UILabel
-            let imgview = cell.viewWithTag(-99) as! UIImageView
-            imgview.isHidden = true
-            quesLbl.text = "CURRENT OR EX-SMOKER?"
-            if let x = (physicalDataDict.object(forKey: "smoked_3") as? String)
+            else if indexPath.row == 3
             {
-                ansLbl.text = x
-            }
-            else
-            {
-                ansLbl.text = "N/A"
-            }
-           }
-           else
-           {
-       
-            cell = tableView.dequeueReusableCell(withIdentifier: "optionCell")
-            let quesLbl = cell.viewWithTag(1) as! UILabel
-            let ansLbl = cell.viewWithTag(2) as! UILabel
-            let imgview = cell.viewWithTag(-99) as! UIImageView
-            imgview.isHidden = false
-            quesLbl.text = "HOW LONG AGO DID YOU USED TOBACCO PROD?"
-            if let x = (physicalDataDict.object(forKey: "smoked_4") as? String)
-            {
-                ansLbl.text = x
+                cell = tableView.dequeueReusableCell(withIdentifier: "optionCell")
+                let quesLbl = cell.viewWithTag(1) as! UILabel
+                let ansLbl = cell.viewWithTag(2) as! UILabel
+                let imgview = cell.viewWithTag(-99) as! UIImageView
+                imgview.isHidden = true
+                quesLbl.text = "CURRENT OR EX-SMOKER?"
+                if let x = (physicalDataDict.object(forKey: "smoked_3") as? String)
+                {
+                    ansLbl.text = x
+                }
+                else
+                {
+                    ansLbl.text = "NA"
+                }
             }
             else
             {
-                ansLbl.text = "N/A"
-            }
+                
+                cell = tableView.dequeueReusableCell(withIdentifier: "optionCell")
+                let quesLbl = cell.viewWithTag(1) as! UILabel
+                let ansLbl = cell.viewWithTag(2) as! UILabel
+                let imgview = cell.viewWithTag(-99) as! UIImageView
+                imgview.isHidden = false
+                quesLbl.text = "HOW LONG AGO DID YOU USED TOBACCO PROD?"
+                if let x = (physicalDataDict.object(forKey: "smoked_4") as? String)
+                {
+                    ansLbl.text = x
+                }
+                else
+                {
+                    ansLbl.text = "NA"
+                }
             }
             
         }else if indexPath.section == 2
@@ -517,7 +517,7 @@ class PhysicalStatsViewController: UIViewController,UITableViewDelegate,UITableV
                 }
             }else
             {
-  
+                
                 cell = tableView.dequeueReusableCell(withIdentifier: "optionCell")
                 let quesLbl = cell.viewWithTag(1) as! UILabel
                 let ansLbl = cell.viewWithTag(2) as! UILabel
@@ -530,14 +530,14 @@ class PhysicalStatsViewController: UIViewController,UITableViewDelegate,UITableV
                 }
                 else
                 {
-                    ansLbl.text = "N/A"
+                    ansLbl.text = "NA"
                 }
             }
             
             
         }else if indexPath.section == 3
         {
-             cell = tableView.dequeueReusableCell(withIdentifier: "generalCell")
+            cell = tableView.dequeueReusableCell(withIdentifier: "generalCell")
             let quesLbl = cell.viewWithTag(1) as! UILabel
             let ansLbl = cell.viewWithTag(2) as! UILabel
             
@@ -551,11 +551,11 @@ class PhysicalStatsViewController: UIViewController,UITableViewDelegate,UITableV
             }
             else
             {
-                ansLbl.text = "N/A"
+                ansLbl.text = "NA"
             }
         }else
         {
-             cell = tableView.dequeueReusableCell(withIdentifier: "generalCell")
+            cell = tableView.dequeueReusableCell(withIdentifier: "generalCell")
             let quesLbl = cell.viewWithTag(1) as! UILabel
             let ansLbl = cell.viewWithTag(2) as! UILabel
             
@@ -569,7 +569,7 @@ class PhysicalStatsViewController: UIViewController,UITableViewDelegate,UITableV
             }
             else
             {
-                ansLbl.text = "N/A"
+                ansLbl.text = "NA"
             }
         }
         
@@ -591,7 +591,7 @@ class PhysicalStatsViewController: UIViewController,UITableViewDelegate,UITableV
             dict.setObject(id_appointment, forKey: "id_appointment" as NSCopying)
         }
         
-        dict.setValue("\((UserDefaults.standard.value(forKey: "user_detail") as! NSDictionary).value(forKey: "user_api_key")!)", forKey: "user_api_key")
+        //dict.setValue("\((UserDefaults.standard.value(forKey: "user_detail") as! NSDictionary).value(forKey: "user_api_key")!)", forKey: "user_api_key")
         
         let apiSniper = APISniper()
         
@@ -630,17 +630,4 @@ class PhysicalStatsViewController: UIViewController,UITableViewDelegate,UITableV
             supportingfuction.showMessageHudWithMessage(message: "Due to some error we can not proceed your request.", delay: 2.0)
         }
     }
-    
-    
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

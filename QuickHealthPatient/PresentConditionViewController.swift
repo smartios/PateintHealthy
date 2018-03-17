@@ -61,7 +61,6 @@ class PresentConditionViewController: UIViewController,UITextViewDelegate {
      *  @param notification reference of NSNotification
      */
     
-    
     func keyboardWillHide(notification: NSNotification)
     {
         let contentInsets = UIEdgeInsets.zero as UIEdgeInsets

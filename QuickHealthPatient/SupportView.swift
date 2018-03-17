@@ -163,14 +163,10 @@ class SupportView: UIViewController,UITableViewDataSource,UITableViewDelegate,UI
             {
                 return 175
             }
-            
-            
-            
         }
         else if indexPath.row == 1
         {
-            return 51
-            
+            return 55
         }
         else if indexPath.row == 2
         {
@@ -179,7 +175,6 @@ class SupportView: UIViewController,UITableViewDataSource,UITableViewDelegate,UI
         else
         {
             return 100
-            
         }
     }
     

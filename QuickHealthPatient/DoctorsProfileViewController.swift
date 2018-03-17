@@ -34,6 +34,8 @@ class DoctorsProfileViewController: UIViewController,UITableViewDelegate,UITable
         let headerView = Bundle.main.loadNibNamed("FAQHeader", owner: self, options: nil)?[0] as! UIView
         let bgImage = headerView.viewWithTag(11) as! UIImageView
         let profileImg = headerView.viewWithTag(12) as! UIImageView
+        let editImg = headerView.viewWithTag(10) as! UIImageView
+        editImg.isHidden = true
         let userName = headerView.viewWithTag(13) as! UILabel
         let floatRatingView = headerView.viewWithTag(-13) as! FloatRatingView
         
@@ -137,7 +139,7 @@ class DoctorsProfileViewController: UIViewController,UITableViewDelegate,UITable
                 ageLbl.text = "\(x) Yrs"
             }else
             {
-                ageLbl.text = "N/A"
+                ageLbl.text = "NA"
             }
             
             if let x = (userInfoDict.object(forKey: "occupation") as? String)
@@ -147,12 +149,12 @@ class DoctorsProfileViewController: UIViewController,UITableViewDelegate,UITable
                    teachingLbl.text = x
                 }else
                 {
-                  teachingLbl.text = "N/A"
+                  teachingLbl.text = "NA"
                 }
                 
             }else
             {
-                teachingLbl.text = "N/A"
+                teachingLbl.text = "NA"
             }
             
             if let x = (userInfoDict.object(forKey: "maritualstatus") as? String)
@@ -162,12 +164,12 @@ class DoctorsProfileViewController: UIViewController,UITableViewDelegate,UITable
                    maritalStatusLbl.text = x
                 }else
                 {
-                  maritalStatusLbl.text = "N/A"
+                  maritalStatusLbl.text = "NA"
                 }
                 
             }else
             {
-                maritalStatusLbl.text = "N/A"
+                maritalStatusLbl.text = "NA"
             }
             
             if let x = (userInfoDict.object(forKey: "email") as? String)
@@ -177,12 +179,12 @@ class DoctorsProfileViewController: UIViewController,UITableViewDelegate,UITable
                     emailLbl.text = x
                 }else
                 {
-                    emailLbl.text = "N/A"
+                    emailLbl.text = "NA"
                 }
                 
             }else
             {
-                emailLbl.text = "N/A"
+                emailLbl.text = "NA"
             }
 
             if let x = (userInfoDict.object(forKey: "dob") as? String)
@@ -190,14 +192,14 @@ class DoctorsProfileViewController: UIViewController,UITableViewDelegate,UITable
                 dobLbl.text = x
             }else
             {
-                dobLbl.text = "N/A"
+                dobLbl.text = "NA"
             }
             if let x = (userInfoDict.object(forKey: "language") as? String)
             {
                langLbl.text = x
             }else
             {
-                langLbl.text = "N/A"
+                langLbl.text = "NA"
             }
             if let x = (userInfoDict.object(forKey: "gender") as? String)
             {
@@ -211,7 +213,7 @@ class DoctorsProfileViewController: UIViewController,UITableViewDelegate,UITable
              genderLbl.text = x
             }else
             {
-                genderLbl.text = "N/A"
+                genderLbl.text = "NA"
             }
         }
         else if indexPath.row == 1
@@ -242,7 +244,7 @@ class DoctorsProfileViewController: UIViewController,UITableViewDelegate,UITable
                 
                 if let x = ((qualificationArray.object(at: indexPath.row - 2) as! NSDictionary).object(forKey: "passing_year") as? String)
                 {
-                    genderLbl.text = "Year Of Passing" + " " + x
+                    genderLbl.text = "Year Of Passing:" + " " + x
                 }
                 
             }
@@ -257,7 +259,7 @@ class DoctorsProfileViewController: UIViewController,UITableViewDelegate,UITable
     {
         supportingfuction.showProgressHudForViewMy(view: self, withDetailsLabel: "Please Wait", labelText: "Requesting")
         let dict = NSMutableDictionary()
-        dict.setValue("\((UserDefaults.standard.value(forKey: "user_detail") as! NSDictionary).value(forKey: "user_api_key")!)", forKey: "user_api_key")
+   //     dict.setValue("\((UserDefaults.standard.value(forKey: "user_detail") as! NSDictionary).value(forKey: "user_api_key")!)", forKey: "user_api_key")
         dict.setObject(docId, forKey: "user_id" as NSCopying)
 //        dict.setObject("doctor", forKey: "type" as NSCopying)
         

@@ -4,13 +4,12 @@
 //
 //  Created by SS142 on 18/09/17.
 //  Copyright © 2017 SS142. All rights reserved.
-//
 
 import UIKit
 
 class VerifyOtpView: UIViewController,UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate {
     
-   
+    
     @IBOutlet weak var tableView: UITableView?
     var otpDictionary = NSMutableDictionary()
     @IBOutlet weak var bgimage: UIImageView?
@@ -27,6 +26,7 @@ class VerifyOtpView: UIViewController,UITableViewDataSource,UITableViewDelegate,
         NotificationCenter.default.addObserver(self, selector: #selector(VerifyOtpView.keyboardWillHide(notification:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         // Do any additional setup after loading the view.
     }
+    
     // MARK: - keyboard handling
     func keyboardWillShow(notification: NSNotification)
     {
@@ -54,7 +54,11 @@ class VerifyOtpView: UIViewController,UITableViewDataSource,UITableViewDelegate,
         }
     }
     
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+       UIApplication.shared.statusBarView?.backgroundColor = .clear
+    }
     
     
     /**
@@ -73,11 +77,6 @@ class VerifyOtpView: UIViewController,UITableViewDataSource,UITableViewDelegate,
         return true
     }
 
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        
-    }
-    
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -105,7 +104,7 @@ class VerifyOtpView: UIViewController,UITableViewDataSource,UITableViewDelegate,
             cell.backgroundColor = UIColor.clear
             return cell
         }
-                else if indexPath.row == 1
+        else if indexPath.row == 1
         {
             cell = tableView.dequeueReusableCell(withIdentifier: "cell2")
             let textField = cell.viewWithTag(17) as! UITextField
@@ -148,7 +147,7 @@ class VerifyOtpView: UIViewController,UITableViewDataSource,UITableViewDelegate,
             //Now adding the complete thing against the desired textfield
             textField.inputAccessoryView = keyboardDoneButtonShow
             textField2.inputAccessoryView = keyboardDoneButtonShow
-           textField3.inputAccessoryView = keyboardDoneButtonShow
+            textField3.inputAccessoryView = keyboardDoneButtonShow
             textField4.inputAccessoryView = keyboardDoneButtonShow
             return cell
         }
@@ -161,7 +160,7 @@ class VerifyOtpView: UIViewController,UITableViewDataSource,UITableViewDelegate,
             return cell
         }
         
-         return cell
+        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -180,7 +179,6 @@ class VerifyOtpView: UIViewController,UITableViewDataSource,UITableViewDelegate,
         if indexPath.row == 0
         {
             return self.view.frame.height/2 + 140
-            
         }else if indexPath.row == 2
         {
             return 150
@@ -193,18 +191,18 @@ class VerifyOtpView: UIViewController,UITableViewDataSource,UITableViewDelegate,
     
     @IBAction func backBtnTapped(sender: UIButton)
     {
-    _ = self.navigationController?.popViewController(animated: true)
+        _ = self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func doneBtnTapped(sender: UIButton)
     {
-       
+        
         self.view.endEditing(true)
         
         if otpDictionary.object(forKey: "text1") == nil || (otpDictionary.object(forKey: "text2") == nil) || (otpDictionary.object(forKey: "text3") == nil) || (otpDictionary.object(forKey: "text4") == nil) || otpDictionary.object(forKey: "text1") as! String == "" || otpDictionary.object(forKey: "text2") as! String == "" || otpDictionary.object(forKey: "text3") as! String == "" || otpDictionary.object(forKey: "text4") as! String == ""
-        
+            
         {
-           supportingfuction.showMessageHudWithMessage(message: "Please enter valid OTP.", delay: 2.0)
+            supportingfuction.showMessageHudWithMessage(message: "Please enter valid OTP.", delay: 2.0)
             return
             
         }else
@@ -215,12 +213,12 @@ class VerifyOtpView: UIViewController,UITableViewDataSource,UITableViewDelegate,
             }
             else
             {
-               otpWebService()
+                otpWebService()
             }
-          
+            
         }
         
-     
+        
     }
     
     @IBAction func resendOtpTapped(_ sender: UIButton) {
@@ -233,10 +231,10 @@ class VerifyOtpView: UIViewController,UITableViewDataSource,UITableViewDelegate,
         }
         else
         {
-           resendOtpWebService()
+            resendOtpWebService()
         }
         
-
+        
     }
     
     
@@ -256,7 +254,7 @@ class VerifyOtpView: UIViewController,UITableViewDataSource,UITableViewDelegate,
         let textFiled2 = cell?.viewWithTag(18) as! UITextField
         let textFiled3 = cell?.viewWithTag(19) as! UITextField
         let textFiled4 = cell?.viewWithTag(20) as! UITextField
-
+        
         if(string.characters.count == 1) {
             
             if textField == textFiled1 {
@@ -324,7 +322,7 @@ class VerifyOtpView: UIViewController,UITableViewDataSource,UITableViewDelegate,
         dict.setObject("\(UserDefaults.standard.value(forKey: "device_token")!)", forKey: "device_token" as NSCopying)
         dict.setObject("123", forKey: "device_id" as NSCopying)
         dict.setObject("ios", forKey: "device_type" as NSCopying)
-       dict.setObject("patient", forKey: "user_type" as NSCopying)
+        dict.setObject("patient", forKey: "user_type" as NSCopying)
         let apiSniper = APISniper()
         
         apiSniper.getDataFromWebAPI(WebAPI.otp_webmethod,dict, {(operation, responseObject) in
@@ -342,10 +340,11 @@ class VerifyOtpView: UIViewController,UITableViewDataSource,UITableViewDelegate,
                         let socketIOManager = SocketIOManager()
                         socketIOManager.establishConnection()
                         
-                        UserDefaults.standard.set(dataFromServer.object(forKey: "data"), forKey: "user_detail")
+                        UserDefaults.standard.setValue(dataFromServer.object(forKey: "data") as! NSDictionary, forKey: "user_detail")
+                         UserDefaults.standard.setValue(((dataFromServer.object(forKey: "data") as! NSDictionary).object(forKey: "id_user") as! String), forKey: "user_id")
                         UserDefaults.standard.synchronize()
                         
-                       UserDefaults.standard.set(((dataFromServer.object(forKey: "data") as! NSDictionary).object(forKey: "id_user") as! String), forKey: "user_id")
+                       
                         // supportingfuction.showMessageHudWithMessage(message: dataFromServer.object(forKey: "message") as! NSString, delay: 2.0)
                         let mainStoryboard: UIStoryboard = UIStoryboard(name: "TabbarStoryboard", bundle: nil)
                         let pushVC = mainStoryboard.instantiateViewController(withIdentifier: "TabbarViewController") as! TabbarViewController
@@ -359,7 +358,7 @@ class VerifyOtpView: UIViewController,UITableViewDataSource,UITableViewDelegate,
                         appDelegate.window!.rootViewController = nil
                         
                         appDelegate.window!.rootViewController = rootViewController
-                         //pushVC.selectedIndex = 0
+                        //pushVC.selectedIndex = 0
                     }
                 }else
                 {
@@ -430,20 +429,4 @@ class VerifyOtpView: UIViewController,UITableViewDataSource,UITableViewDelegate,
             supportingfuction.showMessageHudWithMessage(message: "Due to some error we can not proceed your request.", delay: 2.0)
         }
     }
-
-    
-    
-        //
-
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }

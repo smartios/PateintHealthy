@@ -21,7 +21,9 @@ class MyProfileViewController: UIViewController,UITableViewDelegate,UITableViewD
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         user_profile()
+//        UIApplication.shared.statusBarView?.backgroundColor = .clear
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -34,6 +36,8 @@ class MyProfileViewController: UIViewController,UITableViewDelegate,UITableViewD
         let headerView = Bundle.main.loadNibNamed("FAQHeader", owner: self, options: nil)?[0] as! UIView
         let bgImage = headerView.viewWithTag(11) as! UIImageView
         let profileImg = headerView.viewWithTag(12) as! UIImageView
+        let editImg = headerView.viewWithTag(10) as! UIImageView
+        editImg.isHidden = true
         let userName = headerView.viewWithTag(13) as! UILabel
         let idLbl = headerView.viewWithTag(-40) as! UILabel
         
@@ -67,22 +71,24 @@ class MyProfileViewController: UIViewController,UITableViewDelegate,UITableViewD
         
         return headerView
     }
+    
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 240
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return (chilListArray.count) + 2
-        
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
+    
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
     }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0
         {
@@ -130,15 +136,15 @@ class MyProfileViewController: UIViewController,UITableViewDelegate,UITableViewD
                 addressLabl.text = x
             }else
             {
-                addressLabl.text = "N/A"
+                addressLabl.text = "NA"
             }
             
-            if let x = (userInfoDict.object(forKey: "age") as? NSNumber)
+            if (userInfoDict.object(forKey: "age") != nil && "\(userInfoDict.object(forKey: "age")!)" != "")
             {
-                ageLbl.text = "\(x) Yrs"
+                ageLbl.text = "\(userInfoDict.object(forKey: "age")!) Yrs"
             }else
             {
-                ageLbl.text = "N/A"
+                ageLbl.text = "NA"
             }
             
             if let x = (userInfoDict.object(forKey: "occupation") as? String)
@@ -148,12 +154,12 @@ class MyProfileViewController: UIViewController,UITableViewDelegate,UITableViewD
                     teachingLbl.text = x
                 }else
                 {
-                    teachingLbl.text = "N/A"
+                    teachingLbl.text = "NA"
                 }
                 
             }else
             {
-                teachingLbl.text = "N/A"
+                teachingLbl.text = "NA"
             }
             
             if let x = (userInfoDict.object(forKey: "maritualstatus") as? String)
@@ -163,12 +169,12 @@ class MyProfileViewController: UIViewController,UITableViewDelegate,UITableViewD
                     maritalStatusLbl.text = x
                 }else
                 {
-                    maritalStatusLbl.text = "N/A"
+                    maritalStatusLbl.text = "NA"
                 }
                 
             }else
             {
-                maritalStatusLbl.text = "N/A"
+                maritalStatusLbl.text = "NA"
             }
             
             
@@ -177,7 +183,7 @@ class MyProfileViewController: UIViewController,UITableViewDelegate,UITableViewD
                 emailLbl.text = x
             }else
             {
-                emailLbl.text = "N/A"
+                emailLbl.text = "NA"
             }
             
             
@@ -186,7 +192,7 @@ class MyProfileViewController: UIViewController,UITableViewDelegate,UITableViewD
                 dobLbl.text = x
             }else
             {
-                dobLbl.text = "N/A"
+                dobLbl.text = "NA"
             }
             
             
@@ -195,7 +201,7 @@ class MyProfileViewController: UIViewController,UITableViewDelegate,UITableViewD
                 langLbl.text = x
             }else
             {
-                langLbl.text = "N/A"
+                langLbl.text = "NA"
             }
             
             if let x = (userInfoDict.object(forKey: "mobile_ext") as? String)
@@ -207,7 +213,7 @@ class MyProfileViewController: UIViewController,UITableViewDelegate,UITableViewD
                 
             }else
             {
-                phoneLbl.text = "N/A"
+                phoneLbl.text = "NA"
             }
             
             if let x = (userInfoDict.object(forKey: "gender") as? String)
@@ -219,10 +225,10 @@ class MyProfileViewController: UIViewController,UITableViewDelegate,UITableViewD
                 //                {
                 genderImg.image = #imageLiteral(resourceName: "gender")
                 //                }
-                genderLbl.text = x
+                genderLbl.text = x.capitalized
             }else
             {
-                genderLbl.text = "N/A"
+                genderLbl.text = "NA"
             }
         }
         else if indexPath.row == 1
@@ -252,7 +258,7 @@ class MyProfileViewController: UIViewController,UITableViewDelegate,UITableViewD
                     
                 }else
                 {
-                    nameLbl.text = "N/A"
+                    nameLbl.text = "NA"
                 }
                 
                 if let x = ((chilListArray.object(at: indexPath.row - 2) as! NSDictionary).object(forKey: "gender") as? String)
@@ -266,10 +272,10 @@ class MyProfileViewController: UIViewController,UITableViewDelegate,UITableViewD
                     genderImg.image = #imageLiteral(resourceName: "gender")
                     //                    }
                     
-                    genderLbl.text = x
+                    genderLbl.text = x.capitalized
                 }else
                 {
-                    genderLbl.text = "N/A"
+                    genderLbl.text = "NA"
                 }
                 
                 if let x = ((chilListArray.object(at: indexPath.row - 2) as! NSDictionary).object(forKey: "dob") as? String)
@@ -277,16 +283,16 @@ class MyProfileViewController: UIViewController,UITableViewDelegate,UITableViewD
                     dobLbl.text = x
                 }else
                 {
-                    dobLbl.text = "N/A"
+                    dobLbl.text = "NA"
                 }
                 
                 
-                if let x = ((chilListArray.object(at: indexPath.row - 2) as! NSDictionary).object(forKey: "id_child") as? String)
+                if let x = ((chilListArray.object(at: indexPath.row - 2) as! NSDictionary).object(forKey: "unique_number") as? String)
                 {
-                    idLbl.text = x
+                    idLbl.text = "ID- \(x)"
                 }else
                 {
-                    idLbl.text = "N/A"
+                    idLbl.text = "NA"
                 }
             }
         }

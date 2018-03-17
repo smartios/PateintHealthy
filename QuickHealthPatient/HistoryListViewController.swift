@@ -16,18 +16,15 @@ class HistoryListViewController: UIViewController,UITableViewDelegate,UITableVie
     @IBOutlet var historyCell: UITableViewCell!
     @IBOutlet var filter: UIButton!
     var historyListArray = NSMutableArray()
-    var refreshControl: UIRefreshControl!
+    //var refreshControl: UIRefreshControl!
     var filterKey = "all"
     var child_Id = "0"
-    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        filter.isHidden = true
-        noRecordLabel.isHidden = true
-        //        refreshControl = UIRefreshControl()
+                //        refreshControl = UIRefreshControl()
         //        refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         //        refreshControl.addTarget(self, action: #selector(HistoryListViewController.refresh), for: UIControlEvents.valueChanged)
         //        tableView.addSubview(refreshControl)
@@ -59,7 +56,7 @@ class HistoryListViewController: UIViewController,UITableViewDelegate,UITableVie
         //        self.dataArray.removeAllObjects()
         self.tableView.reloadData()
         //        page = 0
-        self.refreshControl.endRefreshing()
+       // self.refreshControl.endRefreshing()
     }
     
     
@@ -128,7 +125,7 @@ class HistoryListViewController: UIViewController,UITableViewDelegate,UITableVie
         }
         else
         {
-            nameLabel.text = "N/A"
+            nameLabel.text = "NA"
         }
         
         
@@ -138,20 +135,20 @@ class HistoryListViewController: UIViewController,UITableViewDelegate,UITableVie
         }
         else
         {
-            IDLabel.text = "N/A"
+            IDLabel.text = "NA"
         }
         
         
-        if dic.object(forKey: "call_start") != nil && "\(dic.object(forKey: "call_start")!)" != "" && "\(dic.object(forKey: "call_start")!)" != "0000-00-00 00:00:00"
+        if dic.object(forKey: "call_updated_on") != nil && "\(dic.object(forKey: "call_updated_on")!)" != "" && "\(dic.object(forKey: "call_updated_on")!)" != "0000-00-00 00:00:00"
         {
-            DateLabel.text = CommonValidations.getDateUTCStringFromDateString(date: "\(dic.object(forKey: "call_start")!)", fromDateString: "YYYY-MM-dd HH:mm:ss", toDateString: "dd MMM,YYYY")
+            DateLabel.text = CommonValidations.getDateStringFromDateString(date: "\(dic.object(forKey: "call_updated_on")!)", fromDateString: "YYYY-MM-dd HH:mm:ss", toDateString: "dd MMM, YYYY")
             
-            TimeLabel.text = CommonValidations.getDateUTCStringFromDateString(date: "\(dic.object(forKey: "call_start")!)", fromDateString: "YYYY-MM-dd HH:mm:ss", toDateString: "hh:mm a")
+            TimeLabel.text = CommonValidations.getDateStringFromDateString(date: "\(dic.object(forKey: "call_updated_on")!)", fromDateString: "YYYY-MM-dd HH:mm:ss", toDateString: "hh:mm a")
         }
         else
         {
-            DateLabel.text = "N/A"
-            TimeLabel.text = "N/A"
+            DateLabel.text = "NA"
+            TimeLabel.text = "NA"
         }
         
         
@@ -161,18 +158,18 @@ class HistoryListViewController: UIViewController,UITableViewDelegate,UITableVie
         }
         else
         {
-            typeLabel.text = "N/A"
+            typeLabel.text = "NA"
         }
         
         
-        if let x = (dic.object(forKey: "call_status") as? String), x != ""
+        if let x = (dic.object(forKey: "appointment_status") as? String), x != ""
         {
             statusLabel.text = x.uppercased()
             
         }
         else
         {
-            statusLabel.text = "N/A"
+            statusLabel.text = "NA"
         }
         
         
@@ -192,18 +189,22 @@ class HistoryListViewController: UIViewController,UITableViewDelegate,UITableVie
     
     
     func setCallStaus(status:String,label:UILabel){
+        
         switch status.lowercased() {
         case "accepted":
-            label.textColor = UIColor.green
+            label.textColor = CommonValidations.hexStringToUIColor(hex: "008000")
             break
         case "rejected":
-            label.textColor = UIColor.red
+            label.textColor = CommonValidations.hexStringToUIColor(hex: "ff0000")
             break
         case "cancelled":
             label.textColor = UIColor.black
             break
-        case "complete":
-            label.textColor = UIColor.blue
+        case "completed":
+            label.textColor = CommonValidations.hexStringToUIColor(hex: "35e45e")
+            break
+        case "pending":
+            label.textColor = CommonValidations.hexStringToUIColor(hex: "ffcc34")
             break
         case "n/a":
             label.textColor = UIColor.darkGray
@@ -250,7 +251,9 @@ class HistoryListViewController: UIViewController,UITableViewDelegate,UITableVie
     
     
     @IBAction func filterBtn(_ sender: UIButton) {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChildListViewController") as! ChildListViewController
+        
+        let story = UIStoryboard(name: "TabbarStoryboard", bundle: nil)
+        let vc = story.instantiateViewController(withIdentifier: "ChildListViewController") as! ChildListViewController
         vc.delegate = self
         self.navigationController?.pushViewController(vc, animated: true)
     }
@@ -311,7 +314,6 @@ class HistoryListViewController: UIViewController,UITableViewDelegate,UITableVie
                 if dataFromServer.object(forKey: "status") != nil && dataFromServer.object(forKey: "status") as! String != "" && dataFromServer.object(forKey: "status") as! String == "success"
                 {
                     self.history_list()
-                    
                     //                    if let x = (dataFromServer.object(forKey: "data") as? NSArray)
                     //                    {
                     //                        self.historyListArray = (x.mutableCopy() as! NSMutableArray)
@@ -343,12 +345,14 @@ class HistoryListViewController: UIViewController,UITableViewDelegate,UITableVie
     // MARK: - user_profile
     func history_list()
     {
+        noRecordLabel.isHidden = true
+
         supportingfuction.hideProgressHudInView(view: self)
         supportingfuction.showProgressHudForViewMy(view: self, withDetailsLabel: "Please Wait", labelText: "Requesting")
         let dict = NSMutableDictionary()
         
-        dict.setObject(UserDefaults.standard.object(forKey: "user_id") as! String, forKey: "user_id" as NSCopying)
-        dict.setObject("patient", forKey: "account_type" as NSCopying)
+        dict.setObject(UserDefaults.standard.object(forKey: "user_id") as! String, forKey: "id_user" as NSCopying)
+        dict.setObject("patient", forKey: "user_type" as NSCopying)
         dict.setObject(filterKey, forKey: "filter_key" as NSCopying)
         dict.setObject(child_Id, forKey: "child_id" as NSCopying)
         dict.setValue("\((UserDefaults.standard.value(forKey: "user_detail") as! NSDictionary).value(forKey: "user_api_key")!)", forKey: "user_api_key")
@@ -369,6 +373,12 @@ class HistoryListViewController: UIViewController,UITableViewDelegate,UITableVie
                     {
                         self.historyListArray = (x.mutableCopy() as! NSMutableArray)
                     }
+                    
+                    if(self.historyListArray.count == 0)
+                    {
+                        self.noRecordLabel.isHidden = false
+                    }
+                    
                     self.tableView?.reloadData()
                 }
                 else if(dataFromServer.object(forKey: "error_code") != nil && "\(dataFromServer.object(forKey: "error_code")!)" != "" && "\(dataFromServer.object(forKey: "error_code")!)"  == "306")
@@ -379,7 +389,9 @@ class HistoryListViewController: UIViewController,UITableViewDelegate,UITableVie
                 {
                     if dataFromServer.object(forKey: "message") != nil
                     {
-                        supportingfuction.showMessageHudWithMessage(message: dataFromServer.object(forKey: "message") as! NSString, delay: 2.0)
+//                        supportingfuction.showMessageHudWithMessage(message: dataFromServer.object(forKey: "message") as! NSString, delay: 2.0)
+                        self.noRecordLabel.isHidden = false
+
                     }
                 }
             }

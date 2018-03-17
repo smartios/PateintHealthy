@@ -27,13 +27,11 @@ class RatingViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         if(UserDefaults.standard.value(forKey: "ongoing_id_appointment") != nil)
         {
             dataDict.setValue("\(UserDefaults.standard.value(forKey: "ongoing_id_appointment")!)", forKey: "ongoing_id_appointment")
             UserDefaults.standard.removeObject(forKey: "ongoing_id_appointment")
         }
-        
         
         tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.hideKeyboard))
         tableView.addGestureRecognizer(tapGesture)
@@ -155,14 +153,10 @@ class RatingViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 buttonCell = nil
             }
             let button = cell.viewWithTag(1) as! UIButton
-            
             button.layer.cornerRadius = 4.0
-        }
-        else
-        {
+        }else{
             cell = tableView.dequeueReusableCell(withIdentifier: "ratingCell")
-            if cell == nil
-            {
+            if cell == nil{
                 cell = ratingCell
                 ratingCell = nil
             }
@@ -173,11 +167,10 @@ class RatingViewController: UIViewController, UITableViewDelegate, UITableViewDa
             collectionView.dataSource = self
             collectionView.reloadData()
             cell.layoutIfNeeded()
-            for constrints in (collectionView.constraints)
-            {
+            for constrints in (collectionView.constraints){
                 if constrints.identifier == "collectHeight"{
                     
-                    constrints.constant =  collectionView.collectionViewLayout.collectionViewContentSize.height
+                    constrints.constant =  215//((collectionView.frame.size.width-40)/2) * 2 + 35
                 }
             }
         }
@@ -185,10 +178,16 @@ class RatingViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
+        return 80
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        if indexPath.row != 0 && indexPath.row != 1 && indexPath.row != 3 && indexPath.row != 4 && indexPath.row != 5  {
+//
+//            let screenSize = UIScreen.main.bounds.size
+//
+//            return (((screenSize.width - 140)/2)+20) * 3
+//        }
         return UITableViewAutomaticDimension
     }
     
@@ -219,42 +218,39 @@ class RatingViewController: UIViewController, UITableViewDelegate, UITableViewDa
         floatRatingView.minRating = 0
         floatRatingView.rating = 0
         floatRatingView.editable = true
-        floatRatingView.halfRatings = false
+        floatRatingView.halfRatings = true
         floatRatingView.floatRatings = false
         
         if indexPath.row == 0
         {
             levelLabel.text = "Knowledge"
-            floatRatingView.tag = 1
+            floatRatingView.accessibilityHint = "1"
         }
         else if indexPath.row == 1
         {
             levelLabel.text = "Helpfulness"
-            floatRatingView.tag = 2
+            floatRatingView.accessibilityHint = "2"
         }
         else if indexPath.row == 2
         {
             levelLabel.text = "Punctuality"
-            floatRatingView.tag = 3
+            floatRatingView.accessibilityHint = "3"
         }
         else if indexPath.row == 3
         {
             levelLabel.text = "Manners"
-            floatRatingView.tag = 4
+            floatRatingView.accessibilityHint = "4"
         }
         else if indexPath.row == 4
         {
             levelLabel.text = "Politeness"
-            floatRatingView.tag = 5
+            floatRatingView.accessibilityHint = "5"
         }
         
         levelLabel.adjustsFontSizeToFitWidth = true
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-    }
     
     // MARK: - UICollectionViewFlowLayout Delegates
     
@@ -263,7 +259,7 @@ class RatingViewController: UIViewController, UITableViewDelegate, UITableViewDa
         var height = CGSize()
         let screenSize = UIScreen.main.bounds.size
         
-        height =  CGSize(width:((screenSize.width - 140)/2), height: ((screenSize.width - 260)/2))
+        height =  CGSize(width:((screenSize.width - 140)/2), height: 58)
         return height
     }
     
@@ -344,23 +340,23 @@ class RatingViewController: UIViewController, UITableViewDelegate, UITableViewDa
     {
         //  self.updatedLabel.text = NSString(format: "%.f", self.floatRatingView.rating) as String
         
-        if(ratingView.tag == 1)
+        if(ratingView.accessibilityHint == "1")
         {
             dataDict.setValue("\(rating)", forKey: "Knowledge")
         }
-        else if(ratingView.tag == 2)
+        else if(ratingView.accessibilityHint == "2")
         {
             dataDict.setValue("\(rating)", forKey: "Helpfulness")
         }
-        else if(ratingView.tag == 3)
+        else if(ratingView.accessibilityHint == "3")
         {
             dataDict.setValue("\(rating)", forKey: "Punctuality")
         }
-        else if(ratingView.tag == 4)
+        else if(ratingView.accessibilityHint == "4")
         {
             dataDict.setValue("\(rating)", forKey: "Manners")
         }
-        else if(ratingView.tag == 5)
+        else if(ratingView.accessibilityHint == "5")
         {
             dataDict.setValue("\(rating)", forKey: "Politeness")
         }
@@ -383,8 +379,9 @@ class RatingViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func rating_webservice()
     {
         supportingfuction.showProgressHudForViewMy(view: self, withDetailsLabel: "Please Wait", labelText: "Requesting")
+        
         let dict = NSMutableDictionary()
-        dict.setObject(from, forKey: "user_type" as NSCopying)
+        dict.setObject("\(from)", forKey: "user_type" as NSCopying)
         
         if(dataDict.value(forKey: "remarks") != nil)
         {
@@ -454,8 +451,8 @@ class RatingViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         array.add(dic)
         
-        dataDict.setValue(array, forKey: "rating_data")
-        dataDict.setValue("\(dataDict.value(forKey: "ongoing_id_appointment")!)", forKey: "id_appointment")
+        dict.setValue(array, forKey: "rating_data")
+        dict.setValue("\(dataDict.value(forKey: "ongoing_id_appointment")!)", forKey: "id_appointment")
         
         let apiSniper = APISniper()
         
@@ -469,24 +466,29 @@ class RatingViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 //status
                 if dataFromServer.object(forKey: "status") != nil && dataFromServer.object(forKey: "status") as! String != "" && dataFromServer.object(forKey: "status") as! String == "success"
                 {
-                    if dataFromServer.object(forKey: "message") != nil
-                    {
-                        supportingfuction.showMessageHudWithMessage(message: dataFromServer.object(forKey: "message") as! NSString, delay: 2.0)
-                    }
-                    
                     if(self.from == "doctor")
                     {
-                        self.navigationController?.popViewController(animated: true)
-                        let vc = RatingViewController(nibName: "RatingViewController", bundle: nil)
-                        vc.from = "nurse"
-                        vc.dataDict.setValue("\(self.dataDict.value(forKey: "ongoing_id_appointment")!)", forKey: "ongoing_id_appointment")
-                        self.navigationController?.pushViewController(vc, animated: true)
+                        
+                        self.from = "nurse"
+                        let id = "\(self.dataDict.value(forKey: "ongoing_id_appointment")!)"
+                        self.dataDict.removeAllObjects()
+                        self.dataDict.setValue("\(id)", forKey: "ongoing_id_appointment")
+                        self.tableView.reloadData()
+                          supportingfuction.showMessageHudWithMessage(message: "Please rate nurse.", delay: 2.0)
+//                        let vc = RatingViewController(nibName: "RatingViewController", bundle: nil)
+//                        vc.from = "nurse"
+//
+//                        vc.dataDict.setValue("\(self.dataDict.value(forKey: "ongoing_id_appointment")!)", forKey: "ongoing_id_appointment")
+//                        self.navigationController?.pushViewController(vc, animated: true)
                     }
                     else
                     {
-                        self.dismiss(animated: true, completion: nil)
+                        if dataFromServer.object(forKey: "message") != nil
+                        {
+                            supportingfuction.showMessageHudWithMessage(message: dataFromServer.object(forKey: "message") as! NSString, delay: 2.0)
+                        }
+                        self.navigationController?.popViewController(animated: true)
                     }
-                    
                     
                 }else
                 {

@@ -75,11 +75,11 @@ struct TrackNurse{
     
     init() {
         userImage = ""
-        userName = "N/A"
-        userID = "N/A"
-        appointmentDate = "N/A"
-        address = "N/A"
-        appointmentTime = "N/A"
+        userName = "NA"
+        userID = "NA"
+        appointmentDate = "NA"
+        address = "NA"
+        appointmentTime = "NA"
         cordinates = CLLocationCoordinate2D(latitude: 26.846694, longitude: 83.946166)
     }
 }

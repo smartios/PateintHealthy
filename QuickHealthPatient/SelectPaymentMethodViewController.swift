@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol paymentCancelleDelegate {
+    func cancelPayment()
+}
+
 class SelectPaymentMethodViewController: UIViewController {
 
     @IBOutlet weak var payViaMpesaBtnOutlet: UIButton!
@@ -15,6 +19,7 @@ class SelectPaymentMethodViewController: UIViewController {
     var id_appt_forPayment = Int()
     var price_forPayment = Int()
     var from = ""
+    var delegate: paymentCancelleDelegate?
     
     @IBOutlet var textLbl: UILabel!
     
@@ -51,7 +56,9 @@ class SelectPaymentMethodViewController: UIViewController {
     }
     @IBAction func backBtnTapper(sender: UIButton)
     {
+//         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "payment_success"), object: nil)
         _ = self.navigationController?.popViewController(animated: true)
+        delegate?.cancelPayment()
     }
 
     @IBAction func payPaypalBtnTapped(_ sender: Any) {
@@ -63,7 +70,7 @@ class SelectPaymentMethodViewController: UIViewController {
         let params = NSMutableDictionary()
         params.setObject(id_appt_forPayment, forKey: "id_appointment" as NSCopying)
         params.setValue(self.from, forKey: "type")
-        params.setValue("\((UserDefaults.standard.value(forKey: "user_detail") as! NSDictionary).value(forKey: "user_api_key")!)", forKey: "user_api_key")
+      //  params.setValue("\((UserDefaults.standard.value(forKey: "user_detail") as! NSDictionary).value(forKey: "user_api_key")!)", forKey: "user_api_key")
         apiSniper.getDataFromWebAPI(WebAPI.paypal_payment_request, params ,{(operation, responseObject) in
             
             if let dataFromServer = responseObject as? NSDictionary

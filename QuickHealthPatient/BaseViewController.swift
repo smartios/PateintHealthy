@@ -47,9 +47,9 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
             
             break
         case 4:
-//            print("FAQViewController\n", terminator: "")
-//            page = ""
-//            self.openViewControllerBasedOnIdentifier("SupportView")
+            print("Contact\n", terminator: "")
+            page = ""
+            self.openViewControllerBasedOnIdentifier("SupportView")
             
             break
             

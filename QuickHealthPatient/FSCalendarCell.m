@@ -134,7 +134,7 @@
                                        );
     }
     
-    _imageView.frame = CGRectMake(self.preferredImageOffset.x, self.preferredImageOffset.y, self.contentView.fs_width, self.contentView.fs_height);
+    _imageView.frame = CGRectMake(self.preferredImageOffset.x, self.preferredImageOffset.y-3, self.contentView.fs_width, self.contentView.fs_height);
     
     
     
@@ -155,7 +155,7 @@
     CGFloat eventSize = _shapeLayer.frame.size.height/6.0;
     _eventIndicator.frame = CGRectMake(
                                        self.preferredEventOffset.x,
-                                       CGRectGetMaxY(_shapeLayer.frame)+eventSize*0.17+self.preferredEventOffset.y,
+                                       CGRectGetMaxY(_shapeLayer.frame)+eventSize*0.17+self.preferredEventOffset.y-5,
                                        self.fs_width,
                                        eventSize*0.83
                                       );

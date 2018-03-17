@@ -31,6 +31,11 @@ class ForgotPasswordView: UIViewController,UITableViewDataSource,UITableViewDele
         view.addGestureRecognizer(tap)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+       UIApplication.shared.statusBarView?.backgroundColor = .clear
+    }
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         
         //login-2ipad
@@ -134,12 +139,12 @@ class ForgotPasswordView: UIViewController,UITableViewDataSource,UITableViewDele
         
         //iPhone
         print("iphone")
-        let atrStr = NSMutableAttributedString(string: "Back to Login.")
-        atrStr.addAttribute(NSLinkAttributeName, value: "www.google.com", range: NSRange(location: 8, length: ("Login.").utf16.count))
-         atrStr.addAttribute(NSForegroundColorAttributeName, value: UIColor.red, range: NSRange(location: 8, length: ("Login.").utf16.count))
-        atrStr.addAttribute(NSUnderlineStyleAttributeName , value: NSUnderlineStyle.styleSingle.rawValue, range: NSRange(location: 8, length: ("Login.").utf16.count))
+        let atrStr = NSMutableAttributedString(string: "Back to Login")
+        atrStr.addAttribute(NSLinkAttributeName, value: "www.google.com", range: NSRange(location: 8, length: ("Login").utf16.count))
+         atrStr.addAttribute(NSForegroundColorAttributeName, value: UIColor.red, range: NSRange(location: 8, length: ("Login").utf16.count))
+        atrStr.addAttribute(NSUnderlineStyleAttributeName , value: NSUnderlineStyle.styleSingle.rawValue, range: NSRange(location: 8, length: ("Login").utf16.count))
         atrStr.addAttribute(NSForegroundColorAttributeName, value: UIColor(red: 134.0 / 255.0, green: 135.0 / 255.0, blue: 138.0 / 255.0, alpha: 1.0), range: NSRange(location: 0, length: ("Back to").utf16.count))
-        atrStr.addAttribute(NSFontAttributeName, value:UIFont(name: "Arimo-Regular", size: 15.0)! , range: NSRange(location: 8, length: ("Login.").utf16.count))
+        atrStr.addAttribute(NSFontAttributeName, value:UIFont(name: "Arimo-Regular", size: 15.0)! , range: NSRange(location: 8, length: ("Login").utf16.count))
         atrStr.addAttribute(NSFontAttributeName, value:UIFont(name: "Arimo-Regular", size: 15.0)! , range: NSRange(location: 0, length: ("Back to").utf16.count))
         
         textView.attributedText = atrStr

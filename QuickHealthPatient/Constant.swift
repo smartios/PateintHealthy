@@ -51,6 +51,7 @@ struct WebAPI {
     static let services_list = "services_list"
     static let doctor_list = "doctor_list"
     static let favourite_list = "favourite_list"
+    static let check_free_slot = "check-free-slot"
     //favourite_list
     
     
@@ -70,6 +71,10 @@ struct WebAPI {
     static let change_password = "change_password"
     static let delete_child = "delete_child"
     //delete_child
+    
+    //static pages
+    static let static_pages_url = "https://quickhealth4u.com/mobile/mobile_static_page/static_page?page_name="
+    
     
     //booking appt
     static let book_appointment = "book_appointment"
@@ -143,7 +148,7 @@ struct WebAPI {
     static let CHANGE_LANGUAGE = "change-language"
     static let GET_USER_LANGUAGE = "get-user-language"
     static let Nurse_Track_Listing = "track_user"
-    static let Feedback_Rating = "track_user"
+    static let Feedback_Rating = "add_rating"
     static let Disconnect_Call = "end_call"
 }
 
@@ -223,6 +228,31 @@ class CommonValidations: NSObject
 {
     //MARK: Validate Email
     
+    class func hexStringToUIColor (hex:String) -> UIColor
+    {
+        var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+        
+        if (cString.hasPrefix("#")) {
+            cString.remove(at: cString.startIndex)
+        }
+        
+        if ((cString.characters.count) != 6) {
+            return UIColor.gray
+        }
+        
+        var rgbValue:UInt32 = 0
+        Scanner(string: cString).scanHexInt32(&rgbValue)
+        
+        return UIColor(
+            red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+            green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+            blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+            alpha: CGFloat(1.0)
+        )
+    }
+    
+    
+    
     class func convertToDictionary(text: String) -> NSDictionary {
         if let data = text.data(using: .utf8) {
             do {
@@ -285,7 +315,7 @@ class CommonValidations: NSObject
             return true
         }
     }
-
+    
     
     class func getDateStringFromDateString(date: String, fromDateString: String, toDateString: String) -> String
     {
@@ -325,6 +355,9 @@ class CommonValidations: NSObject
 
 func logoutUser()
 {
+    UserDefaults.standard.removeObject(forKey: "user_detail")
+    UserDefaults.standard.removeObject(forKey: "id_user")
+    appDelegate.socketManager.closeConnection()
     supportingfuction.hideProgressHudInView(view: (UIApplication.topViewController())!)
     let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
     let pushVC = mainStoryboard.instantiateViewController(withIdentifier: "LandngScreen") as! LandngScreen
@@ -353,10 +386,11 @@ extension UIApplication {
         if let presented = viewController?.presentedViewController {
             return topViewController(presented)
         }
-        //
-        //        if let slide = viewController as? SlideMenuController {
-        //            return topViewController(slide.mainViewController)
-        //        }
+        
         return viewController
+    }
+    
+    var statusBarView: UIView? {
+        return value(forKey: "statusBar") as? UIView
     }
 }

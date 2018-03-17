@@ -171,7 +171,7 @@ class FAQViewController: BaseViewController,UITableViewDelegate,UITableViewDataS
        supportingfuction.showProgressHudForViewMy(view: self, withDetailsLabel: "Please Wait", labelText: "Requesting")
         let dict = NSMutableDictionary()
         dict.setObject("patient", forKey: "user_type" as NSCopying)
-        dict.setValue("\((UserDefaults.standard.value(forKey: "user_detail") as! NSDictionary).value(forKey: "user_api_key")!)", forKey: "user_api_key")
+      //  dict.setValue("\((UserDefaults.standard.value(forKey: "user_detail") as! NSDictionary).value(forKey: "user_api_key")!)", forKey: "user_api_key")
         let apiSniper = APISniper()
         apiSniper.getDataFromWebAPI(WebAPI.FAQ_webMethod,dict, {(operation, responseObject) in
             if let dataFromServer = responseObject as? NSDictionary

@@ -21,6 +21,8 @@ class AvailableDoctorsViewController: UIViewController, UITableViewDelegate, UIT
     var dataArray = NSMutableArray()
     var screenSize = UIScreen.main.bounds.size
     var commingFromView = ""
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -28,7 +30,6 @@ class AvailableDoctorsViewController: UIViewController, UITableViewDelegate, UIT
         borderShadow()
         attributedButton()
         
-        noRecordLbl.isHidden = true
     }
     
     override func didReceiveMemoryWarning() {
@@ -126,19 +127,18 @@ class AvailableDoctorsViewController: UIViewController, UITableViewDelegate, UIT
         
         idNumber.text = dict.object(forKey: "unique_number") != nil && dict.object(forKey: "unique_number") is NSString ? "ID- \(dict.object(forKey: "unique_number")!)" : ""
         
-        if commingFromView != "fromUserScreenvc"
-        {
-            if indexPath.row == self.dataArray.count - 1
-            {
-                if (self.dataArray.count)%10 == 0
-                {
-                    page = (self.dataArray.count)/10 - 1
-                    page = page + 1
-                    self.doctorListWebService()
-                }
-            }
-        }
-        
+//        if commingFromView != "fromUserScreenvc"
+//        {
+//            if indexPath.row == self.dataArray.count - 1
+//            {
+//                if (self.dataArray.count)%10 == 0
+//                {
+//                    page = (self.dataArray.count)/10 - 1
+//                    page = page + 1
+//                    self.doctorListWebService()
+//                }
+//            }
+//        }    
         return cell
     }
     
@@ -147,9 +147,48 @@ class AvailableDoctorsViewController: UIViewController, UITableViewDelegate, UIT
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if  let x = ((dataArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "id_user") as? String)
         {
-            let idToSend = x
-            month_availability_ios(Index: idToSend)
+          //  let idToSend = x
+            
+            if(requet_All_DocList != "all_doctor")
+            {
+                goToDoctorAvailScreen(x: x)
+            }
+            else
+            {
+                 let alert = UIAlertController(title: "", message: "Select Service", preferredStyle: .actionSheet)
+              
+                for i in 0..<((dataArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "service_array") as! NSArray).count
+                {
+                    let title = "\((((dataArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "service_array") as? NSArray)?.object(at: i) as! NSDictionary).value(forKey: "service_title")!)"
+                 //service_title
+                    //id
+                    let action = UIAlertAction(title: title, style: .default, handler: { (alertAction) in
+                        self.ApptSend_serviceID = alertAction.accessibilityHint!
+                       self.goToDoctorAvailScreen(x: x)
+                    })
+                    action.accessibilityHint = "\((((dataArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "service_array") as? NSArray)?.object(at: i) as! NSDictionary).value(forKey: "id")!)"
+                    alert.addAction(action)
+                }
+                
+                let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                alert.addAction(cancel)
+                self.present(alert, animated: true, completion: nil)
+            }
+            
+      //      month_availability_ios(Index: idToSend)
         }
+    }
+    
+    
+    
+    
+    func goToDoctorAvailScreen(x: String)
+    {
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "AvailabilityViewController") as! AvailabilityViewController
+        //vc.allBookedDateArray = (dataFromServer.object(forKey: "data") as! NSArray).mutableCopy() as! NSMutableArray
+        vc.ApptSend_serviceID = self.ApptSend_serviceID
+        vc.ApptSend_doctorsID = x
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     //MARK:- Action Method
@@ -193,55 +232,58 @@ class AvailableDoctorsViewController: UIViewController, UITableViewDelegate, UIT
     // MARK: - Webservice Method
     
     
-    func month_availability_ios(Index: String)
-    {
-        supportingfuction.showProgressHudForViewMy(view: self, withDetailsLabel: "Please Wait", labelText: "Requesting")
-        
-        let apiSniper = APISniper()
-        
-        let params = NSMutableDictionary()
-        
-        let dateformatter = DateFormatter()
-        dateformatter.dateFormat = "dd-MM-yyyy"
-        let now = dateformatter.string(from: NSDate() as Date)
-        print(now)
-        params.setObject(Index, forKey: "doctor_id" as NSCopying)
-        params.setObject(now, forKey: "date" as NSCopying)
-        params.setValue("\((UserDefaults.standard.value(forKey: "user_detail") as! NSDictionary).value(forKey: "user_api_key")!)", forKey: "user_api_key")
-        apiSniper.getDataFromWebAPI(WebAPI.month_availability_ios, params ,{(operation, responseObject) in
-            
-            if let dataFromServer = responseObject as? NSDictionary
-            {
-                print(dataFromServer)
-                supportingfuction.hideProgressHudInView(view: self)
-                //status
-                if dataFromServer.object(forKey: "status") != nil && dataFromServer.object(forKey: "status") as! String != "" && dataFromServer.object(forKey: "status") as! String == "success"
-                {
-                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "AvailabilityViewController") as! AvailabilityViewController
-                    vc.allBookedDateArray = (dataFromServer.object(forKey: "data") as! NSArray).mutableCopy() as! NSMutableArray
-                    vc.ApptSend_serviceID = self.ApptSend_serviceID
-                    vc.ApptSend_doctorsID = Index
-                    self.navigationController?.pushViewController(vc, animated: true)
-                }
-                else if(dataFromServer.object(forKey: "error_code") != nil && "\(dataFromServer.object(forKey: "error_code")!)" != "" && "\(dataFromServer.object(forKey: "error_code")!)"  == "306")
-                {
-                    logoutUser()
-                }
-                else
-                {
-                    supportingfuction.showMessageHudWithMessage(message: dataFromServer.object(forKey: "message") as! NSString, delay: 2.0)
-                }
-                
-            }
-        }) { (operation, error) in
-            supportingfuction.hideProgressHudInView(view: self)
-            print(error.localizedDescription)
-            
-            supportingfuction.showMessageHudWithMessage(message: "Due to some error we can not proceed your request.", delay: 2.0)
-        }
-    }
+   // func month_availability_ios(Index: String)
+//    {
+//        supportingfuction.showProgressHudForViewMy(view: self, withDetailsLabel: "Please Wait", labelText: "Requesting")
+//
+//        let apiSniper = APISniper()
+//        let params = NSMutableDictionary()
+//        let dateformatter = DateFormatter()
+//        dateformatter.dateFormat = "dd-MM-yyyy"
+//
+//        let now = dateformatter.string(from: NSDate() as Date)
+//        print(now)
+//        params.setObject(Index, forKey: "doctor_id" as NSCopying)
+//        params.setObject(now, forKey: "date" as NSCopying)
+//        params.setValue("\((UserDefaults.standard.value(forKey: "user_detail") as! NSDictionary).value(forKey: "user_api_key")!)", forKey: "user_api_key")
+//
+//        apiSniper.getDataFromWebAPI(WebAPI.month_availability_ios, params ,{(operation, responseObject) in
+//
+//            if let dataFromServer = responseObject as? NSDictionary
+//            {
+//                print(dataFromServer)
+//                supportingfuction.hideProgressHudInView(view: self)
+//                //status
+//                if dataFromServer.object(forKey: "status") != nil && dataFromServer.object(forKey: "status") as! String != "" && dataFromServer.object(forKey: "status") as! String == "success"
+//                {
+//                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "AvailabilityViewController") as! AvailabilityViewController
+//                    vc.allBookedDateArray = (dataFromServer.object(forKey: "data") as! NSArray).mutableCopy() as! NSMutableArray
+//                    vc.ApptSend_serviceID = self.ApptSend_serviceID
+//                    vc.ApptSend_doctorsID = Index
+//                    self.navigationController?.pushViewController(vc, animated: true)
+//                }
+//                else if(dataFromServer.object(forKey: "error_code") != nil && "\(dataFromServer.object(forKey: "error_code")!)" != "" && "\(dataFromServer.object(forKey: "error_code")!)"  == "306")
+//                {
+//                    logoutUser()
+//                }
+//                else
+//                {
+//                    supportingfuction.showMessageHudWithMessage(message: dataFromServer.object(forKey: "message") as! NSString, delay: 2.0)
+//                }
+//
+//            }
+//        }) { (operation, error) in
+//            supportingfuction.hideProgressHudInView(view: self)
+//            print(error.localizedDescription)
+//
+//            supportingfuction.showMessageHudWithMessage(message: "Due to some error we can not proceed your request.", delay: 2.0)
+//        }
+//    }
+    
+    
     func doctorListWebService()
     {
+        self.noRecordLbl.isHidden = true
         supportingfuction.showProgressHudForViewMy(view: self, withDetailsLabel: "Please Wait", labelText: "Requesting")
         
         let apiSniper = APISniper()
@@ -255,15 +297,13 @@ class AvailableDoctorsViewController: UIViewController, UITableViewDelegate, UIT
         {
             params.setObject(ApptSend_serviceID, forKey: "service_id" as NSCopying)
         }
-        params.setValue("\((UserDefaults.standard.value(forKey: "user_detail") as! NSDictionary).value(forKey: "user_api_key")!)", forKey: "user_api_key")
+       // params.setValue("\((UserDefaults.standard.value(forKey: "user_detail") as! NSDictionary).value(forKey: "user_api_key")!)", forKey: "user_api_key")
         params.setObject(page, forKey: "page" as NSCopying)
         
         apiSniper.getDataFromWebAPI(WebAPI.doctor_list, params ,{(operation, responseObject) in
             
             if let dataFromServer = responseObject as? NSDictionary
             {
-                self.noRecordLbl.isHidden = true
-                
                 print(dataFromServer)
                 supportingfuction.hideProgressHudInView(view: self)
                 //status
@@ -275,8 +315,6 @@ class AvailableDoctorsViewController: UIViewController, UITableViewDelegate, UIT
                         self.tableView.reloadData()
                     }else
                     {
-                        
-                        
                         if self.dataArray.count == 0
                         {
                             self.noRecordLbl.isHidden = false
@@ -307,6 +345,7 @@ class AvailableDoctorsViewController: UIViewController, UITableViewDelegate, UIT
     
     func favouriteListWebService()
     {
+        self.noRecordLbl.isHidden = true
         supportingfuction.showProgressHudForViewMy(view: self, withDetailsLabel: "Please Wait", labelText: "Requesting")
         
         let apiSniper = APISniper()
@@ -330,17 +369,18 @@ class AvailableDoctorsViewController: UIViewController, UITableViewDelegate, UIT
                         self.tableView.reloadData()
                     }else
                     {
-                        supportingfuction.showMessageHudWithMessage(message: dataFromServer.object(forKey: "message") as! NSString, delay: 2.0)
+                        //supportingfuction.showMessageHudWithMessage(message: dataFromServer.object(forKey: "message") as! NSString, delay: 2.0)
+                        self.noRecordLbl.isHidden = false
                     }
                 }
                 else if(dataFromServer.object(forKey: "error_code") != nil && "\(dataFromServer.object(forKey: "error_code")!)" != "" && "\(dataFromServer.object(forKey: "error_code")!)"  == "306")
                 {
-                    
                     logoutUser()
                 }
                 else
                 {
-                    supportingfuction.showMessageHudWithMessage(message: dataFromServer.object(forKey: "message") as! NSString, delay: 2.0)
+                    //supportingfuction.showMessageHudWithMessage(message: dataFromServer.object(forKey: "message") as! NSString, delay: 2.0)
+                    self.noRecordLbl.isHidden = false
                 }
             }
         }) { (operation, error) in

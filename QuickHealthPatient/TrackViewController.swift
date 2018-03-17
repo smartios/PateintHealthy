@@ -27,7 +27,6 @@ class TrackViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        noRecordLabel.isHidden = true
         nurseListingWebservce()
         nurseBtn.setTitleColor(CommonValidations.UIColorFromRGB(rgbValue: 0x008080), for: .normal)
     }
@@ -202,11 +201,11 @@ class TrackViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     func nurseListingWebservce()
     {
         supportingfuction.showProgressHudForViewMy(view: self, withDetailsLabel: "Please Wait", labelText: "Requesting")
-        
+         self.noRecordLabel.isHidden = true
         let dict = NSMutableDictionary()
         dict.setObject(UserDefaults.standard.object(forKey: "user_id") as! String, forKey: "id_user" as NSCopying)
         dict.setObject("patient", forKey: "user_type" as NSCopying)
-        dict.setValue("\((UserDefaults.standard.value(forKey: "user_detail") as! NSDictionary).value(forKey: "user_api_key")!)", forKey: "user_api_key")
+  //      dict.setValue("\((UserDefaults.standard.value(forKey: "user_detail") as! NSDictionary).value(forKey: "user_api_key")!)", forKey: "user_api_key")
         
         let apiSniper = APISniper()
         apiSniper.getDataFromWebAPI(WebAPI.Nurse_Track_Listing, dict, { (operation, responseObject) in
@@ -240,7 +239,8 @@ class TrackViewController: UIViewController,UITableViewDelegate,UITableViewDataS
                 {
                     if dataFromServer.object(forKey: "message") != nil
                     {
-                        supportingfuction.showMessageHudWithMessage(message: dataFromServer.object(forKey: "message") as! NSString, delay: 2.0)
+                       // supportingfuction.showMessageHudWithMessage(message: dataFromServer.object(forKey: "message") as! NSString, delay: 2.0)
+                        self.noRecordLabel.isHidden = false
                     }
                 }
                 

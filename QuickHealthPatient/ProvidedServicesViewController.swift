@@ -40,6 +40,7 @@ class ProvidedServicesViewController: BaseViewController, UICollectionViewDelega
     
     override func viewWillAppear(_ animated: Bool) {
          serviceListWebService()
+        UIApplication.shared.statusBarView?.backgroundColor = .white
     }
     
     // MARK: - To make shadow at bottom view
@@ -140,10 +141,11 @@ class ProvidedServicesViewController: BaseViewController, UICollectionViewDelega
     /// Function to get list of all services from the server.
     func serviceListWebService()
     {
+        supportingfuction.hideProgressHudInView(view: self)
         supportingfuction.showProgressHudForViewMy(view: self, withDetailsLabel: "Please Wait", labelText: "Requesting")
         
         let params = NSMutableDictionary()
-         params.setValue("\((UserDefaults.standard.value(forKey: "user_detail") as! NSDictionary).value(forKey: "user_api_key")!)", forKey: "user_api_key")
+        params.setValue("\((UserDefaults.standard.value(forKey: "user_detail") as! NSDictionary).value(forKey: "user_api_key")!)", forKey: "user_api_key")
         
         let apiSniper = APISniper()
         

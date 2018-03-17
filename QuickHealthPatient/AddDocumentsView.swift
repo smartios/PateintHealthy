@@ -9,7 +9,7 @@
 import UIKit
 
 class AddDocumentsView: UIViewController,UITableViewDataSource,UITableViewDelegate,UIDocumentPickerDelegate,UICollectionViewDelegate,UICollectionViewDataSource,
-UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate
+    UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDelegate
 {
     
     var imageArray = NSMutableArray()
@@ -57,7 +57,7 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDele
         {
             cell = tableView.dequeueReusableCell(withIdentifier: "subHeaderCell")
             let label = cell.viewWithTag(1) as! UILabel
-            label.text = "Add photos of the affected area so that your doctor diagnose you better."
+            label.text = "Add photos of the affected area so that your doctor can diagnose you better."
         }
         else if indexPath.row == 2
         {
@@ -494,8 +494,14 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDele
     // croping functionality
     
     @IBAction func submitBtnTapped(_ sender: Any) {
-        bookAppointmentWebmethod()
         
+        if(imageArray.count == 0 && icloudArray.count  == 0)
+        {
+            supportingfuction.showMessageHudWithMessage(message: "Please select image or document.", delay: 2.0)
+            return
+        }
+        
+        bookAppointmentWebmethod()
     }
     
     
@@ -515,7 +521,7 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDele
         dict.setObject(ApptSend_slotIDtoSend, forKey: "id_availability_slot" as NSCopying)
         dict.setObject(ApptSend_serviceID, forKey: "id_service" as NSCopying)
         dict.setObject(apptSend_purpose, forKey: "purpose" as NSCopying)
-        dict.setValue("\((UserDefaults.standard.value(forKey: "user_detail") as! NSDictionary).value(forKey: "user_api_key")!)", forKey: "user_api_key")
+        //dict.setValue("\((UserDefaults.standard.value(forKey: "user_detail") as! NSDictionary).value(forKey: "user_api_key")!)", forKey: "user_api_key")
         
         print(dict)
         let apiSniper = APISniper()
@@ -526,8 +532,9 @@ UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIActionSheetDele
                 {
                     print(dataFromServer)
                     supportingfuction.hideProgressHudInView(view: self)
-            
+                    
                     let vc = self.storyboard?.instantiateViewController(withIdentifier: "SelectPaymentMethodViewController") as! SelectPaymentMethodViewController
+                    
                     if let x = ((dataFromServer.object(forKey: "data") as! NSDictionary).object(forKey: "id_appointment") as? NSNumber)
                     {
                         vc.id_appt_forPayment = Int(x)

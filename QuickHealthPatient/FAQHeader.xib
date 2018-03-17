@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <customFonts key="customFonts">
-        <array key="OpenSans-Bold.ttf">
+        <array key="OpenSans-Bold_0.ttf">
             <string>OpenSans-Bold</string>
         </array>
         <array key="OpenSans-Regular_0.ttf">
@@ -34,7 +34,7 @@
                         <constraint firstAttribute="height" constant="80" id="ar8-vD-j87"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" tag="13" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="JACOB FRANCIS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="STj-38-gcv">
+                <label opaque="NO" userInteractionEnabled="NO" tag="13" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="STj-38-gcv">
                     <rect key="frame" x="30" y="202" width="315" height="20"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="20" id="xdE-pz-5oL"/>
@@ -51,8 +51,8 @@
                         <constraint firstAttribute="width" constant="104" id="nwP-sL-Dr5"/>
                     </constraints>
                 </view>
-                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="-40" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ID-123456789" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6bs-aj-Bkd">
-                    <rect key="frame" x="149.5" y="230" width="76.5" height="16.5"/>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" tag="-40" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6bs-aj-Bkd">
+                    <rect key="frame" x="188" y="230" width="0.0" height="16.5"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="16.5" id="uti-F6-kR7"/>
                     </constraints>
@@ -63,14 +63,23 @@
                 <button opaque="NO" userInteractionEnabled="NO" tag="-111" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="har-Z0-69U">
                     <rect key="frame" x="147" y="111" width="80" height="80"/>
                 </button>
+                <imageView userInteractionEnabled="NO" tag="10" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="edit" translatesAutoresizingMaskIntoConstraints="NO" id="0Om-IP-uEj">
+                    <rect key="frame" x="207" y="110" width="20" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="20" id="2sf-SJ-wWY"/>
+                        <constraint firstAttribute="width" constant="20" id="wue-EM-YTU"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="0Om-IP-uEj" firstAttribute="leading" secondItem="har-Z0-69U" secondAttribute="trailing" constant="-20" id="6z2-29-Luo"/>
                 <constraint firstItem="6bs-aj-Bkd" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="99y-WO-jQ7"/>
                 <constraint firstItem="iWz-r4-q25" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="9K5-ap-5n6"/>
                 <constraint firstAttribute="bottom" secondItem="H5d-qq-i7G" secondAttribute="bottom" id="BgT-24-0Km"/>
                 <constraint firstAttribute="trailing" secondItem="STj-38-gcv" secondAttribute="trailing" constant="30" id="D8E-Xj-cHo"/>
                 <constraint firstItem="ppk-s9-j9O" firstAttribute="bottom" secondItem="iWz-r4-q25" secondAttribute="bottom" constant="41.5" id="E4A-EE-iJv"/>
+                <constraint firstItem="har-Z0-69U" firstAttribute="top" secondItem="0Om-IP-uEj" secondAttribute="bottom" constant="-19" id="ICe-ca-YgE"/>
                 <constraint firstItem="har-Z0-69U" firstAttribute="centerX" secondItem="ppk-s9-j9O" secondAttribute="centerX" id="Kqj-7Y-ceH"/>
                 <constraint firstAttribute="trailing" secondItem="iWz-r4-q25" secondAttribute="trailing" id="TbB-rp-GF0"/>
                 <constraint firstAttribute="bottom" secondItem="6bs-aj-Bkd" secondAttribute="bottom" constant="3.5" id="Uzj-ar-Co8"/>
@@ -92,6 +101,7 @@
         </view>
     </objects>
     <resources>
+        <image name="edit" width="20" height="20"/>
         <image name="postlogin" width="413" height="169"/>
     </resources>
 </document>

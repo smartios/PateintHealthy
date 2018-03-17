@@ -10,7 +10,7 @@ import UIKit
 import GooglePlaces
 
 
-class SignupView: UIViewController,UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,PECropViewControllerDelegate,UIActionSheetDelegate,countryList, CLLocationManagerDelegate {
+class SignupView: UIViewController,UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,PECropViewControllerDelegate,UIActionSheetDelegate,countryList{
     
     
     @IBOutlet weak var tableView: UITableView?
@@ -19,7 +19,7 @@ class SignupView: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
     var imagetoset = "signupimg"
     var ncode = ""
     var checkBoxSelection = false
-    let locationManager = CLLocationManager()
+   // let locationManager = CLLocationManager()
     
     var dataArray = [" ","FIRST NAME","LAST NAME","DATE OF BIRTH","GENDER","EMAIL ADDRESS","MOBILE NUMBER","ADDRESS","STREET ADDRESS","CITY","LOCATION","AREA CODE","COUNTRY","PASSWORD","CONFIRM PASSWORD"]
     var signupDataDict = NSMutableDictionary()
@@ -42,9 +42,9 @@ class SignupView: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
         //////////for current location////////////////
         placesClient = GMSPlacesClient.shared()
         if CLLocationManager.locationServicesEnabled() {
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
-            locationManager.startUpdatingLocation()
+           // appDelegate.locationManager.delegate = self
+            appDelegate.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
+            appDelegate.locationManager.startUpdatingLocation()
         }
         
         resultsViewController = GMSAutocompleteResultsViewController()
@@ -82,7 +82,9 @@ class SignupView: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
     }
     
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UIApplication.shared.statusBarView?.backgroundColor = .clear
     }
     
     override func didReceiveMemoryWarning() {
@@ -852,16 +854,16 @@ class SignupView: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
             //alrady account login
             // var atrStr = NSMutableAttributedString(string: "Already a member of QuickHealth? Login.")
             
-            let atrStr = NSMutableAttributedString(string: "Already a member of QuickHealth? Login.", attributes: [NSParagraphStyleAttributeName: paragraph])
+            let atrStr = NSMutableAttributedString(string: "Already a member of QuickHealth? Login", attributes: [NSParagraphStyleAttributeName: paragraph])
             
             // let atrStr = NSAttributedString.init(string: "Already a member of QuickHealth? Login.", attributes: [NSParagraphStyleAttributeName: paragraph]) as! NSMutableAttributedString
             
             
-            atrStr.addAttribute(NSLinkAttributeName, value: "www.google.com", range: NSRange(location: 33, length: ("Login.").utf16.count))
+            atrStr.addAttribute(NSLinkAttributeName, value: "www.google.com", range: NSRange(location: 33, length: ("Login").utf16.count))
             
-            atrStr.addAttribute(NSUnderlineStyleAttributeName , value: NSUnderlineStyle.styleSingle.rawValue, range: NSRange(location: 33, length: ("Login.").utf16.count))
+            atrStr.addAttribute(NSUnderlineStyleAttributeName , value: NSUnderlineStyle.styleSingle.rawValue, range: NSRange(location: 33, length: ("Login").utf16.count))
             atrStr.addAttribute(NSForegroundColorAttributeName, value: UIColor(red: 0.0 / 255.0, green: 0.0 / 255.0, blue: 0.0 / 255.0, alpha: 1.0), range: NSRange(location: 0, length: ("Already a member of QuickHealth?").utf16.count))
-            atrStr.addAttribute(NSFontAttributeName, value:UIFont(name: "Arimo-Regular", size: 15.0)! , range: NSRange(location: 33, length: ("Login.").utf16.count))
+            atrStr.addAttribute(NSFontAttributeName, value:UIFont(name: "Arimo-Regular", size: 15.0)! , range: NSRange(location: 33, length: ("Login").utf16.count))
             atrStr.addAttribute(NSFontAttributeName, value:UIFont(name: "Arimo-Regular", size: 15.0)! , range: NSRange(location: 0, length: ("Already a member of QuickHealth?").utf16.count))
             
             
@@ -1144,31 +1146,26 @@ class SignupView: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
             return
             
         }
-        if signupDataDict.object(forKey: "street_address") == nil ||  signupDataDict.object(forKey: "street_address") as! String == ""
-        {
-            supportingfuction.showMessageHudWithMessage(message: "Please enter street address.", delay: 2.0)
-            return
-            
-        }
         
-        //                if  (isvalidIdentity(IdentityStr: signupDataDict.object(forKey: "registration") as! String ) ) == false
-        //                {
-        //                    supportingfuction.showMessageHudWithMessage(message: "Registration Number - Only 7 characters are allowed. First letter should be M, followed by 5 digit number and last letter should be A-Z.", delay: 3.0)
-        //                    return
-        //                }
+//        if signupDataDict.object(forKey: "street_address") == nil ||  signupDataDict.object(forKey: "street_address") as! String == ""
+//        {
+//            supportingfuction.showMessageHudWithMessage(message: "Please enter street address.", delay: 2.0)
+//            return
+//        }
+//        
+//        
+//        if signupDataDict.object(forKey: "city") == nil ||  signupDataDict.object(forKey: "city") as! String == ""
+//        {
+//            supportingfuction.showMessageHudWithMessage(message: "Please enter city." as NSString, delay: 2.0)
+//            return
+//        }
+//        
+//        if signupDataDict.object(forKey: "state") == nil ||  signupDataDict.object(forKey: "state") as! String == ""
+//        {
+//            supportingfuction.showMessageHudWithMessage(message: "Please enter location." as NSString, delay: 2.0)
+//            return
+//        }
         
-        if signupDataDict.object(forKey: "city") == nil ||  signupDataDict.object(forKey: "city") as! String == ""
-        {
-            supportingfuction.showMessageHudWithMessage(message: "Please enter city." as NSString, delay: 2.0)
-            return
-        }
-        
-        //        state
-        if signupDataDict.object(forKey: "state") == nil ||  signupDataDict.object(forKey: "state") as! String == ""
-        {
-            supportingfuction.showMessageHudWithMessage(message: "Please enter location." as NSString, delay: 2.0)
-            return
-        }
         
         if signupDataDict.object(forKey: "area_code") == nil ||  signupDataDict.object(forKey: "area_code") as! String == ""
         {
@@ -1466,8 +1463,8 @@ class SignupView: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
         dict.setObject(signupDataDict.object(forKey: "gender") as! String, forKey: "gender" as NSCopying)
         dict.setObject("patient", forKey: "user_type" as NSCopying)
         
-        let lat = locationManager.location?.coordinate.longitude
-        let lon = locationManager.location?.coordinate.latitude
+        let lat = appDelegate.locationManager.location?.coordinate.longitude
+        let lon = appDelegate.locationManager.location?.coordinate.latitude
         dict.setObject("\(lon!)", forKey: "longitude" as NSCopying)
         dict.setObject("\(lat!)", forKey: "latitude" as NSCopying)
         

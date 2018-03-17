@@ -57,10 +57,9 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateArrayMenuOptions()
-        
+        closeMenu()
         btnCloseMenuOverlay.backgroundColor = UIColor.clear
         gameTimer = Timer.scheduledTimer(timeInterval: 0.40, target: self, selector: #selector(runTimedCode), userInfo: nil, repeats: false)
-        
         
     }
     
@@ -72,13 +71,23 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func updateArrayMenuOptions()
     {
         arrayMenuOptions.append(["title":"ABOUT QUICKHEALTH", "icon":"HomeIcon"])
-        arrayMenuOptions.append(["title":"TERMS & CONDITION", "icon":"PlayIcon"])
+        arrayMenuOptions.append(["title":"TERMS & CONDITIONS", "icon":"PlayIcon"])
         arrayMenuOptions.append(["title":"PRIVACY POLICY", "icon":"HomeIcon"])
         arrayMenuOptions.append(["title":"CONTACT US", "icon":"PlayIcon"])
         arrayMenuOptions.append(["title":"FAQ", "icon":"PlayIcon"])
         tblMenuOptions.reloadData()
     }
     // MARK: - @IBAction updateArrayMenuOptions
+    
+    func closeMenu()
+    {
+        self.view.frame = CGRect(x: -UIScreen.main.bounds.size.width, y: 0, width: UIScreen.main.bounds.size.width,height: UIScreen.main.bounds.size.height)
+        self.view.layoutIfNeeded()
+        self.view.backgroundColor = UIColor.clear
+        self.view.removeFromSuperview()
+        self.removeFromParentViewController()
+    }
+    
     @IBAction func onCloseMenuClick(_ button:UIButton!){
         btnCloseMenuOverlay.backgroundColor = UIColor.clear
         

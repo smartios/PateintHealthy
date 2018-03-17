@@ -103,7 +103,11 @@ class SocketIOManager: NSObject {
         socket.on("patient_accept_call") { (dataFromServer: [Any], SocketAckEmitter) in
             if let dic = (dataFromServer as NSArray)[0] as? NSDictionary
             {
-                self.redirectionToCallScreen(dic: dic.mutableCopy() as! NSMutableDictionary)
+                if(UserDefaults.standard.object(forKey: "user_id") != nil && UserDefaults.standard.object(forKey: "user_id")! as! String != "")
+                {
+                    self.redirectionToCallScreen(dic: dic.mutableCopy() as! NSMutableDictionary)
+                }
+                
             }
         }
         
@@ -161,39 +165,17 @@ class SocketIOManager: NSObject {
                     } else {
                         // Fallback on earlier versions
                     }
+                   return
+                }else if x == UserDefaults.standard.object(forKey: "ongoing_id_appointment") as! String{
                     
-                    //                    localNotification.fireDate = NSDate(timeIntervalSinceNow: 0) as Date
-                    //                    localNotification.alertBody = "You have new call from \((dic.value(forKey: "user_detail") as! NSDictionary).value(forKey: "first_name")!) \((dic.value(forKey: "user_detail") as! NSDictionary).value(forKey: "last_name")!)"
-                    //                    localNotification.alertAction = ""
-                    //                    localNotification.timeZone = NSTimeZone.default
-                    //                    UIApplication.shared.scheduleLocalNotification(localNotification)
-                    
-                    
-                    
-                    //                            print(dic)
-                    
-                    //
-                    
-                    //                            if let x = (dic.object(forKey: "id_doctor") as? String)
-                    
-                    //                            {
-                    
-                    //                                let alertContoller = UIAlertController(title: "Missed Call", message: "You have a missed call from doctor with id \(x).", preferredStyle: .alert)
-                    
-                    //                                let yesAction = UIAlertAction(title: "OK", style: .default, handler: nil)
-                    
-                    //                                alertContoller.addAction(yesAction)
-                    
-                    //                                vc1?.present(alertContoller, animated: true, completion: nil)
-                    
-                    //
-                    return
+                    self.call_accepted(dataDic: dic, accepted: true)
                 }
             }
         }else{
             
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "remove_rating_screen"), object: nil)
             
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "remove_rating_screen"), object: nil)
+            supportingfuction.hideProgressHudInView(view: UIApplication.topViewController()!)
             if(dic.value(forKey: "id_appointment") != nil)
             {
                 UserDefaults.standard.setValue("\(dic.value(forKey: "id_appointment")!)", forKey: "ongoing_id_appointment")

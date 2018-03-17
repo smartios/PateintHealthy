@@ -21,20 +21,16 @@ class LandngScreen: UIViewController,UIScrollViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        scrollView.isUserInteractionEnabled = false
-      
-
         // Do any additional setup after loading the view, typically from a nib.
     }
    
 
     override func viewWillAppear(_ animated: Bool) {
-        
+        UIApplication.shared.statusBarView?.backgroundColor = .clear
         self.navigationController?.isNavigationBarHidden = true
         scrollView.isPagingEnabled = true
         if(userInterface == .pad){
-            //iPads
-           // print("iPad")
+           
             if UIDevice.current.orientation.isLandscape
             {
                 view1Image?.image = UIImage(named: "landing.png")
@@ -48,8 +44,6 @@ class LandngScreen: UIViewController,UIScrollViewDelegate {
             }
             
         }else if(userInterface == .phone){
-            //iPhone
-           // print("iphone")
             view1Image?.image = UIImage(named: "landing.png")
             view2Image?.image = UIImage(named: "landing.png")
             view3Image?.image = UIImage(named: "landing.png")
@@ -77,8 +71,8 @@ class LandngScreen: UIViewController,UIScrollViewDelegate {
     {
         scrollView.contentSize = CGSize(width: view.frame.size.height * CGFloat(totalPages), height: view.frame.size.width)
     }
-    // MARK: Custom method implementation
     
+    // MARK: Custom method implementation
     func configurePageControl() {
         // Set the total pages to the page control.
         pageControl.numberOfPages = totalPages
@@ -87,7 +81,6 @@ class LandngScreen: UIViewController,UIScrollViewDelegate {
     }
     
     // MARK: UIScrollViewDelegate method implementation
-    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         // Calculate the new page index depending on the content offset.
         let currentPage = floor(scrollView.contentOffset.x / UIScreen.main.bounds.size.width);
@@ -102,13 +95,11 @@ class LandngScreen: UIViewController,UIScrollViewDelegate {
         scrollView.layoutIfNeeded()
         
         if (size.width / size.height > 1) {
-           // print("landscape")
             view1Image?.image = UIImage(named: "landingipad2x.png")
             view2Image?.image = UIImage(named: "landingipad2x.png")
             view3Image?.image = UIImage(named: "landingipad2x.png")
             configureScrollView()
         } else {
-           // print("portrait")
             view1Image?.image = UIImage(named: "landing.png")
             view2Image?.image = UIImage(named: "landing.png")
             view3Image?.image = UIImage(named: "landing.png")
@@ -118,7 +109,7 @@ class LandngScreen: UIViewController,UIScrollViewDelegate {
     
     @IBAction func clickMeToSkip(sender: UIButton)
     {
-        UserDefaults.standard.set("is_firstTime", forKey: "is_firstTime")
+        UserDefaults.standard.setValue("is_firstTime", forKey: "is_firstTime")
         let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
         let pushVC = mainStoryboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
          self.navigationController?.pushViewController(pushVC, animated: true)
@@ -137,12 +128,6 @@ class LandngScreen: UIViewController,UIScrollViewDelegate {
         var newFrame = scrollView.frame
         newFrame.origin.x = newFrame.size.width * CGFloat(pageControl.currentPage)
         scrollView.scrollRectToVisible(newFrame, animated: true)
-        
     }
-    
-//    landingipad2x
-    
- 
-    
 }
 

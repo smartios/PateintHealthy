@@ -36,6 +36,7 @@ class AppointmentDeatilsView: UIViewController,UITableViewDataSource,UITableView
     
     override func viewWillAppear(_ animated: Bool) {
         self.appointmentListing()
+        UIApplication.shared.statusBarView?.backgroundColor = .white
     }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -196,14 +197,14 @@ class AppointmentDeatilsView: UIViewController,UITableViewDataSource,UITableView
             //                let lastName = assignedUserDetail.object(forKey: "last_name") as! String
             //                nurseName.text = firstName+" "+lastName
             //            }else{
-            //                nurseName.text = "N/A"
+            //                nurseName.text = "NA"
             //            }
             //
             //            //Set Doector or nurse ID
             //            if  assignedUserDetail.object(forKey: "unique_number") != nil && assignedUserDetail.object(forKey: "unique_number") is NSNull == false && assignedUserDetail.object(forKey: "unique_number") as! String != ""{
             //                nursetId.text = "ID-\(assignedUserDetail.object(forKey: "unique_number") as! String)"
             //            }else{
-            //                nursetId.text = "N/A"
+            //                nursetId.text = "NA"
             //            }
             //
             //
@@ -398,25 +399,25 @@ class AppointmentDeatilsView: UIViewController,UITableViewDataSource,UITableView
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-       if indexPath.row == 7{
-           
+        if indexPath.row == 7{
             
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "PhysicalStatsViewController") as! PhysicalStatsViewController
-        
-        vc.id_appointment = self.profileDictionary.object(forKey: "id_appointment") != nil ? "\(self.profileDictionary.object(forKey: "id_appointment")!)" : ""
-                self.navigationController?.pushViewController(vc, animated: true)
+            
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "PhysicalStatsViewController") as! PhysicalStatsViewController
+            
+            vc.id_appointment = self.profileDictionary.object(forKey: "id_appointment") != nil ? "\(self.profileDictionary.object(forKey: "id_appointment")!)" : ""
+            self.navigationController?.pushViewController(vc, animated: true)
             
             
         }else if indexPath.row == 8{
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "MedicalHistoryView") as! MedicalHistoryView
-        vc.id_appointment = self.profileDictionary.object(forKey: "id_appointment") != nil ? "\(self.profileDictionary.object(forKey: "id_appointment")!)" : ""
-
+            vc.id_appointment = self.profileDictionary.object(forKey: "id_appointment") != nil ? "\(self.profileDictionary.object(forKey: "id_appointment")!)" : ""
+            
             self.navigationController?.pushViewController(vc, animated: true)
             
         }else if indexPath.row == 9{
             let vc = self.storyboard?.instantiateViewController(withIdentifier: "FamilyHistoryViewController") as! FamilyHistoryViewController
-        vc.id_appointment = self.profileDictionary.object(forKey: "id_appointment") != nil ? "\(self.profileDictionary.object(forKey: "id_appointment")!)" : ""
-
+            vc.id_appointment = self.profileDictionary.object(forKey: "id_appointment") != nil ? "\(self.profileDictionary.object(forKey: "id_appointment")!)" : ""
+            
             self.navigationController?.pushViewController(vc, animated: true)
             
         }
@@ -428,7 +429,7 @@ class AppointmentDeatilsView: UIViewController,UITableViewDataSource,UITableView
     
     func numberOfSections(in tableView: UITableView) -> Int {
         if self.profileDictionary.count > 0{
-          return 1
+            return 1
         }
         return 0
     }
@@ -449,7 +450,7 @@ class AppointmentDeatilsView: UIViewController,UITableViewDataSource,UITableView
         else if indexPath.row == 4
         {
             if self.imgArray.count > 0{
-                 return 115
+                return 115
             }
             return 10
         }
@@ -480,7 +481,6 @@ class AppointmentDeatilsView: UIViewController,UITableViewDataSource,UITableView
     {
         if collectionView.tag == 1
         {
-            
             return imgArray.count
             
         }else
@@ -488,12 +488,20 @@ class AppointmentDeatilsView: UIViewController,UITableViewDataSource,UITableView
             return pdfArray.count
             
         }
-        
     }
+    
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt
         indexPath: IndexPath) -> CGSize
     {
-        return CGSize(width: 96, height: 126)
+        if collectionView.tag == 1
+        {
+            return CGSize(width: 100, height: 100)
+        }
+        else
+        {
+            return CGSize(width: 96, height: 126)
+        }
     }
     
     
@@ -506,10 +514,11 @@ class AppointmentDeatilsView: UIViewController,UITableViewDataSource,UITableView
             let imageView = cell.viewWithTag(122) as! UIImageView
             imageView.isHidden = false
             imageView.layer.cornerRadius = 3.0
+            imageView.clipsToBounds = true
             
             if imgArray.count>0 && ((imgArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "document_url")as! String) != "" && NSURL(string: ((imgArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "document_url") as! String)) != nil
             {
-                imageView.setImageWith(NSURL(string: ((imgArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "document_url") as! String)) as! URL, placeholderImage: UIImage(named: "img"))
+                imageView.setImageWith(NSURL(string: ((imgArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "document_url") as! String))! as URL, placeholderImage: UIImage(named: "img"))
             }
             else
             {
@@ -552,6 +561,7 @@ class AppointmentDeatilsView: UIViewController,UITableViewDataSource,UITableView
         return NSString.localizedStringWithFormat("%4.2f %@",convertedValue, tokens[multiplyFactor])
     }
     
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
         if collectionView.tag == 1{
@@ -570,7 +580,6 @@ class AppointmentDeatilsView: UIViewController,UITableViewDataSource,UITableView
                 self.present(vc, animated: true, completion: nil)
             }
         }
-       
     }
     
     //MARK:- Buttons Action
@@ -583,21 +592,21 @@ class AppointmentDeatilsView: UIViewController,UITableViewDataSource,UITableView
         
     }
     
+    
     @IBAction func backBtnClicked(_ sender: UIButton) {
         _ = self.navigationController?.popViewController(animated: true)
     }
+    
     
     @IBAction func detailDoctorBtnTapped(_ sender: UIButton) {
         
         if self.profileDictionary.object(forKey: "nurse_detail") != nil && self.profileDictionary.object(forKey: "nurse_detail") is NSDictionary
         {
-        let vc = UIStoryboard(name: "TabbarStoryboard", bundle: nil).instantiateViewController(withIdentifier: "DoctorsProfileViewController") as! DoctorsProfileViewController
-        vc.docId = (self.profileDictionary.object(forKey: "nurse_detail") as! NSDictionary).object(forKey: "id_user") as! String
-        self.navigationController?.pushViewController(vc, animated: true)
+            let vc = UIStoryboard(name: "TabbarStoryboard", bundle: nil).instantiateViewController(withIdentifier: "DoctorsProfileViewController") as! DoctorsProfileViewController
+            vc.docId = (self.profileDictionary.object(forKey: "nurse_detail") as! NSDictionary).object(forKey: "id_user") as! String
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
-    
-    
     
     
     //    MARK:- WebService Inbox Listing
@@ -608,14 +617,14 @@ class AppointmentDeatilsView: UIViewController,UITableViewDataSource,UITableView
         let dict = NSMutableDictionary()
         
         dict.setObject(appt_id, forKey: "id_appointment" as NSCopying)
-         dict.setValue("\((UserDefaults.standard.value(forKey: "user_detail") as! NSDictionary).value(forKey: "user_api_key")!)", forKey: "user_api_key")
-//        if ((UserDefaults.standard.object(forKey: "user_detail") as! NSDictionary).object(forKey: "user_type") as! String).lowercased() == "doctor"
-//        {
-            dict.setObject("patient", forKey: "account_type" as NSCopying)
-//        }else{
-//            dict.setObject("nurse", forKey: "account_type" as NSCopying)
-//        }
-
+       // dict.setValue("\((UserDefaults.standard.value(forKey: "user_detail") as! NSDictionary).value(forKey: "user_api_key")!)", forKey: "user_api_key")
+        //        if ((UserDefaults.standard.object(forKey: "user_detail") as! NSDictionary).object(forKey: "user_type") as! String).lowercased() == "doctor"
+        //        {
+        dict.setObject("patient", forKey: "account_type" as NSCopying)
+        //        }else{
+        //            dict.setObject("nurse", forKey: "account_type" as NSCopying)
+        //        }
+        
         
         
         let apiSniper = APISniper()
@@ -661,7 +670,6 @@ class AppointmentDeatilsView: UIViewController,UITableViewDataSource,UITableView
                         supportingfuction.showMessageHudWithMessage(message: dataFromServer.object(forKey: "message") as! NSString, delay: 2.0)
                     }
                 }
-                
             }
         }) { (operation, error) in
             supportingfuction.hideProgressHudInView(view: self)
@@ -669,10 +677,5 @@ class AppointmentDeatilsView: UIViewController,UITableViewDataSource,UITableView
             
             supportingfuction.showMessageHudWithMessage(message: "Due to some error we can not proceed your request.", delay: 2.0)
         }
-        
     }
-    
-    
-    
-    
 }

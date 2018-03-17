@@ -30,12 +30,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        
+        if(UserDefaults.standard.value(forKey: "ongoing_id_appointment") != nil)
+        {
+            UserDefaults.standard.removeObject(forKey: "ongoing_id_appointment")
+        }
 
         GMSServices.provideAPIKey("AIzaSyBBVXutvuWZ9s2Y42Q__PnWvx5JPmxdWzw")
         GMSPlacesClient.provideAPIKey("AIzaSyBBVXutvuWZ9s2Y42Q__PnWvx5JPmxdWzw")
         Fabric.with([Crashlytics.self])
-
+        
         if UserDefaults.standard.object(forKey: "is_firstTime") == nil    
         {
             let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
@@ -49,9 +52,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             appDelegate.window!.rootViewController = rootViewController
         }else
         {
-            if UserDefaults.standard.object(forKey: "user_id") != nil && UserDefaults.standard.object(forKey: "user_id")! as! String != ""
+            if UserDefaults.standard.object(forKey: "user_id") != nil
             {
-            
+                
+                
                 let mainStoryboard: UIStoryboard = UIStoryboard(name: "TabbarStoryboard", bundle: nil)
                 let pushVC = mainStoryboard.instantiateViewController(withIdentifier: "TabbarViewController") as! TabbarViewController
                 let rootViewController = self.window!.rootViewController as! UINavigationController
@@ -61,9 +65,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 appDelegate.window!.rootViewController!.view.removeFromSuperview()
                 appDelegate.window!.rootViewController = nil
                 appDelegate.window!.rootViewController = rootViewController
-                //pushVC.selectedIndex = 0
-
-                
+                //pushVC.selectedIndex = 
+            }
+            else
+            {
+                let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+                let pushVC = mainStoryboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+                let rootViewController = self.window!.rootViewController as! UINavigationController
+                rootViewController.setViewControllers([pushVC], animated: false)
+                rootViewController.isNavigationBarHidden = true
+                appDelegate.window!.rootViewController!.removeFromParentViewController()
+                appDelegate.window!.rootViewController!.view.removeFromSuperview()
+                appDelegate.window!.rootViewController = nil
+                appDelegate.window!.rootViewController = rootViewController
             }
         }
         

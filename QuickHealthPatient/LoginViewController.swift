@@ -39,6 +39,10 @@ class LoginViewController: UIViewController,UITableViewDataSource,UITableViewDel
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UIApplication.shared.statusBarView?.backgroundColor = .clear
+    }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
      

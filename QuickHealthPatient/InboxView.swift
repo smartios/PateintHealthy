@@ -22,11 +22,11 @@ class InboxView: BaseViewController,UITableViewDataSource,UITableViewDelegate{
         tableView?.estimatedRowHeight = 100
         tableView?.rowHeight = UITableViewAutomaticDimension
         definesPresentationContext = true
-        norecord.isHidden = true
         
         refreshControl = UIRefreshControl()
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(InboxView.refresh), for: UIControlEvents.valueChanged)
+        refreshControl.layer.zPosition = -1
         tableView.addSubview(refreshControl)
     }
     
@@ -47,6 +47,7 @@ class InboxView: BaseViewController,UITableViewDataSource,UITableViewDelegate{
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        UIApplication.shared.statusBarView?.backgroundColor = .white
         self.inboxListing()
     }
     
@@ -82,7 +83,7 @@ class InboxView: BaseViewController,UITableViewDataSource,UITableViewDelegate{
         if inboxDic.object(forKey: "incoming_messages") != nil &&  inboxDic.object(forKey: "incoming_messages") is NSNull == false && (inboxDic.object(forKey: "incoming_messages") as! NSArray).count > 0
         {
             
-          
+            
             patientImg.setImageWith(NSURL(string: "\(((inboxDic.value(forKey: "incoming_messages") as! NSArray).object(at: indexPath.row) as! NSDictionary).object(forKey: "sender_profile_image")!)")! as URL, placeholderImage: UIImage(named: "landing_image"))
             
             
@@ -100,34 +101,33 @@ class InboxView: BaseViewController,UITableViewDataSource,UITableViewDelegate{
         return cell
     }
     
-    func navigateToLogin()
-    {
-        _ = navigationController?.popViewController(animated: true)
-    }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         
-        if((inboxDic.value(forKey: "incoming_messages") as! NSArray).count > 0)
+        if((inboxDic.value(forKey: "incoming_messages") as! NSArray).count > indexPath.row && ((inboxDic.value(forKey: "incoming_messages") as! NSArray).object(at: indexPath.row) as! NSDictionary).object(forKey: "notification_type") != nil)
         {
+            
             let x = (((inboxDic.value(forKey: "incoming_messages") as! NSArray).object(at: indexPath.row) as! NSDictionary).object(forKey: "notification_type") as! String)
             
-            if x == "new_appointment"
-            {
-                //            let vc = self.storyboard?.instantiateViewController(withIdentifier: "PatientListView") as! PatientListView
-                //            self.navigationController?.pushViewController(vc, animated: true)
-            }
-            else if x == "admin"{
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "AppointmentDeatilsView") as! AppointmentDeatilsView
-                self.navigationController?.pushViewController(vc, animated: true)
-            }
-            else
+            if x == "nurse_allotment_notifications" || x == "call_reminder"
             {
                 let vc = self.storyboard?.instantiateViewController(withIdentifier: "AppointmentDeatilsView") as! AppointmentDeatilsView
+                vc.appt_id = "\(((inboxDic.value(forKey: "incoming_messages") as! NSArray).object(at: indexPath.row) as! NSDictionary).value(forKey: "id_appointment")!)"
                 self.navigationController?.pushViewController(vc, animated: true)
             }
+            //            else if x == "admin"{
+            //
+            //                let vc = self.storyboard?.instantiateViewController(withIdentifier: "AppointmentDeatilsView") as! AppointmentDeatilsView
+            //                self.navigationController?.pushViewController(vc, animated: true)
+            //            }
+            //            else
+            //            {
+            //                let vc = self.storyboard?.instantiateViewController(withIdentifier: "AppointmentDeatilsView") as! AppointmentDeatilsView
+            //                self.navigationController?.pushViewController(vc, animated: true)
+            //            }
         }
-       
+        
     }
     
     
@@ -150,11 +150,6 @@ class InboxView: BaseViewController,UITableViewDataSource,UITableViewDelegate{
     }
     
     
-    @IBAction func detailPatientBtnTapped(_ sender: UIButton) {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "AppointmentDeatilsView") as! AppointmentDeatilsView
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
-    
     @IBAction func backBtnClicked(_ sender: UIButton) {
         onSlideMenuButtonPressed(sender )
     }
@@ -166,7 +161,7 @@ class InboxView: BaseViewController,UITableViewDataSource,UITableViewDelegate{
         
         supportingfuction.hideProgressHudInView(view: self)
         supportingfuction.showProgressHudForViewMy(view: self, withDetailsLabel: "Please Wait", labelText: "Requesting")
-       
+        
         let dict = NSMutableDictionary()
         dict.setObject(UserDefaults.standard.object(forKey: "user_id")! as! String, forKey: "id_user" as NSCopying)
         dict.setValue(pagination, forKey: "pagination")
@@ -180,44 +175,44 @@ class InboxView: BaseViewController,UITableViewDataSource,UITableViewDelegate{
                 //status
                 if dataFromServer.object(forKey: "status") != nil && dataFromServer.object(forKey: "status") as! String != "" && dataFromServer.object(forKey: "status") as! String == "success"
                 {
-//                    if(self.inboxDic.value(forKey: "incoming_messages") == nil || (self.inboxDic.value(forKey: "incoming_messages") as! NSArray).count == 0)
-//                    {
-                        let arr:NSMutableArray = (dataFromServer.object(forKey: "data") as! NSArray).mutableCopy() as! NSMutableArray
-                        self.inboxDic.setValue(arr, forKey: "incoming_messages")
-//                    }
-//                    else
-//                    {
-//                         let arr:NSMutableArray = (self.inboxDic.value(forKey: "incoming_messages") as! NSArray).mutableCopy() as! NSMutableArray
-//
-//                        for a in 0..<(dataFromServer.object(forKey: "data") as! NSArray).count
-//                        {
-//                            arr.add(((dataFromServer.object(forKey: "data") as! NSArray).object(at: a) as! NSDictionary))
-//                        }
-//
-//                        self.inboxDic.setValue(arr, forKey: "incoming_messages")
-//                    }
+                    //                    if(self.inboxDic.value(forKey: "incoming_messages") == nil || (self.inboxDic.value(forKey: "incoming_messages") as! NSArray).count == 0)
+                    //                    {
+                    let arr:NSMutableArray = (dataFromServer.object(forKey: "data") as! NSArray).mutableCopy() as! NSMutableArray
+                    self.inboxDic.setValue(arr, forKey: "incoming_messages")
+                    //                    }
+                    //                    else
+                    //                    {
+                    //                         let arr:NSMutableArray = (self.inboxDic.value(forKey: "incoming_messages") as! NSArray).mutableCopy() as! NSMutableArray
+                    //
+                    //                        for a in 0..<(dataFromServer.object(forKey: "data") as! NSArray).count
+                    //                        {
+                    //                            arr.add(((dataFromServer.object(forKey: "data") as! NSArray).object(at: a) as! NSDictionary))
+                    //                        }
+                    //
+                    //                        self.inboxDic.setValue(arr, forKey: "incoming_messages")
+                    //                    }
                     
                     self.inboxDic.setValue("\(dataFromServer.value(forKey: "inbox_count")!)", forKey: "inbox_count")
                     
                     if(self.inboxDic.value(forKey: "incoming_messages") == nil || (self.inboxDic.value(forKey: "incoming_messages") as! NSArray).count == 0)
                     {
-                        supportingfuction.showMessageHudWithMessage(message: "\(dataFromServer.value(forKey: "message")!)" as NSString, delay: 2.0)
-                        //self.norecord.isHidden = false
+                        //  supportingfuction.showMessageHudWithMessage(message: "\(dataFromServer.value(forKey: "message")!)" as NSString, delay: 2.0)
+                        self.norecord.isHidden = false
                     }
                     
                     self.tableView?.reloadData()
                 }
                 else if(dataFromServer.object(forKey: "error_code") != nil && "\(dataFromServer.object(forKey: "error_code")!)" != "" && "\(dataFromServer.object(forKey: "error_code")!)"  == "306")
                 {
-                
+                    
                     logoutUser()
                 }
                 else
                 {
                     if(self.inboxDic.value(forKey: "incoming_messages") == nil || (self.inboxDic.value(forKey: "incoming_messages") as! NSArray).count == 0)
                     {
-                        supportingfuction.showMessageHudWithMessage(message: "\(dataFromServer.value(forKey: "message")!)" as NSString, delay: 2.0)
-                     //   self.norecord.isHidden = false
+                        // supportingfuction.showMessageHudWithMessage(message: "\(dataFromServer.value(forKey: "message")!)" as NSString, delay: 2.0)
+                        self.norecord.isHidden = false
                     }
                 }
             }

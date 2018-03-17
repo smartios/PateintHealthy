@@ -18,7 +18,8 @@ class VideoCallViewController: UIViewController,PulsingCallDelegate {
     var subscriberView:UIView!
     var publisherView:UIView!
     var dataDic = NSMutableDictionary()
-    
+    var from = ""
+    var price = "0"
     
     //Local variables
     @IBOutlet var videoBtnView: VideoActionButton!
@@ -41,7 +42,17 @@ class VideoCallViewController: UIViewController,PulsingCallDelegate {
         self.videoBtnView.delegate = self
         
         //Present pulsing screen from superview
-        self.addCallingScreenToView()
+        if(from == "")
+        {
+            self.addCallingScreenToView()
+        }
+        else
+        {
+            self.errorLabel.isHidden = false
+            self.errorLabel.text = "Please wait for doctor to join the call..."
+            self.connectToAnOpenTokSession()
+        }
+        
         
         //Connect to the tocbox server
         //self.connectToAnOpenTokSession()
@@ -51,7 +62,7 @@ class VideoCallViewController: UIViewController,PulsingCallDelegate {
         
         //Add tap gesture on self to get if user tapped on the screen
         self.addTapGestureOnScreen()
-       NotificationCenter.default.addObserver(self, selector: #selector(endCallClicked), name: NSNotification.Name(rawValue: "call_canceled"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(endCallClicked), name: NSNotification.Name(rawValue: "call_canceled"), object: nil)
         // Do any additional setup after loading the view.
     }
     
@@ -65,6 +76,7 @@ class VideoCallViewController: UIViewController,PulsingCallDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         UIApplication.shared.isIdleTimerDisabled = true
+        UIApplication.shared.statusBarView?.backgroundColor = .clear
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -76,15 +88,6 @@ class VideoCallViewController: UIViewController,PulsingCallDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    func getTokboxApiSessionID(){
-        //        if self.subscriber == nil{
-        //            SocketIOManager.sharedInstance.sendVideoCallRequest(id_doctor: apointmentDict.object(forKey: "id_doctor") as! String, id_patient: apointmentDict.object(forKey: "id_patient") as! String, id_appointment: apointmentDict.object(forKey: "id_appointment") as! String, completionHandler: { (data) in
-        //                print(data)
-        //                //Connect to the tocbox server
-        //                self.connectToAnOpenTokSession()
-        //            })
-        //        }
-    }
     
     //Present pulsing screen in superview
     func addCallingScreenToView(){
@@ -104,7 +107,7 @@ class VideoCallViewController: UIViewController,PulsingCallDelegate {
     func removeChildController(){
         var isChildPresent = false
         for vc in self.childViewControllers{
-            if vc is WaitingChatRoomViewController{
+            if vc is WaitingChatRoomViewController || vc is UINavigationController{
                 isChildPresent = true
                 
                 UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
@@ -273,6 +276,11 @@ extension VideoCallViewController: OTSessionDelegate {
     }
     
     func session(_ session: OTSession, didFailWithError error: OTError) {
+        if self.publisher == nil{
+            supportingfuction.showMessageHudWithMessage(message: "Due to some technical difficulty call can not be connected. Please try again.", delay: 2.0)
+            self.navigationController?.popViewController(animated: true)
+        }
+       
         print("The client failed to connect to the OpenTok session: \(error).")
     }
     
@@ -299,7 +307,7 @@ extension VideoCallViewController: OTSessionDelegate {
         
         self.videoBtnView.isCallConnected =  true
         
-        self.errorLabel.text = "Patient joined the call. Patient vedio feed will present shortly..."
+        self.errorLabel.text = "Doctor joined the call. Doctor video feed will present shortly..."
     }
     
     func session(_ session: OTSession, streamDestroyed stream: OTStream) {
@@ -324,10 +332,12 @@ extension VideoCallViewController: OTSessionDelegate {
         
         if type! == "extendFreeCall"
         {
+            
+         
             let alertContoller = UIAlertController(title: "Extend Call", message: "Doctor extended call time by 5 minutes.", preferredStyle: .alert)
             let yesAction = UIAlertAction(title: "OK", style: .default, handler: nil)
             alertContoller.addAction(yesAction)
-            self.present(alertContoller, animated: true, completion: nil)
+            self.present(alertContoller, animated: true, completion: nil) 
         }
         else if type! == "extendPaidCall"{
             
@@ -537,25 +547,33 @@ extension VideoCallViewController: VideoActionButtonDelegate {
                 tempJson = string! as NSString
                 print(tempJson)
                 
+                if(self.session == nil)
+                {
                 self.session.signal(withType: "endCall", string: tempJson as String, connection: nil, retryAfterReconnect: true, error: &error)
+                }
                 
-                self.redirection_to_rating()
+                if(self.subscriber == nil)
+                {
+                    appDelegate.socketManager.call_accepted(dataDic: self.dataDic, accepted: false)
+                }
+                self.navigationController?.popToRootViewController(animated: true)
+                
+                //self.redirection_to_rating()
                 
             }catch let error as NSError{
                 print(error.description)
             }
             
             
-           
+            
             // self.session.signal(withType: "endCall", string: (UserDefaults.standard.object(forKey: "user_id") as! String), connection: nil, retryAfterReconnect: true, error: &error)
             
-         //  self.perform(#selector(self.endCallClicked), with: self, afterDelay: 1.0)
+            //  self.perform(#selector(self.endCallClicked), with: self, afterDelay: 1.0)
         }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
         alertContoller.addAction(yesAction)
         alertContoller.addAction(cancelAction)
         self.present(alertContoller, animated: true, completion: nil)
-        
     }
     
     func redirection_to_rating()
@@ -569,7 +587,7 @@ extension VideoCallViewController: VideoActionButtonDelegate {
         if self.session != nil{
             self.session.disconnect(&error)
         }
-
+        
         
         if(self.subscriberView != nil)
         {
@@ -620,6 +638,33 @@ extension VideoCallViewController: VideoActionButtonDelegate {
     
     
 }
+
+// MARK: - PaymentDelegate callbacks
+extension VideoCallViewController: paymentCancelleDelegate{
+    
+    func cancelPayment()
+    {
+        self.removeChildController()
+        let recieverDict = NSMutableDictionary()
+        recieverDict.setValue(UserDefaults.standard.object(forKey: "user_id") as! String, forKey: "user_id")
+        var error : OTError?
+        var tempJson : NSString = ""
+        
+        do {
+            let arrJson = try JSONSerialization.data(withJSONObject: recieverDict, options: JSONSerialization.WritingOptions.prettyPrinted)
+            let string = NSString(data: arrJson, encoding: String.Encoding.utf8.rawValue)
+            tempJson = string! as NSString
+            print(tempJson)
+            
+        }catch let error as NSError{
+            print(error.description)
+        }
+        
+        self.session.signal(withType: "ExtendedPaymentCancelled", string: tempJson as String, connection: nil, retryAfterReconnect: true, error: &error)
+    }
+}
+
+
 // MARK: - WaitingChatRoomDelegate callbacks
 extension VideoCallViewController: WaitingChatRoomDelegate,ExtendVideoDelegate {
     func didSelectOnExtendVideoAction(_ action: ExtendVideoAction, price: String) {
@@ -645,14 +690,39 @@ extension VideoCallViewController: WaitingChatRoomDelegate,ExtendVideoDelegate {
         }
         else if action == .Paid
         {
-            let story = UIStoryboard(name: "TabbarStoryboard", bundle: nil)
-            let vc = story.instantiateViewController(withIdentifier: "SelectPaymentMethodViewController") as! SelectPaymentMethodViewController
-            vc.id_appt_forPayment = Int("\(UserDefaults.standard.object(forKey: "ongoing_id_appointment")!)")!
-            vc.price_forPayment = Int(Double("\(price)")!)
-            self.navigationController?.pushViewController(vc, animated: true)
-            self.session.signal(withType: "paidCallExtended", string: tempJson as String, connection: nil, retryAfterReconnect: true, error: &error)
+             self.session.signal(withType: "paidCallExtended", string: tempJson as String, connection: nil, retryAfterReconnect: true, error: &error)
+            self.price = price
+            supportingfuction.showProgressHudForViewMy(view: self, withDetailsLabel: "", labelText: "Please Wait.")
+            self.perform(#selector(self.move_toPaymentScreen), with: nil, afterDelay: 2.0)
+//           self.move_toPaymentScreen(price: price)
         }
     }
+    
+    func move_toPaymentScreen(){
+        
+        //         NotificationCenter.default.addObserver(self, selector: #selector(cancelPayment), name: NSNotification.Name(rawValue: "payment_canceled"), object: nil)
+        //
+        //        NotificationCenter.default.addObserver(self, selector: #selector(payment_Success), name: NSNotification.Name(rawValue: "payment_success"), object: nil)
+        
+        let story = UIStoryboard(name: "TabbarStoryboard", bundle: nil)
+        let vc = story.instantiateViewController(withIdentifier: "SelectPaymentMethodViewController") as! SelectPaymentMethodViewController
+        vc.id_appt_forPayment = Int("\(UserDefaults.standard.object(forKey: "ongoing_id_appointment")!)")!
+        vc.price_forPayment = Int(Double("\(price)")!)
+        vc.from = "extended"
+        vc.delegate = self
+        supportingfuction.hideProgressHudInView(view: self)
+        //        let nav = UINavigationController(rootViewController: vc)
+        //        nav.navigationBar.isHidden = true
+        //        self.view.addSubview(vc.view)
+        //        nav.view.frame = CGRect(x: 0, y: 5, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        //        self.addChildViewController(nav)
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func payment_Success(){
+        self.removeChildController()
+    }
+    
     
     func messageToSend(jsonString: String) {
         var error: OTError?
@@ -683,7 +753,5 @@ extension VideoCallViewController: WaitingChatRoomDelegate,ExtendVideoDelegate {
         }
         self.addChildViewController(extendVideoCallVC)
     }
-    
-    
 }
 

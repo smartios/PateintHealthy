@@ -51,15 +51,13 @@ class SelectPatientViewController: UIViewController, UITableViewDataSource, UITa
         dob.placeholder = "Date Of Birth"
         
         datePickerView.isHidden = true
-        datePickerView.isHidden = true
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.handleTap))
         popupView.addGestureRecognizer(tap)
         childView.layer.cornerRadius = 10
         someOneElsePopup.layer.cornerRadius = 10
         someOneElsePopup.layer.masksToBounds = false
         childView.layer.masksToBounds = false
-       
-        popupView.addGestureRecognizer(tap)
+    
         // Do any additional setup after loading the view.
     }
 
@@ -76,7 +74,7 @@ class SelectPatientViewController: UIViewController, UITableViewDataSource, UITa
     func handleTap() {
         // handling code
         self.view.endEditing(true)
-        popupView.isHidden = true
+      //  popupView.isHidden = true
     }
     
     @IBAction func Some1ElseokayBtn(_ sender: Any) {
@@ -169,7 +167,7 @@ class SelectPatientViewController: UIViewController, UITableViewDataSource, UITa
                         lbl.text = x + " " + y
                     }else
                     {
-                       lbl.text = "N/A"
+                       lbl.text = "NA"
                     }
                 }
                 
@@ -263,6 +261,7 @@ class SelectPatientViewController: UIViewController, UITableViewDataSource, UITa
     @IBAction func showDatePicker(_ sender: Any) {
          self.view.endEditing(true)
         datePickerView.isHidden = false
+           datePicker.datePickerMode = UIDatePickerMode.date
         self.view.endEditing(true)
     }
     @IBAction func selectedDate(sender: AnyObject)
@@ -277,9 +276,10 @@ class SelectPatientViewController: UIViewController, UITableViewDataSource, UITa
     {
         datePickerView.isHidden = true
     }
+    
     func setDateAndTime()
     {
-        datePicker.datePickerMode = UIDatePickerMode.date
+     
         
         let date: DateFormatter = DateFormatter()
         
@@ -365,6 +365,14 @@ class SelectPatientViewController: UIViewController, UITableViewDataSource, UITa
     
     
    // add child web method
+    
+    @IBAction func hidePopup(sender: UIButton)
+    {
+        self.view.endEditing(true)
+        popupView.isHidden = true
+    }
+    
+    
     @IBAction func saveBtn(sender: UIButton)
     {
        
@@ -410,7 +418,7 @@ class SelectPatientViewController: UIViewController, UITableViewDataSource, UITa
             
             
         }
-        dict.setValue("\((UserDefaults.standard.value(forKey: "user_detail") as! NSDictionary).value(forKey: "user_api_key")!)", forKey: "user_api_key")
+      //  dict.setValue("\((UserDefaults.standard.value(forKey: "user_detail") as! NSDictionary).value(forKey: "user_api_key")!)", forKey: "user_api_key")
         dict.setObject(UserDefaults.standard.object(forKey: "user_id") as! String, forKey: "user_id" as NSCopying)
         let apiSniper = APISniper()
          supportingfuction.showProgressHudForViewMy(view: self, withDetailsLabel: "Please Wait", labelText: "Requesting")

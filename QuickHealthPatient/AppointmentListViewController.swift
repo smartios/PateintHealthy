@@ -19,6 +19,16 @@ class AppointmentListViewController: BaseViewController,UITableViewDelegate, UIT
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Do any additional setup after loading the view.
+        
+        self.tableView.tableFooterView = UIView()
+    }
+    
+    
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        UIApplication.shared.statusBarView?.backgroundColor = .white
         if(!appDelegate.hasConnectivity())
         {
             supportingfuction.showMessageHudWithMessage(message: NoInternetConnection as NSString, delay: 2.0)
@@ -26,22 +36,7 @@ class AppointmentListViewController: BaseViewController,UITableViewDelegate, UIT
         else
         {
             appointment_list()
-            
         }
-        
-        // Do any additional setup after loading the view.
-        
-        self.tableView.tableFooterView = UIView()
-        
-        noRecordLbl.isHidden = true
-    }
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
-        
-        
-        
     }
     
     
@@ -122,7 +117,16 @@ class AppointmentListViewController: BaseViewController,UITableViewDelegate, UIT
             let patientTime = cell.viewWithTag(5) as! UILabel
             let patientType = cell.viewWithTag(6) as! UILabel
             let patientDbutton = cell.viewWithTag(7) as! UIButton
+            let joinCall = cell.viewWithTag(8) as! UIButton
             
+            if (todayApptArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "join_call") != nil && "\((todayApptArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "join_call")!)" == "true"
+            {
+                joinCall.isHidden = false
+            }
+            else
+            {
+                joinCall.isHidden = true
+            }
             
             if (((todayApptArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "doctor_detail") as! NSDictionary).object(forKey: "user_image") as? String) != nil
             {
@@ -133,16 +137,15 @@ class AppointmentListViewController: BaseViewController,UITableViewDelegate, UIT
             {
                 patientName.text = (((todayApptArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "doctor_detail") as! NSDictionary).object(forKey: "first_name") as! String) + " " + (((todayApptArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "doctor_detail") as! NSDictionary).object(forKey: "last_name") as! String)
             }
+            
             if (((todayApptArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "doctor_detail") as! NSDictionary).object(forKey: "unique_number") as? String) != nil
             {
                 patientId.text = "ID-\(((todayApptArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "doctor_detail") as! NSDictionary).object(forKey: "unique_number") as! String)"
             }
             
-            if ((todayApptArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "added_on") as? String) != nil
+            if ((todayApptArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "available_date") as? String) != nil
             {
-                
-                
-                let mathString: String = (((todayApptArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "added_on") as! String))
+                let mathString: String = (((todayApptArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "available_date") as! String))
                 let numbers = mathString.components(separatedBy: [" "])
                 
                 patientDate.text = CommonValidations.getDateStringFromDateString(date: "\(numbers[0])", fromDateString: "YYYY-MM-dd", toDateString: "dd MMM, YYYY")
@@ -158,10 +161,9 @@ class AppointmentListViewController: BaseViewController,UITableViewDelegate, UIT
                 patientType.text = (((todayApptArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "doctor_detail") as! NSDictionary).object(forKey: "service_title") as! String)
             }
             
-            
-            
-            
-            
+            joinCall.layer.cornerRadius = 3.0
+            joinCall.layer.borderColor = UIColor(red: 0.0 / 255.0, green: 128.0 / 255.0, blue: 128.0 / 255.0, alpha: 0.75).cgColor
+            joinCall.layer.borderWidth = 1
             patientDbutton.layer.cornerRadius = 3.0
             patientDbutton.layer.borderColor = UIColor(red: 0.0 / 255.0, green: 128.0 / 255.0, blue: 128.0 / 255.0, alpha: 0.75).cgColor
             patientDbutton.layer.borderWidth = 1
@@ -180,6 +182,9 @@ class AppointmentListViewController: BaseViewController,UITableViewDelegate, UIT
             let patientTime = cell.viewWithTag(5) as! UILabel
             let patientType = cell.viewWithTag(6) as! UILabel
             let patientDbutton = cell.viewWithTag(7) as! UIButton
+            let joinCall = cell.viewWithTag(8) as! UIButton
+            joinCall.isHidden = true
+           
             
             if (((upcommingApptArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "doctor_detail") as! NSDictionary).object(forKey: "user_image") as? String) != nil
             {
@@ -190,14 +195,15 @@ class AppointmentListViewController: BaseViewController,UITableViewDelegate, UIT
             {
                 patientName.text = (((upcommingApptArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "doctor_detail") as! NSDictionary).object(forKey: "first_name") as! String) + " " + (((upcommingApptArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "doctor_detail") as! NSDictionary).object(forKey: "last_name") as! String)
             }
+            
             if (((upcommingApptArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "doctor_detail") as! NSDictionary).object(forKey: "unique_number") as? String) != nil
             {
                 patientId.text = "ID-\(((upcommingApptArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "doctor_detail") as! NSDictionary).object(forKey: "unique_number") as! String)"
             }
             
-            if ((upcommingApptArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "added_on") as? String) != nil
+            if ((upcommingApptArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "available_date") as? String) != nil
             {
-                let mathString: String = (((upcommingApptArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "added_on") as! String))
+                let mathString: String = (((upcommingApptArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "available_date") as! String))
                 let numbers = mathString.components(separatedBy: [" "])
                 
                 patientDate.text = CommonValidations.getDateStringFromDateString(date: "\(numbers[0])", fromDateString: "YYYY-MM-dd", toDateString: "dd MMM, YYYY")
@@ -213,6 +219,9 @@ class AppointmentListViewController: BaseViewController,UITableViewDelegate, UIT
                 patientType.text = (((upcommingApptArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "doctor_detail") as! NSDictionary).object(forKey: "service_title") as! String)
             }
             
+            joinCall.layer.cornerRadius = 3.0
+            joinCall.layer.borderColor = UIColor(red: 0.0 / 255.0, green: 128.0 / 255.0, blue: 128.0 / 255.0, alpha: 0.75).cgColor
+            joinCall.layer.borderWidth = 1
             patientDbutton.layer.cornerRadius = 3.0
             patientDbutton.layer.borderColor = UIColor(red: 0.0 / 255.0, green: 128.0 / 255.0, blue: 128.0 / 255.0, alpha: 0.75).cgColor
             patientDbutton.layer.borderWidth = 1
@@ -263,16 +272,18 @@ class AppointmentListViewController: BaseViewController,UITableViewDelegate, UIT
                     {
                         self.todayApptArray = x.mutableCopy() as! NSMutableArray
                     }
+                    
                     if let x = ((dataFromServer.object(forKey: "data") as! NSDictionary).object(forKey: "upcoming_appointments") as? NSArray)
                     {
                         self.upcommingApptArray = x.mutableCopy() as! NSMutableArray
                     }
+                    
                     self.tableView?.reloadData()
                     
                     if self.todayApptArray.count == 0 && self.upcommingApptArray.count == 0
                     {
-                        supportingfuction.showMessageHudWithMessage(message: dataFromServer.object(forKey: "message") as! NSString, delay: 2.0)
-                        //self.noRecordLbl.isHidden = false
+                        // supportingfuction.showMessageHudWithMessage(message: dataFromServer.object(forKey: "message") as! NSString, delay: 2.0)
+                        self.noRecordLbl.isHidden = false
                     }
                 }
                 else if(dataFromServer.object(forKey: "error_code") != nil && "\(dataFromServer.object(forKey: "error_code")!)" != "" && "\(dataFromServer.object(forKey: "error_code")!)"  == "306")
@@ -283,12 +294,10 @@ class AppointmentListViewController: BaseViewController,UITableViewDelegate, UIT
                 {
                     if dataFromServer.object(forKey: "message") != nil && self.todayApptArray.count == 0 && self.upcommingApptArray.count == 0
                     {
-                        supportingfuction.showMessageHudWithMessage(message: dataFromServer.object(forKey: "message") as! NSString, delay: 2.0)
+                        //  supportingfuction.showMessageHudWithMessage(message: dataFromServer.object(forKey: "message") as! NSString, delay: 2.0)
+                        self.noRecordLbl.isHidden = false
                     }
-                    //                    if self.todayApptArray.count == 0 && self.upcommingApptArray.count == 0
-                    //                    {
-                    //                   // self.noRecordLbl.isHidden = false
-                    //                    }
+                    
                 }
             }
         }) { (operation, error) in
@@ -317,7 +326,6 @@ class AppointmentListViewController: BaseViewController,UITableViewDelegate, UIT
             filterKey = "child"
         }
         
-        
         if(!appDelegate.hasConnectivity())
         {
             supportingfuction.showMessageHudWithMessage(message: NoInternetConnection as NSString, delay: 2.0)
@@ -329,6 +337,37 @@ class AppointmentListViewController: BaseViewController,UITableViewDelegate, UIT
         }
     }
     
+    @IBAction func joinCall(_ sender: Any)
+    {
+        let pointInTable: CGPoint = (sender as AnyObject).convert((sender as AnyObject).bounds.origin, to: self.tableView)
+        let cellIndexPath = self.tableView?.indexPathForRow(at: pointInTable)
+        let dic = (todayApptArray.object(at: (cellIndexPath?.row)!) as! NSDictionary).mutableCopy() as! NSMutableDictionary
+        
+        if(dic.value(forKey: "token") != nil)
+        {
+            kToken = "\(dic.value(forKey: "token")!)"
+        }
+        
+        if(dic.value(forKey: "tokbox_api_key") != nil)
+        {
+            kApiKey = "\(dic.value(forKey: "tokbox_api_key")!)"
+        }
+        
+        if(dic.value(forKey: "session_id") != nil)
+        {
+            kSessionId = "\(dic.value(forKey: "session_id")!)"
+        }
+        
+        let vc = VideoCallViewController()
+        vc.dataDic.setValue(dic.value(forKey: "doctor_detail") as! NSDictionary, forKey: "user_detail")
+        vc.dataDic.setValue("\((dic.value(forKey: "doctor_detail") as! NSDictionary).value(forKey: "id_user")!)", forKey: "id_doctor")
+         vc.dataDic.setValue("\((dic.value(forKey: "id_appointment"))!)", forKey: "id_appointment")
+        vc.from = "join"
+        
+        UserDefaults.standard.setValue("\(dic.value(forKey: "id_appointment")!)", forKey: "ongoing_id_appointment")
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
     @IBAction func filterBtnTapped(_ sender: Any) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "ChildListViewController") as! ChildListViewController
         vc.delegate = self
@@ -336,7 +375,7 @@ class AppointmentListViewController: BaseViewController,UITableViewDelegate, UIT
     }
     
     @IBAction func detailsBtnTapped(_ sender: Any) {
-     
+        
         let pointInTable: CGPoint = (sender as AnyObject).convert((sender as AnyObject).bounds.origin, to: self.tableView)
         let cellIndexPath = self.tableView?.indexPathForRow(at: pointInTable)
         print(cellIndexPath![1])

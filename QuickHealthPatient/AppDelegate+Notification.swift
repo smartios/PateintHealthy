@@ -52,12 +52,11 @@ extension AppDelegate{
     
     func application(_ application: UIApplication,
                      didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        let tokenParts = deviceToken.map { data -> String in
-            return String(format: "%02.2hhx", data)
-        }
-        let token = tokenParts.joined()
-        print("Device Token: \(token)")
-        UserDefaults.standard.set("\(token)", forKey: "device_token")
+        
+        let deviceToken = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
+        
+        print("Device Token: \(deviceToken)")
+        UserDefaults.standard.set("\(deviceToken)", forKey: "device_token")
     }
     
     func application(_ application: UIApplication,
@@ -78,23 +77,27 @@ extension AppDelegate{
     //Handle Notifiaction
     func handleNotifiaction(notificationData:NSDictionary)
     {
-        print("Notification Data")
+        print("Notification Data:")
+        print(notificationData)
         
-        if("\(notificationData.value(forKey: "notification_type")!)" == NotificationType.Nurse_Alloted.rawValue)
+        if(UserDefaults.standard.object(forKey: "user_id") != nil && UserDefaults.standard.object(forKey: "user_id")! as! String != "")
         {
-            AppointmentNotification.nurse_alloted(dataDic: notificationData.mutableCopy() as! NSMutableDictionary)
-        }
-        else if("\(notificationData.value(forKey: "notification_type")!)" == NotificationType.Call_Initiated.rawValue)
-        {
-            AppointmentNotification.call_initiated(dataDic: notificationData.mutableCopy() as! NSMutableDictionary)
-        }
-        else if("\(notificationData.value(forKey: "notification_type")!)" == NotificationType.Call_Canceled.rawValue)
-        {
-            AppointmentNotification.call_canceled(dataDic: notificationData.mutableCopy() as! NSMutableDictionary)
-        }
-        else if("\(notificationData.value(forKey: "notification_type")!)" == NotificationType.Call_Reminder.rawValue)
-        {
-            AppointmentNotification.call_reminder(dataDic: notificationData.mutableCopy() as! NSMutableDictionary)
+            if("\(notificationData.value(forKey: "notification_type")!)" == NotificationType.Nurse_Alloted.rawValue)
+            {
+                AppointmentNotification.nurse_alloted(dataDic: notificationData.mutableCopy() as! NSMutableDictionary)
+            }
+            else if("\(notificationData.value(forKey: "notification_type")!)" == NotificationType.Call_Initiated.rawValue)
+            {
+                AppointmentNotification.call_initiated(dataDic: notificationData.mutableCopy() as! NSMutableDictionary)
+            }
+            else if("\(notificationData.value(forKey: "notification_type")!)" == NotificationType.Call_Canceled.rawValue)
+            {
+                AppointmentNotification.call_canceled(dataDic: notificationData.mutableCopy() as! NSMutableDictionary)
+            }
+            else if("\(notificationData.value(forKey: "notification_type")!)" == NotificationType.Call_Reminder.rawValue)
+            {
+                AppointmentNotification.call_reminder(dataDic: notificationData.mutableCopy() as! NSMutableDictionary)
+            }
         }
     }
     

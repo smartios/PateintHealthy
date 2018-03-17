@@ -10,40 +10,40 @@ import UIKit
 
 
 class StaticPageViewController: UIViewController,UIWebViewDelegate {
-
+    
     @IBOutlet weak var pageTitle = UILabel()
     @IBOutlet weak var webView = UIWebView()
     
     var commingFromScreen = ""
     
-   // var baseURL = ""
+    // var baseURL = ""
     //var urlAddress = ""
     
-   
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       webView?.scalesPageToFit = true
+        webView?.scalesPageToFit = true
         
         let reach: Reachability
         do{
             reach = try Reachability.forInternetConnection()
             if reach.isReachable(){
                 
-              
+                
                 if appDelegate.staticpage ==  "about-us"
                 {
-                  pageTitle?.text = "ABOUT US"
+                    pageTitle?.text = "ABOUT QUICKHEALTH"
                 }else if appDelegate.staticpage ==  "terms-and-conditions"
                 {
                     pageTitle?.text = "TERMS & CONDITIONS"
-  
+                    
                 }else if appDelegate.staticpage ==  "privacy-policy"
                 {
-                   pageTitle?.text = "PRIVACY POLICY"
+                    pageTitle?.text = "PRIVACY POLICY"
                 }else
                 {
-                   pageTitle?.text = "TERMS & CONDITIONS" 
+                    pageTitle?.text = "TERMS & CONDITIONS"
                 }
                 
                 getUserData()
@@ -52,18 +52,14 @@ class StaticPageViewController: UIViewController,UIWebViewDelegate {
                 supportingfuction.showMessageHudWithMessage(message: "Please check your internet connection.", delay: 2.0)
             }
         }
-        catch{
-            
-        }
-       
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-   
+    
     
     @IBAction func backbtnTapped(sender: UIButton){
         
@@ -74,60 +70,36 @@ class StaticPageViewController: UIViewController,UIWebViewDelegate {
     
     @IBAction func agreeTapped(sender: UIButton){
         
-         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "agreebtnClicked"), object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "agreebtnClicked"), object: nil)
         _ = navigationController?.popViewController(animated: true)
     }
     
     @IBAction func backTapped(_ sender: UIButton) {
         _ = navigationController?.popViewController(animated: true)
-        
     }
-
+    
     
     func getUserData()
-        
     {
+        var url: URL!
+        
         if commingFromScreen == "signupView"
         {
-            
-          //  let url = URL (string: ("http://115.249.91.204/quickhealth/mobile/mobile_static_page/static_page?page_name=terms-and-conditions" )) // develop
-             let url = URL (string: ("http://103.15.232.35/singsys-stg3/quickhealth/mobile/mobile_static_page/static_page?page_name=terms-and-conditions" )) // stg
-            
-            let requestObj = URLRequest(url: url!)
-            self.webView?.loadRequest(requestObj)
-            
-           
-          
-        }else
+            url = URL (string: ("\(WebAPI.static_pages_url)terms-and-conditions" ))
+        }
+        else
         {
-           // let url = URL (string: ("http://115.249.91.204/quickhealth/mobile/mobile_static_page/static_page?page_name=\(appDelegate.staticpage)" )) // develop
-            let url = URL (string: ("http://103.15.232.35/singsys-stg3/quickhealth/mobile/mobile_static_page/static_page?page_name=\(appDelegate.staticpage)" )) // stg
-            
-            let requestObj = URLRequest(url: url!)
-            self.webView?.loadRequest(requestObj)
+            url = URL (string: ("\(WebAPI.static_pages_url)\(appDelegate.staticpage)" ))
         }
         
-        
-     
-
-    }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-    func webViewDidStartLoad(_ webView: UIWebView)
-    {
+        let requestObj = URLRequest(url: url!)
+        self.webView?.loadRequest(requestObj)
         supportingfuction.showProgressHudForViewMy(view: self, withDetailsLabel: "Please Wait", labelText: "Requesting")
     }
+    
+    
     func webViewDidFinishLoad(_ webView: UIWebView)
     {
         supportingfuction.hideProgressHudInView(view: self)
     }
-
 }
