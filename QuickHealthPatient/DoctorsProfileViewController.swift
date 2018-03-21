@@ -203,13 +203,13 @@ class DoctorsProfileViewController: UIViewController,UITableViewDelegate,UITable
             }
             if let x = (userInfoDict.object(forKey: "gender") as? String)
             {
-//                if x.lowercased() == "female"
-//                {
-//                    genderImg.image = #imageLiteral(resourceName: "femalegender")
-//                }else
-//                {
+                if x.lowercased() == "female"
+                {
+                    genderImg.image = #imageLiteral(resourceName: "femalegender")
+                }else
+                {
                    genderImg.image = #imageLiteral(resourceName: "gender")
-//                }
+                }
              genderLbl.text = x
             }else
             {

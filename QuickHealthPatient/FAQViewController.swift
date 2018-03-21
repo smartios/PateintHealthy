@@ -36,7 +36,6 @@ class FAQViewController: BaseViewController,UITableViewDelegate,UITableViewDataS
         tableView.isHidden = true
         if(!appDelegate.hasConnectivity())
         {
-           
              supportingfuction.showMessageHudWithMessage(message: NoInternetConnection as NSString, delay: 2.0)
         }
         else

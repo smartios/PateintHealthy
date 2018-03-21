@@ -63,7 +63,7 @@ struct WebAPI {
     static let medication = "medication"
     static let family_history = "view_family_history"
     static let language_list = "language_list"
-    //language_list
+    
     
     static let user_profile = "user_profile"
     static let edit_profile = "edit_profile"
@@ -84,6 +84,7 @@ struct WebAPI {
     static let mark_as_favourite = "mark_as_favourite"
     
     static let history = "history_list"
+    static let history_detail = "prescription"
     static let COUNTRY_LIST = "getAllCountry"
     static let STATE_LIST = "getState"
     static let CITY_LIST = "getCity"
@@ -353,18 +354,64 @@ class CommonValidations: NSObject
 }
 
 
+
 func logoutUser()
 {
+    UserDefaults.standard.removeObject(forKey: "user_id")
     UserDefaults.standard.removeObject(forKey: "user_detail")
-    UserDefaults.standard.removeObject(forKey: "id_user")
     appDelegate.socketManager.closeConnection()
-    supportingfuction.hideProgressHudInView(view: (UIApplication.topViewController())!)
     let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-    let pushVC = mainStoryboard.instantiateViewController(withIdentifier: "LandngScreen") as! LandngScreen
-    let nav: UINavigationController = (UIApplication.topViewController()?.navigationController)!
-    nav.viewControllers = [pushVC]
-    supportingfuction.showMessageHudWithMessage(message: "You have been logout.", delay: 2.0)
+    let pushVC = mainStoryboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+    let rootViewController = appDelegate.window!.rootViewController as! UINavigationController
+    rootViewController.setViewControllers([pushVC], animated: true)
+    appDelegate.window!.rootViewController!.removeFromParentViewController()
+    appDelegate.window!.rootViewController!.view.removeFromSuperview()
+    appDelegate.window!.rootViewController = nil
+    appDelegate.window!.rootViewController = rootViewController
 }
+
+func logoutWebservice(view: UIView)
+{
+    
+    supportingfuction.hideProgressHudInView(view: view)
+    supportingfuction.showProgressHudForViewMy(view: view, withDetailsLabel: "Please Wait", labelText: "Requesting")
+    let dict = NSMutableDictionary()
+    dict.setObject(UserDefaults.standard.object(forKey: "user_id") as! String, forKey: "user_id" as NSCopying)
+    
+    let apiSniper = APISniper()
+    
+    
+    apiSniper.getDataFromWebAPI(WebAPI.LOGOUT,dict, {(operation, responseObject) in
+        
+        if let dataFromServer = responseObject as? NSDictionary
+        {
+            print(dataFromServer)
+            supportingfuction.hideProgressHudInView(view: view)
+            
+            if dataFromServer.object(forKey: "status") != nil && dataFromServer.object(forKey: "status") as! String != "" && dataFromServer.object(forKey: "status") as! String == "success"
+            {
+                logoutUser()
+            }
+            else if(dataFromServer.object(forKey: "error_code") != nil && "\(dataFromServer.object(forKey: "error_code")!)" != "" && "\(dataFromServer.object(forKey: "error_code")!)"  == "306")
+            {
+                logoutUser()
+            }
+            else
+            {
+                if dataFromServer.object(forKey: "message") != nil
+                {
+                    supportingfuction.showMessageHudWithMessage(message: dataFromServer.object(forKey: "message") as! NSString, delay: 2.0)
+                }
+            }
+        }
+    }) { (operation, error) in
+        supportingfuction.hideProgressHudInView(view: view)
+        print(error.localizedDescription)
+        
+        supportingfuction.showMessageHudWithMessage(message: "Due to some error we can not proceed your request.", delay: 2.0)
+    }
+}
+
 
 
 class StoredUserData{

@@ -35,7 +35,10 @@ class AppointmentListViewController: BaseViewController,UITableViewDelegate, UIT
         }
         else
         {
+            if(UserDefaults.standard.value(forKey: "user_detail") != nil)
+            {
             appointment_list()
+            }
         }
     }
     

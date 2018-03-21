@@ -48,7 +48,11 @@ class InboxView: BaseViewController,UITableViewDataSource,UITableViewDelegate{
     
     override func viewWillAppear(_ animated: Bool) {
         UIApplication.shared.statusBarView?.backgroundColor = .white
+        if(UserDefaults.standard.value(forKey: "user_detail") != nil)
+        {
         self.inboxListing()
+        }
+      
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {

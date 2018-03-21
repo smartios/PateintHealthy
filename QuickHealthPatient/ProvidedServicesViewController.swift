@@ -39,7 +39,12 @@ class ProvidedServicesViewController: BaseViewController, UICollectionViewDelega
     }
     
     override func viewWillAppear(_ animated: Bool) {
-         serviceListWebService()
+        
+        if(UserDefaults.standard.value(forKey: "user_detail") != nil)
+        {
+            serviceListWebService()
+        }
+        
         UIApplication.shared.statusBarView?.backgroundColor = .white
     }
     

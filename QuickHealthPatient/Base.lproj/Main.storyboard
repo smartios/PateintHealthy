@@ -18,13 +18,13 @@
         <array key="Arimo-Regular.ttf">
             <string>Arimo-Regular</string>
         </array>
-        <array key="OpenSans-Bold.ttf">
+        <array key="OpenSans-Bold_0.ttf">
             <string>OpenSans-Bold</string>
         </array>
         <array key="OpenSans-Light.ttf">
             <string>OpenSans-Light</string>
         </array>
-        <array key="OpenSans-Regular_0.ttf">
+        <array key="OpenSans-Regular.ttf">
             <string>OpenSans</string>
         </array>
         <array key="OpenSans-Semibold.ttf">
@@ -153,7 +153,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YOUR HEALTH OUR RESPONSIBILITY" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="t7c-U2-5NL">
-                                <rect key="frame" x="15" y="304" width="290" height="35"/>
+                                <rect key="frame" x="15" y="304" width="289" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="YkC-zM-OyX"/>
                                 </constraints>
@@ -187,7 +187,7 @@
                         <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="t7c-U2-5NL" firstAttribute="leading" secondItem="VOH-WH-wWm" secondAttribute="leadingMargin" constant="-1" id="2jd-B1-jfI"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="t7c-U2-5NL" secondAttribute="trailing" constant="-1" id="3Qo-OU-498"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="t7c-U2-5NL" secondAttribute="trailing" id="3Qo-OU-498"/>
                             <constraint firstItem="jDf-7g-igu" firstAttribute="trailing" secondItem="i4i-c9-XoT" secondAttribute="trailing" id="7lM-g6-cap"/>
                             <constraint firstItem="cVp-8c-2Ia" firstAttribute="leading" secondItem="jDf-7g-igu" secondAttribute="leading" id="CVr-CK-MlY"/>
                             <constraint firstItem="FRo-eO-kQU" firstAttribute="leading" secondItem="jDf-7g-igu" secondAttribute="leading" constant="15" id="Izd-vC-t5B"/>

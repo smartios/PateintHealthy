@@ -270,7 +270,22 @@ class HistoryListViewController: UIViewController,UITableViewDelegate,UITableVie
     /// - Parameter sender: UIButton
     @IBAction func detailButtontapped(_ sender: UIButton) {
         
-        
+        let pointInTable: CGPoint = sender.convert(sender.bounds.origin, to: self.tableView)
+        let cellIndexPath = self.tableView?.indexPathForRow(at: pointInTable)
+
+
+        let vc = PrescribedFormViewController(nibName: "PrescribedFormViewController", bundle: nil)
+
+        if let x = ((historyListArray.object(at: cellIndexPath![1]) as! NSDictionary).object(forKey: "id_doctor") as? String)
+        {
+            vc.dataDic.setObject(x, forKey: "id_doctor" as NSCopying)
+        }
+
+        if let x = ((historyListArray.object(at: cellIndexPath![1]) as! NSDictionary).object(forKey: "id_appointment") as? String)
+        {
+            vc.dataDic.setObject(x, forKey: "id_appointment" as NSCopying)
+        }
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     /// When user clicks on the button - doctor is selected as favourite.
@@ -403,3 +418,11 @@ class HistoryListViewController: UIViewController,UITableViewDelegate,UITableVie
         }
     }
 }
+
+
+//webservice/prescription
+//Request Payload:{
+//    "id_appointment":"4",
+//    "id_doctor":"10"
+//}
+

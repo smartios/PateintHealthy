@@ -141,7 +141,8 @@ class MyProfileViewController: UIViewController,UITableViewDelegate,UITableViewD
             
             if (userInfoDict.object(forKey: "age") != nil && "\(userInfoDict.object(forKey: "age")!)" != "")
             {
-                ageLbl.text = "\(userInfoDict.object(forKey: "age")!) Yrs"
+                ageLbl.text = "\(userInfoDict.object(forKey: "age")!)"
+                ageLbl.adjustsFontSizeToFitWidth = true
             }else
             {
                 ageLbl.text = "NA"
@@ -218,13 +219,13 @@ class MyProfileViewController: UIViewController,UITableViewDelegate,UITableViewD
             
             if let x = (userInfoDict.object(forKey: "gender") as? String)
             {
-                //                if x.lowercased() == "female"
-                //                {
-                //                    genderImg.image = #imageLiteral(resourceName: "femalegender")
-                //                }else
-                //                {
-                genderImg.image = #imageLiteral(resourceName: "gender")
-                //                }
+                if x.lowercased() == "female"
+                {
+                    genderImg.image = #imageLiteral(resourceName: "femalegender")
+                }else
+                {
+                    genderImg.image = #imageLiteral(resourceName: "gender")
+                }
                 genderLbl.text = x.capitalized
             }else
             {
@@ -264,13 +265,13 @@ class MyProfileViewController: UIViewController,UITableViewDelegate,UITableViewD
                 if let x = ((chilListArray.object(at: indexPath.row - 2) as! NSDictionary).object(forKey: "gender") as? String)
                 {
                     
-                    //                    if x.lowercased() == "female"
-                    //                    {
-                    //                        genderImg.image = #imageLiteral(resourceName: "femalegender")
-                    //                    }else
-                    //                    {
+                    if x.lowercased() == "female"
+                    {
+                        genderImg.image = #imageLiteral(resourceName: "femalegender")
+                    }else
+                    {
                     genderImg.image = #imageLiteral(resourceName: "gender")
-                    //                    }
+                    }
                     
                     genderLbl.text = x.capitalized
                 }else

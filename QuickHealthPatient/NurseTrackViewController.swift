@@ -25,12 +25,26 @@ class NurseTrackViewController: UIViewController{
     var zoomLevel: Float = 15.0
     var currentLocationMarker: GMSMarker!
     var polyline:GMSPolyline!
+    @IBOutlet weak var viewConstrainsts: NSLayoutConstraint!
+    var from = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        trackUserView.addSubview(self.getTrackNurseHeaderView())
-        self.trackUserData = TrackNurse(json: dataDic)
-        trackNurseView.userTrackData = self.trackUserData
+        
+        if(from == "")
+        {
+            viewConstrainsts.constant = 136
+            trackUserView.addSubview(self.getTrackNurseHeaderView())
+            self.trackUserData = TrackNurse(json: dataDic)
+            trackNurseView.userTrackData = self.trackUserData
+        }
+        else
+        {
+            viewConstrainsts.constant = 50
+            
+        }
+        
         self.initialSetup()
         // Do any additional setup after loading the view.
     }
@@ -103,6 +117,15 @@ class NurseTrackViewController: UIViewController{
     }
     
     func getTrackNurseHeaderView()->TrackNurseView{
+        let bundle = Bundle(for: type(of: self))
+        let nib = UINib(nibName: "TrackNurseView", bundle: bundle)
+        trackNurseView = nib.instantiate(withOwner: self, options: nil)[0] as! TrackNurseView
+        
+        return trackNurseView
+    }
+    
+    func getTrackMedicineHeaderView()->TrackNurseView{
+       
         let bundle = Bundle(for: type(of: self))
         let nib = UINib(nibName: "TrackNurseView", bundle: bundle)
         trackNurseView = nib.instantiate(withOwner: self, options: nil)[0] as! TrackNurseView

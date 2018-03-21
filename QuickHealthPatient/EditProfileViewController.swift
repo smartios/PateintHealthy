@@ -18,8 +18,8 @@ class EditProfileViewController: UIViewController,UITableViewDataSource,UITableV
     var ncode = ""
     var checkBoxSelection = false
     var childDataArray = NSMutableArray()
-    
     var dataArray = [" ","FIRST NAME","LAST NAME","DATE OF BIRTH","GENDER","OCCUPATION","MOBILE NUMBER","EMAIL ADDRESS","ADDRESS","STREET ADDRESS","CITY","LOCATION","AREA CODE","COUNTRY","LANGUAGE" ,"MARITAL STATUS"]
+    
     var signupDataDict = NSMutableDictionary()
     let imagePicker = UIImagePickerController()
     var resultsViewController: GMSAutocompleteResultsViewController?
@@ -1000,13 +1000,13 @@ class EditProfileViewController: UIViewController,UITableViewDataSource,UITableV
                     {
                         genderLbl.text = ((childDataArray.object(at: indexPath.row - 1) as! NSDictionary).object(forKey: "gender") as! String).capitalized
                         
-                        //                        if x.lowercased() == "female"
-                        //                        {
-                        //                            genderImg.image = #imageLiteral(resourceName: "femalegender")
-                        //                        }else
-                        //                        {
+                        if x.lowercased() == "female"
+                        {
+                            genderImg.image = #imageLiteral(resourceName: "femalegender")
+                        }else
+                        {
                         genderImg.image = #imageLiteral(resourceName: "gender")
-                        //                        }
+                        }
                     }
                     
                     if let x = ((childDataArray.object(at: indexPath.row - 1) as! NSDictionary).object(forKey: "unique_number") as? String)
@@ -1750,6 +1750,7 @@ extension EditProfileViewController: GMSAutocompleteViewControllerDelegate {
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
 }
+
 extension EditProfileViewController: GMSAutocompleteResultsViewControllerDelegate {
     func resultsController(_ resultsController: GMSAutocompleteResultsViewController,
                            didAutocompleteWith place: GMSPlace) {

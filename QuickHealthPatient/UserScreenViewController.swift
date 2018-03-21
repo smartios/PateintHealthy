@@ -15,9 +15,9 @@ class UserScreenViewController: BaseViewController,UITableViewDelegate,UITableVi
     var expandBool = false
     var imagetoset = "postlogin"
     
-    var dataArray = ["PROFILE","HEALTH RECORD","HISTORY","TRACK","FAVOURITE DOCTORS","WAITING ROOM","LOGOUT"]
+    var dataArray = ["MY PROFILE","HEALTH RECORD","HISTORY","TRACK","FAVOURITE DOCTORS","WAITING ROOM","CHANGE PASSWORD","SUPPORT","LOGOUT"]
     
-    var dataExpandArray = ["PROFILE","HEALTH RECORD","PHYSICAL STATS","MEDICAL HISTORY","FAMILY HISTORY","HISTORY","TRACK","FAVOURITE DOCTORS","WAITING ROOM","LOGOUT"]
+    var dataExpandArray = ["MY PROFILE","HEALTH RECORD","PHYSICAL STATS","MEDICAL HISTORY","FAMILY HISTORY","HISTORY","TRACK","FAVOURITE DOCTORS","WAITING ROOM","CHANGE PASSWORD","SUPPORT","LOGOUT"]
     
     
     @IBOutlet weak var bgimage: UIImageView?
@@ -238,8 +238,8 @@ class UserScreenViewController: BaseViewController,UITableViewDelegate,UITableVi
             else if indexPath.row == 2
             {
                 let vc = HistoryListViewController(nibName: "HistoryListViewController", bundle: nil)
-//               let vc = RatingViewController(nibName: "RatingViewController", bundle: nil)
-//                vc.from = "doctor"
+                //               let vc = RatingViewController(nibName: "RatingViewController", bundle: nil)
+                //                vc.from = "doctor"
                 self.navigationController?.pushViewController(vc, animated: true)
             }
             else if indexPath.row == 3
@@ -257,17 +257,29 @@ class UserScreenViewController: BaseViewController,UITableViewDelegate,UITableVi
                 
             else if indexPath.row == 5
             {
-//                let vc = VideoCallViewController()
-//                self.navigationController?.pushViewController(vc, animated: true)
-                //                self.present(vc, animated: true, completion: nil)
+               
             }
             else if indexPath.row == 6
+            {
+                let story = UIStoryboard(name: "TabbarStoryboard", bundle: nil)
+                let vc = story.instantiateViewController(withIdentifier: "ChangePasswordViewController") as! ChangePasswordViewController
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            else if indexPath.row == 7
+            {
+                let story = UIStoryboard(name: "TabbarStoryboard", bundle: nil)
+                let vc = story.instantiateViewController(withIdentifier: "SupportView") as! SupportView
+                self.navigationController?.pushViewController(vc, animated: true)
+                
+               
+            }
+            else if indexPath.row == 8
             {
                 let alertView = UIAlertController(title: "", message: "Are you sure you want to log out?", preferredStyle: .alert)
                 alertView.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
                 alertView.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (alertAction) -> Void in
                     //self.logoutUser()
-                    self.logoutUser()
+                    logoutWebservice(view: self.view)
                     return
                 }))
                 present(alertView, animated: true, completion: nil)
@@ -308,7 +320,6 @@ class UserScreenViewController: BaseViewController,UITableViewDelegate,UITableVi
             else if indexPath.row == 6
             {
                 let vc =  TrackViewController(nibName: "TrackViewController", bundle: nil)
-                
                 self.navigationController?.pushViewController(vc, animated: true)
             }
                 
@@ -327,54 +338,45 @@ class UserScreenViewController: BaseViewController,UITableViewDelegate,UITableVi
             }
             else if indexPath.row == 8
             {
-                //                let vc =  ThankYouViewController(nibName: "ThankYouViewController", bundle: nil)
-                //
-                //                self.present(vc, animated: true, completion: nil)
+        
             }
             else if indexPath.row == 9
+            {
+                let story = UIStoryboard(name: "TabbarStoryboard", bundle: nil)
+                let vc = story.instantiateViewController(withIdentifier: "ChangePasswordViewController") as! ChangePasswordViewController
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            else if indexPath.row == 10
+            {
+                let story = UIStoryboard(name: "TabbarStoryboard", bundle: nil)
+                let vc = story.instantiateViewController(withIdentifier: "SupportView") as! SupportView
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            else if indexPath.row == 11
             {
                 let alertView = UIAlertController(title: "", message: "Are you sure you want to log out?", preferredStyle: .alert)
                 alertView.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
                 alertView.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (alertAction) -> Void in
                     //self.logoutUser()
-                    self.logoutUser()
+                logoutWebservice(view: self.view)
                     return
                 }))
                 present(alertView, animated: true, completion: nil)
             }
-            else
-                
-            {
-                // PaymentWebKitViewController
-                let vc = self.storyboard?.instantiateViewController(withIdentifier: "PaymentWebKitViewController") as! PaymentWebKitViewController
-                self.navigationController?.pushViewController(vc, animated: true)
-                
-            }
-            
-            
-            //            else if indexPath.row == 6
-            //            {
-            ////                AddDocumentsView
-            //
-            //            }
-            //
+//            elsw
+//            {
+//                let vc = self.storyboard?.instantiateViewController(withIdentifier: "PaymentWebKitViewController") as! PaymentWebKitViewController
+//                self.navigationController?.pushViewController(vc, animated: true)
+//
+//            }
             
         }
     }
     
     
-    func logoutUser()
-    {
-        UserDefaults.standard.removeObject(forKey: "user_id")
-        UserDefaults.standard.removeObject(forKey: "user_detail")
-        appDelegate.socketManager.closeConnection()
-        let mainStoryboard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let pushVC = mainStoryboard.instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
-        let rootViewController = appDelegate.window!.rootViewController as! UINavigationController
-        rootViewController.setViewControllers([pushVC], animated: true)
-        appDelegate.window!.rootViewController!.removeFromParentViewController()
-        appDelegate.window!.rootViewController!.view.removeFromSuperview()
-        appDelegate.window!.rootViewController = nil
-        appDelegate.window!.rootViewController = rootViewController
-    }
+   
+    
+    
+    
+ 
 }

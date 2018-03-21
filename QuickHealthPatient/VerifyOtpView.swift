@@ -163,10 +163,6 @@ class VerifyOtpView: UIViewController,UITableViewDataSource,UITableViewDelegate,
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
     }
@@ -176,13 +172,16 @@ class VerifyOtpView: UIViewController,UITableViewDataSource,UITableViewDelegate,
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
         if indexPath.row == 0
         {
-            return self.view.frame.height/2 + 140
-        }else if indexPath.row == 2
+            return self.view.frame.height/2 + 120
+        }
+        else if indexPath.row == 2
         {
             return 150
-        }else
+        }
+        else
         {
             return 60
         }

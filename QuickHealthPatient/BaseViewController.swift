@@ -60,7 +60,20 @@ class BaseViewController: UIViewController, SlideMenuDelegate {
             self.openViewControllerBasedOnIdentifier("FAQViewController")
             
             break
+        
+        case 6:
+            print("Logout\n", terminator: "")
+            page = ""
+            let alertView = UIAlertController(title: "", message: "Are you sure you want to log out?", preferredStyle: .alert)
+            alertView.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+            alertView.addAction(UIAlertAction(title: "Yes", style: .default, handler: { (alertAction) -> Void in
+                
+                logoutWebservice(view: self.view)
+                return
+            }))
+            present(alertView, animated: true, completion: nil)
             
+            break
             
             
         default:

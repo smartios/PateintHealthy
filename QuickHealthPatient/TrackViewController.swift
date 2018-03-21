@@ -14,19 +14,18 @@ class TrackViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     @IBOutlet var headerView: UIView!
     @IBOutlet var noRecordLabel: UILabel!
     @IBOutlet var historyCell: UITableViewCell!
-    
+   
     @IBOutlet var nurseBtn: UIButton!
     @IBOutlet var medicineBtn: UIButton!
     @IBOutlet var lineImage: UIImageView!
+  
     var dataArray = NSMutableArray()
-    //    var page = 0
-    //    var dataArray = NSMutableArray()
-    //    var dataDict = NSMutableDictionary()
-    
-    //    MARK: - View Life Cycle Methods
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        
         nurseListingWebservce()
         nurseBtn.setTitleColor(CommonValidations.UIColorFromRGB(rgbValue: 0x008080), for: .normal)
     }
@@ -46,7 +45,7 @@ class TrackViewController: UIViewController,UITableViewDelegate,UITableViewDataS
     override func viewWillDisappear(_ animated: Bool) {
         
     }
-
+    
     
     //    MARK: - TableView Delegates
     
@@ -98,17 +97,10 @@ class TrackViewController: UIViewController,UITableViewDelegate,UITableViewDataS
             if let dic = ((dataArray.object(at: indexPath.row) as? NSDictionary)?.value(forKey: "nurse_details") as? NSDictionary)
             {
                 profileImage.setImageWith(URL(string: "\(dic.value(forKey: "user_image")!)")!, placeholderImage: #imageLiteral(resourceName: "profile"))
-                
                 nameLabel.text = "\(dic.value(forKey: "first_name")!) \(dic.value(forKey: "last_name")!)"
                 transactionLabel.text = "ID-\(dic.value(forKey: "unique_number")!)"
-                
                 transactionDateLabel.text = CommonValidations.getDateStringFromDateString(date: "\((dic.value(forKey: "nurse_location") as! NSDictionary).value(forKey: "updated_on")!)", fromDateString: "yyyy-MM-dd HH:mm:ss", toDateString: "dd MMM yyyy")
-                
-                
-                
-                
                 transactionTimeLabel.text = CommonValidations.getDateStringFromDateString(date: "\((dic.value(forKey: "nurse_location") as! NSDictionary).value(forKey: "updated_on")!)", fromDateString: "yyyy-MM-dd HH:mm:ss", toDateString: "hh:mm a")
-                
                 physicianLabel.text = "\(dic.value(forKey: "occupation")!)"
             }
         }
@@ -152,7 +144,7 @@ class TrackViewController: UIViewController,UITableViewDelegate,UITableViewDataS
         {
             sender.isSelected = true
         }
-}
+    }
     
     @IBAction func nurseMedicineBtn(_ sender: UIButton) {
         
@@ -161,7 +153,7 @@ class TrackViewController: UIViewController,UITableViewDelegate,UITableViewDataS
             nurseBtn.setTitleColor(CommonValidations.UIColorFromRGB(rgbValue: 0x008080), for: .normal)
             
             medicineBtn.setTitleColor(CommonValidations.UIColorFromRGB(rgbValue: 0xC5C5C5), for: .normal)
-
+            
             //-----------------------------------------------------------------------------------
             
             // Animation for highlighted underline
@@ -170,6 +162,8 @@ class TrackViewController: UIViewController,UITableViewDelegate,UITableViewDataS
             }, completion: { _ in
                 
             })
+            
+            nurseListingWebservce()
         }
         else{
             
@@ -185,6 +179,8 @@ class TrackViewController: UIViewController,UITableViewDelegate,UITableViewDataS
             }, completion: { _ in
                 
             })
+            
+            medicineListingWebservice()
         }
     }
     
@@ -193,19 +189,20 @@ class TrackViewController: UIViewController,UITableViewDelegate,UITableViewDataS
         let cellIndexPath = self.tableView?.indexPathForRow(at: pointInTable)
         
         let vc = UIStoryboard(name: "TabbarStoryboard", bundle: nil).instantiateViewController(withIdentifier: "NurseTrackViewController") as! NurseTrackViewController
+        
         vc.dataDic = (dataArray.object(at: (cellIndexPath?.row)!) as? NSDictionary)?.mutableCopy() as! NSMutableDictionary
         self.navigationController?.pushViewController(vc, animated: true)
-
+        
     }
     
-    func nurseListingWebservce()
+    func medicineListingWebservice()
     {
         supportingfuction.showProgressHudForViewMy(view: self, withDetailsLabel: "Please Wait", labelText: "Requesting")
-         self.noRecordLabel.isHidden = true
+        self.noRecordLabel.isHidden = true
         let dict = NSMutableDictionary()
         dict.setObject(UserDefaults.standard.object(forKey: "user_id") as! String, forKey: "id_user" as NSCopying)
         dict.setObject("patient", forKey: "user_type" as NSCopying)
-  //      dict.setValue("\((UserDefaults.standard.value(forKey: "user_detail") as! NSDictionary).value(forKey: "user_api_key")!)", forKey: "user_api_key")
+        //      dict.setValue("\((UserDefaults.standard.value(forKey: "user_detail") as! NSDictionary).value(forKey: "user_api_key")!)", forKey: "user_api_key")
         
         let apiSniper = APISniper()
         apiSniper.getDataFromWebAPI(WebAPI.Nurse_Track_Listing, dict, { (operation, responseObject) in
@@ -239,7 +236,64 @@ class TrackViewController: UIViewController,UITableViewDelegate,UITableViewDataS
                 {
                     if dataFromServer.object(forKey: "message") != nil
                     {
-                       // supportingfuction.showMessageHudWithMessage(message: dataFromServer.object(forKey: "message") as! NSString, delay: 2.0)
+                        // supportingfuction.showMessageHudWithMessage(message: dataFromServer.object(forKey: "message") as! NSString, delay: 2.0)
+                        self.noRecordLabel.isHidden = false
+                    }
+                }
+                
+            }
+        }) { (operation, error) in
+            supportingfuction.hideProgressHudInView(view: self)
+            print(error.localizedDescription)
+            
+            
+            supportingfuction.showMessageHudWithMessage(message: "Due to some error we can not proceed your request.", delay: 2.0)
+        }
+    }
+    
+    
+    func nurseListingWebservce()
+    {
+        supportingfuction.showProgressHudForViewMy(view: self, withDetailsLabel: "Please Wait", labelText: "Requesting")
+        self.noRecordLabel.isHidden = true
+        let dict = NSMutableDictionary()
+        dict.setObject(UserDefaults.standard.object(forKey: "user_id") as! String, forKey: "id_user" as NSCopying)
+        dict.setObject("patient", forKey: "user_type" as NSCopying)
+        //      dict.setValue("\((UserDefaults.standard.value(forKey: "user_detail") as! NSDictionary).value(forKey: "user_api_key")!)", forKey: "user_api_key")
+        
+        let apiSniper = APISniper()
+        apiSniper.getDataFromWebAPI(WebAPI.Nurse_Track_Listing, dict, { (operation, responseObject) in
+            
+            if let dataFromServer = responseObject as? NSDictionary
+            {
+                print(dataFromServer)
+                supportingfuction.hideProgressHudInView(view: self)
+                
+                if dataFromServer.object(forKey: "status") != nil && dataFromServer.object(forKey: "status") as! String != "" && dataFromServer.object(forKey: "status") as! String == "success"
+                {
+                    for i in 0..<(dataFromServer.value(forKey: "data") as! NSArray).count
+                    {
+                        if(((dataFromServer.value(forKey: "data") as! NSArray).object(at: i) as! NSDictionary).value(forKey: "nurse_details") != nil)
+                        {
+                            self.dataArray.add(((dataFromServer.value(forKey: "data") as! NSArray).object(at: i) as! NSDictionary))
+                        }
+                    }
+                    
+                    if(self.dataArray.count == 0)
+                    {
+                        self.noRecordLabel.isHidden = false
+                    }
+                    self.tableView.reloadData()
+                }
+                else if(dataFromServer.object(forKey: "error_code") != nil && "\(dataFromServer.object(forKey: "error_code")!)" != "" && "\(dataFromServer.object(forKey: "error_code")!)"  == "306")
+                {
+                    logoutUser()
+                }
+                else
+                {
+                    if dataFromServer.object(forKey: "message") != nil
+                    {
+                        // supportingfuction.showMessageHudWithMessage(message: dataFromServer.object(forKey: "message") as! NSString, delay: 2.0)
                         self.noRecordLabel.isHidden = false
                     }
                 }

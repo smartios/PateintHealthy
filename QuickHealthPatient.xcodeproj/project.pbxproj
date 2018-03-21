@@ -154,6 +154,25 @@
 		503ECE4E2037FEF800094FFF /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503ECE4D2037FEF800094FFF /* SocketIOManager.swift */; };
 		50E1A3412033216B003FB2B9 /* MedicalHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E1A3402033216B003FB2B9 /* MedicalHistory.swift */; };
 		8023B1C8205BAA81005B11AB /* CosmosDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8023B1C7205BAA7F005B11AB /* CosmosDistrib.swift */; };
+		806274E7205F82E900D40BCC /* PrescribedFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806274E3205F82E100D40BCC /* PrescribedFormViewController.swift */; };
+		806274E8205F82E900D40BCC /* PrescribedFormViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 806274E4205F82E700D40BCC /* PrescribedFormViewController.xib */; };
+		806274F7205F832D00D40BCC /* PrescribedLabTestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806274EA205F831300D40BCC /* PrescribedLabTestTableViewCell.swift */; };
+		806274F8205F832D00D40BCC /* PrescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806274EB205F831400D40BCC /* PrescriptionTableViewCell.swift */; };
+		806274F9205F832D00D40BCC /* TotalAmountTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 806274EC205F831600D40BCC /* TotalAmountTableViewCell.xib */; };
+		806274FA205F832D00D40BCC /* PrescribedDrugTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 806274ED205F831700D40BCC /* PrescribedDrugTableViewCell.xib */; };
+		806274FB205F832D00D40BCC /* HeaderTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806274EE205F831700D40BCC /* HeaderTableViewCell.swift */; };
+		806274FC205F832D00D40BCC /* PrescribedDrugTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806274EF205F831800D40BCC /* PrescribedDrugTableViewCell.swift */; };
+		806274FD205F832D00D40BCC /* HeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 806274F0205F831A00D40BCC /* HeaderTableViewCell.xib */; };
+		806274FE205F832D00D40BCC /* QuestionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806274F1205F831E00D40BCC /* QuestionsTableViewCell.swift */; };
+		806274FF205F832D00D40BCC /* QuestionsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 806274F2205F832100D40BCC /* QuestionsTableViewCell.xib */; };
+		80627500205F832D00D40BCC /* PrescribedLabTestTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 806274F3205F832400D40BCC /* PrescribedLabTestTableViewCell.xib */; };
+		80627501205F832D00D40BCC /* PrescribedTableHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806274F4205F832700D40BCC /* PrescribedTableHeader.swift */; };
+		80627502205F832D00D40BCC /* TotalAmountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806274F5205F832A00D40BCC /* TotalAmountTableViewCell.swift */; };
+		80627503205F832D00D40BCC /* PrescriptionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 806274F6205F832C00D40BCC /* PrescriptionTableViewCell.xib */; };
+		80627507205F840400D40BCC /* TableViewHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80627505205F840300D40BCC /* TableViewHeader.xib */; };
+		80627508205F840400D40BCC /* TableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80627506205F840400D40BCC /* TableViewHeader.swift */; };
+		80B5663D2060FF2C00642465 /* PaymentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80B5663B2060FF2C00642465 /* PaymentTableViewCell.swift */; };
+		80B5663E2060FF2C00642465 /* PaymentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80B5663C2060FF2C00642465 /* PaymentTableViewCell.xib */; };
 		B11BB27C201F4ACA00776AC3 /* MedicalHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B11BB27B201F4ACA00776AC3 /* MedicalHistoryView.swift */; };
 		B1283B45203EBA0900490176 /* InboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1283B44203EBA0900490176 /* InboxView.swift */; };
 		B1300F7F2047E22500C3C2B1 /* AppDelegate+Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1300F7E2047E22300C3C2B1 /* AppDelegate+Notification.swift */; };
@@ -376,6 +395,25 @@
 		503ECE4D2037FEF800094FFF /* SocketIOManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
 		50E1A3402033216B003FB2B9 /* MedicalHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalHistory.swift; sourceTree = "<group>"; };
 		8023B1C7205BAA7F005B11AB /* CosmosDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CosmosDistrib.swift; sourceTree = "<group>"; };
+		806274E3205F82E100D40BCC /* PrescribedFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrescribedFormViewController.swift; sourceTree = "<group>"; };
+		806274E4205F82E700D40BCC /* PrescribedFormViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrescribedFormViewController.xib; sourceTree = "<group>"; };
+		806274EA205F831300D40BCC /* PrescribedLabTestTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrescribedLabTestTableViewCell.swift; sourceTree = "<group>"; };
+		806274EB205F831400D40BCC /* PrescriptionTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrescriptionTableViewCell.swift; sourceTree = "<group>"; };
+		806274EC205F831600D40BCC /* TotalAmountTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TotalAmountTableViewCell.xib; sourceTree = "<group>"; };
+		806274ED205F831700D40BCC /* PrescribedDrugTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrescribedDrugTableViewCell.xib; sourceTree = "<group>"; };
+		806274EE205F831700D40BCC /* HeaderTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderTableViewCell.swift; sourceTree = "<group>"; };
+		806274EF205F831800D40BCC /* PrescribedDrugTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrescribedDrugTableViewCell.swift; sourceTree = "<group>"; };
+		806274F0205F831A00D40BCC /* HeaderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderTableViewCell.xib; sourceTree = "<group>"; };
+		806274F1205F831E00D40BCC /* QuestionsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionsTableViewCell.swift; sourceTree = "<group>"; };
+		806274F2205F832100D40BCC /* QuestionsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QuestionsTableViewCell.xib; sourceTree = "<group>"; };
+		806274F3205F832400D40BCC /* PrescribedLabTestTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrescribedLabTestTableViewCell.xib; sourceTree = "<group>"; };
+		806274F4205F832700D40BCC /* PrescribedTableHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrescribedTableHeader.swift; sourceTree = "<group>"; };
+		806274F5205F832A00D40BCC /* TotalAmountTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TotalAmountTableViewCell.swift; sourceTree = "<group>"; };
+		806274F6205F832C00D40BCC /* PrescriptionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrescriptionTableViewCell.xib; sourceTree = "<group>"; };
+		80627505205F840300D40BCC /* TableViewHeader.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TableViewHeader.xib; sourceTree = "<group>"; };
+		80627506205F840400D40BCC /* TableViewHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewHeader.swift; sourceTree = "<group>"; };
+		80B5663B2060FF2C00642465 /* PaymentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentTableViewCell.swift; sourceTree = "<group>"; };
+		80B5663C2060FF2C00642465 /* PaymentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentTableViewCell.xib; sourceTree = "<group>"; };
 		B11BB27B201F4ACA00776AC3 /* MedicalHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalHistoryView.swift; sourceTree = "<group>"; };
 		B1283B44203EBA0900490176 /* InboxView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxView.swift; sourceTree = "<group>"; };
 		B1300F7E2047E22300C3C2B1 /* AppDelegate+Notification.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Notification.swift"; sourceTree = "<group>"; };
@@ -753,6 +791,49 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		806274D6205F64BE00D40BCC /* HistoryDetail */ = {
+			isa = PBXGroup;
+			children = (
+				80627504205F836000D40BCC /* views */,
+				806274E9205F82F700D40BCC /* cells */,
+				806274E3205F82E100D40BCC /* PrescribedFormViewController.swift */,
+				806274E4205F82E700D40BCC /* PrescribedFormViewController.xib */,
+			);
+			name = HistoryDetail;
+			sourceTree = "<group>";
+		};
+		806274E9205F82F700D40BCC /* cells */ = {
+			isa = PBXGroup;
+			children = (
+				806274EE205F831700D40BCC /* HeaderTableViewCell.swift */,
+				806274F0205F831A00D40BCC /* HeaderTableViewCell.xib */,
+				806274EF205F831800D40BCC /* PrescribedDrugTableViewCell.swift */,
+				806274ED205F831700D40BCC /* PrescribedDrugTableViewCell.xib */,
+				806274EA205F831300D40BCC /* PrescribedLabTestTableViewCell.swift */,
+				806274F3205F832400D40BCC /* PrescribedLabTestTableViewCell.xib */,
+				806274F4205F832700D40BCC /* PrescribedTableHeader.swift */,
+				806274EB205F831400D40BCC /* PrescriptionTableViewCell.swift */,
+				806274F6205F832C00D40BCC /* PrescriptionTableViewCell.xib */,
+				806274F1205F831E00D40BCC /* QuestionsTableViewCell.swift */,
+				806274F2205F832100D40BCC /* QuestionsTableViewCell.xib */,
+				806274F5205F832A00D40BCC /* TotalAmountTableViewCell.swift */,
+				806274EC205F831600D40BCC /* TotalAmountTableViewCell.xib */,
+				80B5663B2060FF2C00642465 /* PaymentTableViewCell.swift */,
+				80B5663C2060FF2C00642465 /* PaymentTableViewCell.xib */,
+			);
+			name = cells;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		80627504205F836000D40BCC /* views */ = {
+			isa = PBXGroup;
+			children = (
+				80627506205F840400D40BCC /* TableViewHeader.swift */,
+				80627505205F840300D40BCC /* TableViewHeader.xib */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
 		89C9A9A440DFB97086B7B2FF /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -779,6 +860,7 @@
 		B181BB7920257C74007FCDD9 /* History */ = {
 			isa = PBXGroup;
 			children = (
+				806274D6205F64BE00D40BCC /* HistoryDetail */,
 				B181BB7520257C60007FCDD9 /* HistoryListViewController.swift */,
 				B181BB7620257C60007FCDD9 /* HistoryListViewController.xib */,
 				B181BB7A20257CF1007FCDD9 /* HistoryListCells.xib */,
@@ -932,6 +1014,7 @@
 				23106A78202AACEA00A82882 /* ThankYouViewController.xib in Resources */,
 				23106A7C202AB22F00A82882 /* TrackNurseView.xib in Resources */,
 				23E7BEBB203E812000061938 /* VideoActionButton.xib in Resources */,
+				806274E8205F82E900D40BCC /* PrescribedFormViewController.xib in Resources */,
 				B181BB7820257C60007FCDD9 /* HistoryListViewController.xib in Resources */,
 				50191617202C15AF003E7469 /* ZoomImageViewController.xib in Resources */,
 				23F396F61F70C9DC000D5BBD /* Images.xcassets in Resources */,
@@ -939,6 +1022,7 @@
 				50191618202C15B2003E7469 /* ZoomCollectionViewCell.xib in Resources */,
 				237844891F6FC5EA00C9F7B0 /* Arimo-Bold.ttf in Resources */,
 				B19AD3FF2051A5F60040CFCD /* .gitignore in Resources */,
+				80627507205F840400D40BCC /* TableViewHeader.xib in Resources */,
 				50198038202B28140082C2E6 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				5019803C202B28140082C2E6 /* OpenSans-LightItalic.ttf in Resources */,
 				B181BB7F20259654007FCDD9 /* RatingViewController.xib in Resources */,
@@ -946,11 +1030,14 @@
 				2378448B1F6FC5EA00C9F7B0 /* Arimo-Italic.ttf in Resources */,
 				B181BB842025C7FA007FCDD9 /* rateCollectionCells.xib in Resources */,
 				50191619202C15B5003E7469 /* FilePreviewViewController.xib in Resources */,
+				80627503205F832D00D40BCC /* PrescriptionTableViewCell.xib in Resources */,
+				80627500205F832D00D40BCC /* PrescribedLabTestTableViewCell.xib in Resources */,
 				232591B62040152000BAD003 /* ExtendVideoCallViewController.xib in Resources */,
 				50198039202B28140082C2E6 /* OpenSans-Italic_0.ttf in Resources */,
 				50198036202B28140082C2E6 /* OpenSans-BoldItalic.ttf in Resources */,
 				23E7BECD203E823800061938 /* WaitingChatRoomViewController.xib in Resources */,
 				50198034202B28140082C2E6 /* OpenSans-Bold.ttf in Resources */,
+				806274F9205F832D00D40BCC /* TotalAmountTableViewCell.xib in Resources */,
 				50198032202B28140082C2E6 /* opens___.ttf in Resources */,
 				50198033202B28140082C2E6 /* OpenSans-Bold_0.ttf in Resources */,
 				50198031202B28080082C2E6 /* Info.plist in Resources */,
@@ -964,16 +1051,20 @@
 				2378448D1F6FC5EA00C9F7B0 /* LICENSE.txt in Resources */,
 				5019803F202B28140082C2E6 /* OpenSans-Semibold.ttf in Resources */,
 				2378444F1F6F87E900C9F7B0 /* Main.storyboard in Resources */,
+				806274FF205F832D00D40BCC /* QuestionsTableViewCell.xib in Resources */,
 				50198037202B28140082C2E6 /* OpenSans-ExtraBold.ttf in Resources */,
 				2378448C1F6FC5EA00C9F7B0 /* Arimo-Regular.ttf in Resources */,
 				5019803A202B28140082C2E6 /* OpenSans-Italic.ttf in Resources */,
 				230152791FE1073C0066AED2 /* FAQHeader.xib in Resources */,
+				806274FD205F832D00D40BCC /* HeaderTableViewCell.xib in Resources */,
 				50198035202B28140082C2E6 /* OpenSans-BoldItalic_0.ttf in Resources */,
 				B181BB8220259AB2007FCDD9 /* RateCells.xib in Resources */,
 				23106A75202AACEA00A82882 /* trackCells.xib in Resources */,
 				2378448A1F6FC5EA00C9F7B0 /* Arimo-BoldItalic.ttf in Resources */,
+				806274FA205F832D00D40BCC /* PrescribedDrugTableViewCell.xib in Resources */,
 				238E859B1FB3145D000ACF2B /* TabbarStoryboard.storyboard in Resources */,
 				23E7BECC203E823800061938 /* PartnerMessageTableViewCell.xib in Resources */,
+				80B5663E2060FF2C00642465 /* PaymentTableViewCell.xib in Resources */,
 				5019803E202B28140082C2E6 /* OpenSans-Regular.ttf in Resources */,
 				23E7BECF203E823800061938 /* OwnMessageTableViewCell.xib in Resources */,
 				50198040202B28140082C2E6 /* OpenSans-SemiboldItalic.ttf in Resources */,
@@ -1080,6 +1171,7 @@
 				2331A2FE1FE7E47700767EC4 /* ChangePasswordViewController.swift in Sources */,
 				503ECE442037FD7D00094FFF /* SocketIOClientStatus.swift in Sources */,
 				23E7BEBE203E812000061938 /* VideoCallViewController.swift in Sources */,
+				806274E7205F82E900D40BCC /* PrescribedFormViewController.swift in Sources */,
 				23E7BED0203E823800061938 /* WaitingChatRoomViewController.swift in Sources */,
 				23F4CD9E20073B06002F2ECF /* FSCalendar+Deprecated.m in Sources */,
 				2307926F1FE0DB8D0070DE47 /* MyProfileViewController.swift in Sources */,
@@ -1090,8 +1182,10 @@
 				23019D45201053CE00301477 /* PaymentWebKitViewController.swift in Sources */,
 				B181BB7E20259654007FCDD9 /* RatingViewController.swift in Sources */,
 				50191616202C13B5003E7469 /* AppointmentDeatilsView.swift in Sources */,
+				80627502205F832D00D40BCC /* TotalAmountTableViewCell.swift in Sources */,
 				238E858F1FB1B5F9000ACF2B /* UIImage+PECrop.m in Sources */,
 				8023B1C8205BAA81005B11AB /* CosmosDistrib.swift in Sources */,
+				806274FC205F832D00D40BCC /* PrescribedDrugTableViewCell.swift in Sources */,
 				23106A76202AACEA00A82882 /* TrackViewController.swift in Sources */,
 				503ECE3F2037FD7D00094FFF /* SocketExtensions.swift in Sources */,
 				23F4CD9F20073B06002F2ECF /* FSCalendarConstants.m in Sources */,
@@ -1100,6 +1194,7 @@
 				23F4CDA720073B06002F2ECF /* FSCalendarCalculator.m in Sources */,
 				232591B82040152800BAD003 /* ExtendVideoCallViewController.swift in Sources */,
 				23E7BED1203E823800061938 /* OwnMessageTableViewCell.swift in Sources */,
+				80627508205F840400D40BCC /* TableViewHeader.swift in Sources */,
 				23F4CDA920073B06002F2ECF /* FSCalendarTransitionCoordinator.m in Sources */,
 				50191615202C13B5003E7469 /* ZoomImageViewController.swift in Sources */,
 				503ECE372037FD7D00094FFF /* SocketClientManager.swift in Sources */,
@@ -1110,6 +1205,7 @@
 				238E85931FB1D322000ACF2B /* Constant.swift in Sources */,
 				B181BB7720257C60007FCDD9 /* HistoryListViewController.swift in Sources */,
 				503ECE412037FD7D00094FFF /* SocketIOClientConfiguration.swift in Sources */,
+				806274F7205F832D00D40BCC /* PrescribedLabTestTableViewCell.swift in Sources */,
 				B1300F7F2047E22500C3C2B1 /* AppDelegate+Notification.swift in Sources */,
 				2331A2FA1FE783EA00767EC4 /* EditProfileViewController.swift in Sources */,
 				23F4CDA320073B06002F2ECF /* FSCalendarExtensions.m in Sources */,
@@ -1121,6 +1217,7 @@
 				2378447D1F6F8EA700C9F7B0 /* Reachability.m in Sources */,
 				503ECE452037FD7D00094FFF /* SocketLogger.swift in Sources */,
 				503ECE362037FD7D00094FFF /* SocketAnyEvent.swift in Sources */,
+				806274FB205F832D00D40BCC /* HeaderTableViewCell.swift in Sources */,
 				234CC7071FBFEE8800949576 /* BaseViewController.swift in Sources */,
 				23F4CDA020073B06002F2ECF /* FSCalendarDelegationProxy.m in Sources */,
 				23E3A040200333D1008ABB60 /* ProvidedServicesViewController.swift in Sources */,
@@ -1134,6 +1231,7 @@
 				237AFC5F200C896E00B6C97F /* DoctorsProfileViewController.swift in Sources */,
 				23106A73202AACEA00A82882 /* ThankYouViewController.swift in Sources */,
 				2356A3371FC3DC4200043A18 /* UIImage+animatedGIF.m in Sources */,
+				806274FE205F832D00D40BCC /* QuestionsTableViewCell.swift in Sources */,
 				238E859D1FB31465000ACF2B /* TabbarViewController.swift in Sources */,
 				2309C9181FBC6148000ABD7E /* ForgotPasswordView.swift in Sources */,
 				238E858E1FB1B5F9000ACF2B /* PECropRectView.m in Sources */,
@@ -1154,6 +1252,7 @@
 				B1398BB6203C4AF60028C1D6 /* WaitingRoomViewController.swift in Sources */,
 				23017B921FAB0BB40087E6AE /* LandngScreen.swift in Sources */,
 				B1F1C827204D0A3100A3B43A /* VideoCallViewController+Webservice.swift in Sources */,
+				806274F8205F832D00D40BCC /* PrescriptionTableViewCell.swift in Sources */,
 				503ECE4E2037FEF800094FFF /* SocketIOManager.swift in Sources */,
 				23106A7E202AB22F00A82882 /* TrackNurseView.swift in Sources */,
 				23F4CDA420073B06002F2ECF /* FSCalendarAppearance.m in Sources */,
@@ -1176,6 +1275,7 @@
 				503ECE3B2037FD7D00094FFF /* SocketEnginePollable.swift in Sources */,
 				238E858B1FB1B5F9000ACF2B /* PECropView.m in Sources */,
 				23F4CD9D20073B06002F2ECF /* FSCalendarDelegationFactory.m in Sources */,
+				80B5663D2060FF2C00642465 /* PaymentTableViewCell.swift in Sources */,
 				2309C9191FBC6148000ABD7E /* ResetPasswordView.swift in Sources */,
 				23F4CDA220073B06002F2ECF /* FSCalendarHeaderView.m in Sources */,
 				B1398BB3203C48980028C1D6 /* PulsingHaloLayer.m in Sources */,
@@ -1185,6 +1285,7 @@
 				23E3A03E200329FF008ABB60 /* AvailableDoctorsViewController.swift in Sources */,
 				23F4CDA520073B06002F2ECF /* FSCalendarCollectionViewLayout.m in Sources */,
 				230D81AB200A078900EC2901 /* AddDocumentsView.swift in Sources */,
+				80627501205F832D00D40BCC /* PrescribedTableHeader.swift in Sources */,
 				238E85921FB1D322000ACF2B /* APISniper.swift in Sources */,
 				23141C6B1FBD9C5700BE77A2 /* PlaceholderTextView.m in Sources */,
 				503ECE492037FD7D00094FFF /* SocketTypes.swift in Sources */,
@@ -1349,16 +1450,16 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = QuickHealthPatient/QuickHealthPatient.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: SINGSYS PTE. LTD.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: SINGSYS PTE. LTD.";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Sri Shukla (2R9NDXTZVC)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Sri Shukla (2R9NDXTZVC)";
 				DEVELOPMENT_TEAM = J6XQ9CB78Q;
 				INFOPLIST_FILE = QuickHealthPatient/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.singsys.enterprise.QuickHealthPatientDev;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "49805ddb-888d-40aa-9961-a78205566cf3";
-				PROVISIONING_PROFILE_SPECIFIER = QuickHealthPatientPro;
+				PROVISIONING_PROFILE = "f0b456d4-b011-4a02-b36b-4c73759fe5ec";
+				PROVISIONING_PROFILE_SPECIFIER = QuickHealthDev;
 				SWIFT_OBJC_BRIDGING_HEADER = "QuickHealthPatient/QuickHealthPatient-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;

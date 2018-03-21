@@ -75,6 +75,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         arrayMenuOptions.append(["title":"PRIVACY POLICY", "icon":"HomeIcon"])
         arrayMenuOptions.append(["title":"CONTACT US", "icon":"PlayIcon"])
         arrayMenuOptions.append(["title":"FAQ", "icon":"PlayIcon"])
+        arrayMenuOptions.append(["title":"LOGOUT", "icon":"logout"])
         tblMenuOptions.reloadData()
     }
     // MARK: - @IBAction updateArrayMenuOptions
@@ -92,22 +93,28 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
         btnCloseMenuOverlay.backgroundColor = UIColor.clear
         
         btnMenu.tag = 0
+        var index = Int32(button.tag)
         if (self.delegate != nil) {
-            var index = Int32(button.tag)
+         //   var index = Int32(button.tag)
             if(button == self.btnCloseMenuOverlay){
                 index = -1
             }
             delegate?.slideMenuItemSelectedAtIndex(index)
         }
         
-        UIView.animate(withDuration: 0.3, animations: { () -> Void in
-            self.view.frame = CGRect(x: -UIScreen.main.bounds.size.width, y: 0, width: UIScreen.main.bounds.size.width,height: UIScreen.main.bounds.size.height)
-            self.view.layoutIfNeeded()
-            self.view.backgroundColor = UIColor.clear
-        }, completion: { (finished) -> Void in
-            self.view.removeFromSuperview()
-            self.removeFromParentViewController()
-        })
+        
+        if(index != 6)
+        {
+            UIView.animate(withDuration: 0.3, animations: { () -> Void in
+                self.view.frame = CGRect(x: -UIScreen.main.bounds.size.width, y: 0, width: UIScreen.main.bounds.size.width,height: UIScreen.main.bounds.size.height)
+                self.view.layoutIfNeeded()
+                self.view.backgroundColor = UIColor.clear
+            }, completion: { (finished) -> Void in
+                self.view.removeFromSuperview()
+                self.removeFromParentViewController()
+            })
+        }
+        
     }
     
     // MARK: - Table view delegate datasource methods
@@ -163,7 +170,7 @@ class MenuViewController: UIViewController, UITableViewDataSource, UITableViewDe
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let btn = UIButton(type: UIButtonType.custom)
         btn.tag = indexPath.row
-        self.onCloseMenuClick(btn)
+       self.onCloseMenuClick(btn)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

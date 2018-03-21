@@ -14,6 +14,7 @@ class APISniper : NSObject
     typealias CompleteBlock = ( _ operation: AFHTTPRequestOperation,  _ responseObject: Any) -> Void
     typealias ErrorBlock = ( _ operation: AFHTTPRequestOperation?,  _ error: Error) -> Void
     
+    
     func httpManager(baseUrl: String) -> AFHTTPRequestOperationManager
     {
         let httpManager = AFHTTPRequestOperationManager(baseURL: URL(string: baseUrl))
@@ -45,9 +46,6 @@ class APISniper : NSObject
     func getDataFromWebAPItoken(_ url: String, _ requestData: NSMutableDictionary, _ completeBlock: @escaping CompleteBlock, _ errorBlock: @escaping ErrorBlock)
     {
         self.httpManager(baseUrl: WebAPI.BASE_URLs).post(url, parameters: requestData, success: completeBlock, failure: errorBlock)
-        
-        
-        
     }
     
     
@@ -64,8 +62,6 @@ class APISniper : NSObject
     }
 
 
-
-
     func uploadImages(_ url: String, _ requestData: NSMutableDictionary, _ photoData: NSData, completeBlock: @escaping CompleteBlock, _ errorBlock: @escaping ErrorBlock)
     {
         self.httpManager(baseUrl: WebAPI.BASE_URL).post(url + "?access_token=" + access_token, parameters: requestData, constructingBodyWith: { formData -> Void in
@@ -77,8 +73,7 @@ class APISniper : NSObject
         }, success: completeBlock, failure: errorBlock)
     }
 
-    
-    
+  
     func edituploadImages(_ url: String, _ requestData: NSMutableDictionary, _ photoData: NSData, completeBlock: @escaping CompleteBlock, _ errorBlock: @escaping ErrorBlock)
     {
         self.httpManager(baseUrl: url).post("", parameters: requestData, constructingBodyWith: { formData -> Void in
