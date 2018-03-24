@@ -154,6 +154,12 @@
 		503ECE4E2037FEF800094FFF /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 503ECE4D2037FEF800094FFF /* SocketIOManager.swift */; };
 		50E1A3412033216B003FB2B9 /* MedicalHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50E1A3402033216B003FB2B9 /* MedicalHistory.swift */; };
 		8023B1C8205BAA81005B11AB /* CosmosDistrib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8023B1C7205BAA7F005B11AB /* CosmosDistrib.swift */; };
+		80544BEB2063C8D400CD2D17 /* MedicineHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80544BE52063C8D200CD2D17 /* MedicineHeaderView.swift */; };
+		80544BEC2063C8D400CD2D17 /* MedicineNameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80544BE62063C8D300CD2D17 /* MedicineNameCell.xib */; };
+		80544BED2063C8D400CD2D17 /* MedicineHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80544BE72063C8D300CD2D17 /* MedicineHeaderView.xib */; };
+		80544BEE2063C8D400CD2D17 /* MedicineNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80544BE82063C8D300CD2D17 /* MedicineNameCell.swift */; };
+		80544BEF2063C8D400CD2D17 /* MedicineSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 80544BE92063C8D400CD2D17 /* MedicineSummaryViewController.swift */; };
+		80544BF02063C8D400CD2D17 /* MedicineSummaryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 80544BEA2063C8D400CD2D17 /* MedicineSummaryViewController.xib */; };
 		806274E7205F82E900D40BCC /* PrescribedFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806274E3205F82E100D40BCC /* PrescribedFormViewController.swift */; };
 		806274E8205F82E900D40BCC /* PrescribedFormViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 806274E4205F82E700D40BCC /* PrescribedFormViewController.xib */; };
 		806274F7205F832D00D40BCC /* PrescribedLabTestTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 806274EA205F831300D40BCC /* PrescribedLabTestTableViewCell.swift */; };
@@ -395,6 +401,12 @@
 		503ECE4D2037FEF800094FFF /* SocketIOManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
 		50E1A3402033216B003FB2B9 /* MedicalHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MedicalHistory.swift; sourceTree = "<group>"; };
 		8023B1C7205BAA7F005B11AB /* CosmosDistrib.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CosmosDistrib.swift; sourceTree = "<group>"; };
+		80544BE52063C8D200CD2D17 /* MedicineHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MedicineHeaderView.swift; sourceTree = "<group>"; };
+		80544BE62063C8D300CD2D17 /* MedicineNameCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MedicineNameCell.xib; sourceTree = "<group>"; };
+		80544BE72063C8D300CD2D17 /* MedicineHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MedicineHeaderView.xib; sourceTree = "<group>"; };
+		80544BE82063C8D300CD2D17 /* MedicineNameCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MedicineNameCell.swift; sourceTree = "<group>"; };
+		80544BE92063C8D400CD2D17 /* MedicineSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MedicineSummaryViewController.swift; sourceTree = "<group>"; };
+		80544BEA2063C8D400CD2D17 /* MedicineSummaryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MedicineSummaryViewController.xib; sourceTree = "<group>"; };
 		806274E3205F82E100D40BCC /* PrescribedFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrescribedFormViewController.swift; sourceTree = "<group>"; };
 		806274E4205F82E700D40BCC /* PrescribedFormViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrescribedFormViewController.xib; sourceTree = "<group>"; };
 		806274EA205F831300D40BCC /* PrescribedLabTestTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrescribedLabTestTableViewCell.swift; sourceTree = "<group>"; };
@@ -491,6 +503,7 @@
 		23106A6C202AAC9500A82882 /* Track Section */ = {
 			isa = PBXGroup;
 			children = (
+				80544BE42063C8C100CD2D17 /* Medicine */,
 				23106A6E202AACE800A82882 /* thankYouCells.xib */,
 				23106A6D202AACE800A82882 /* ThankYouViewController.swift */,
 				23106A72202AACE900A82882 /* ThankYouViewController.xib */,
@@ -791,6 +804,19 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		80544BE42063C8C100CD2D17 /* Medicine */ = {
+			isa = PBXGroup;
+			children = (
+				80544BE52063C8D200CD2D17 /* MedicineHeaderView.swift */,
+				80544BE72063C8D300CD2D17 /* MedicineHeaderView.xib */,
+				80544BE82063C8D300CD2D17 /* MedicineNameCell.swift */,
+				80544BE62063C8D300CD2D17 /* MedicineNameCell.xib */,
+				80544BE92063C8D400CD2D17 /* MedicineSummaryViewController.swift */,
+				80544BEA2063C8D400CD2D17 /* MedicineSummaryViewController.xib */,
+			);
+			name = Medicine;
+			sourceTree = "<group>";
+		};
 		806274D6205F64BE00D40BCC /* HistoryDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -1015,6 +1041,7 @@
 				23106A7C202AB22F00A82882 /* TrackNurseView.xib in Resources */,
 				23E7BEBB203E812000061938 /* VideoActionButton.xib in Resources */,
 				806274E8205F82E900D40BCC /* PrescribedFormViewController.xib in Resources */,
+				80544BF02063C8D400CD2D17 /* MedicineSummaryViewController.xib in Resources */,
 				B181BB7820257C60007FCDD9 /* HistoryListViewController.xib in Resources */,
 				50191617202C15AF003E7469 /* ZoomImageViewController.xib in Resources */,
 				23F396F61F70C9DC000D5BBD /* Images.xcassets in Resources */,
@@ -1027,6 +1054,7 @@
 				5019803C202B28140082C2E6 /* OpenSans-LightItalic.ttf in Resources */,
 				B181BB7F20259654007FCDD9 /* RatingViewController.xib in Resources */,
 				5019803B202B28140082C2E6 /* OpenSans-Light.ttf in Resources */,
+				80544BED2063C8D400CD2D17 /* MedicineHeaderView.xib in Resources */,
 				2378448B1F6FC5EA00C9F7B0 /* Arimo-Italic.ttf in Resources */,
 				B181BB842025C7FA007FCDD9 /* rateCollectionCells.xib in Resources */,
 				50191619202C15B5003E7469 /* FilePreviewViewController.xib in Resources */,
@@ -1065,6 +1093,7 @@
 				238E859B1FB3145D000ACF2B /* TabbarStoryboard.storyboard in Resources */,
 				23E7BECC203E823800061938 /* PartnerMessageTableViewCell.xib in Resources */,
 				80B5663E2060FF2C00642465 /* PaymentTableViewCell.xib in Resources */,
+				80544BEC2063C8D400CD2D17 /* MedicineNameCell.xib in Resources */,
 				5019803E202B28140082C2E6 /* OpenSans-Regular.ttf in Resources */,
 				23E7BECF203E823800061938 /* OwnMessageTableViewCell.xib in Resources */,
 				50198040202B28140082C2E6 /* OpenSans-SemiboldItalic.ttf in Resources */,
@@ -1213,6 +1242,7 @@
 				2304C086200736EB00BDE45C /* AvailabilityViewController.swift in Sources */,
 				2367D13A1FAC9E6E00DA8358 /* SignupViewController.swift in Sources */,
 				B1283B45203EBA0900490176 /* InboxView.swift in Sources */,
+				80544BEB2063C8D400CD2D17 /* MedicineHeaderView.swift in Sources */,
 				23F4CD9C20073B06002F2ECF /* FSCalendarWeekdayView.m in Sources */,
 				2378447D1F6F8EA700C9F7B0 /* Reachability.m in Sources */,
 				503ECE452037FD7D00094FFF /* SocketLogger.swift in Sources */,
@@ -1250,6 +1280,7 @@
 				503ECE3D2037FD7D00094FFF /* SocketEngineWebsocket.swift in Sources */,
 				23F4CDA120073B06002F2ECF /* FSCalendar.m in Sources */,
 				B1398BB6203C4AF60028C1D6 /* WaitingRoomViewController.swift in Sources */,
+				80544BEE2063C8D400CD2D17 /* MedicineNameCell.swift in Sources */,
 				23017B921FAB0BB40087E6AE /* LandngScreen.swift in Sources */,
 				B1F1C827204D0A3100A3B43A /* VideoCallViewController+Webservice.swift in Sources */,
 				806274F8205F832D00D40BCC /* PrescriptionTableViewCell.swift in Sources */,
@@ -1281,6 +1312,7 @@
 				B1398BB3203C48980028C1D6 /* PulsingHaloLayer.m in Sources */,
 				503ECE462037FD7D00094FFF /* SocketPacket.swift in Sources */,
 				503ECE352037FD7D00094FFF /* SocketAckManager.swift in Sources */,
+				80544BEF2063C8D400CD2D17 /* MedicineSummaryViewController.swift in Sources */,
 				237AFC5D200C61CE00B6C97F /* FloatRatingView.swift in Sources */,
 				23E3A03E200329FF008ABB60 /* AvailableDoctorsViewController.swift in Sources */,
 				23F4CDA520073B06002F2ECF /* FSCalendarCollectionViewLayout.m in Sources */,

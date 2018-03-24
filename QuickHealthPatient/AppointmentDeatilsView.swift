@@ -132,13 +132,13 @@ class AppointmentDeatilsView: UIViewController,UITableViewDataSource,UITableView
                 
                 if(profileDictionary.value(forKey: "available_date") != nil)
                 {
-                    patientDate.text = CommonValidations.getDateStringFromDateString(date: "\(profileDictionary.value(forKey: "available_date")!)", fromDateString: "yyyy/MM/dd", toDateString: "dd MMM, yyyy")
+                    patientDate.text = CommonValidations.getDateUTCStringFromDateString(date: "\(profileDictionary.value(forKey: "available_date")!)", fromDateString: "yyyy/MM/dd", toDateString: "dd MMM, yyyy")
                 }
                 
                 
                 if(profileDictionary.value(forKey: "start_time") != nil && "\(profileDictionary.value(forKey: "start_time")!)" != "00:00:00")
                 {
-                    patientTime.text = CommonValidations.getDateStringFromDateString(date: "\(profileDictionary.value(forKey: "start_time")!)", fromDateString: "HH:mm:ss", toDateString: "hh:mm a")
+                    patientTime.text = CommonValidations.getDateUTCStringFromDateString(date: "\(profileDictionary.value(forKey: "start_time")!)", fromDateString: "HH:mm:ss", toDateString: "hh:mm a")
                 }
                 
                 if(profileDictionary.value(forKey: "occupation") != nil)

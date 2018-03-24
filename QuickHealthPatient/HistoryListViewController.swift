@@ -141,9 +141,9 @@ class HistoryListViewController: UIViewController,UITableViewDelegate,UITableVie
         
         if dic.object(forKey: "call_updated_on") != nil && "\(dic.object(forKey: "call_updated_on")!)" != "" && "\(dic.object(forKey: "call_updated_on")!)" != "0000-00-00 00:00:00"
         {
-            DateLabel.text = CommonValidations.getDateStringFromDateString(date: "\(dic.object(forKey: "call_updated_on")!)", fromDateString: "YYYY-MM-dd HH:mm:ss", toDateString: "dd MMM, YYYY")
+            DateLabel.text = CommonValidations.getDateUTCStringFromDateString(date: "\(dic.object(forKey: "call_updated_on")!)", fromDateString: "YYYY-MM-dd HH:mm:ss", toDateString: "dd MMM, YYYY")
             
-            TimeLabel.text = CommonValidations.getDateStringFromDateString(date: "\(dic.object(forKey: "call_updated_on")!)", fromDateString: "YYYY-MM-dd HH:mm:ss", toDateString: "hh:mm a")
+            TimeLabel.text = CommonValidations.getDateUTCStringFromDateString(date: "\(dic.object(forKey: "call_updated_on")!)", fromDateString: "YYYY-MM-dd HH:mm:ss", toDateString: "hh:mm a")
         }
         else
         {

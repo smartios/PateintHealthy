@@ -99,8 +99,8 @@ class TrackViewController: UIViewController,UITableViewDelegate,UITableViewDataS
                 profileImage.setImageWith(URL(string: "\(dic.value(forKey: "user_image")!)")!, placeholderImage: #imageLiteral(resourceName: "profile"))
                 nameLabel.text = "\(dic.value(forKey: "first_name")!) \(dic.value(forKey: "last_name")!)"
                 transactionLabel.text = "ID-\(dic.value(forKey: "unique_number")!)"
-                transactionDateLabel.text = CommonValidations.getDateStringFromDateString(date: "\((dic.value(forKey: "nurse_location") as! NSDictionary).value(forKey: "updated_on")!)", fromDateString: "yyyy-MM-dd HH:mm:ss", toDateString: "dd MMM yyyy")
-                transactionTimeLabel.text = CommonValidations.getDateStringFromDateString(date: "\((dic.value(forKey: "nurse_location") as! NSDictionary).value(forKey: "updated_on")!)", fromDateString: "yyyy-MM-dd HH:mm:ss", toDateString: "hh:mm a")
+                transactionDateLabel.text = CommonValidations.getDateUTCStringFromDateString(date: "\((dic.value(forKey: "nurse_location") as! NSDictionary).value(forKey: "updated_on")!)", fromDateString: "yyyy-MM-dd HH:mm:ss", toDateString: "dd MMM yyyy")
+                transactionTimeLabel.text = CommonValidations.getDateUTCStringFromDateString(date: "\((dic.value(forKey: "nurse_location") as! NSDictionary).value(forKey: "updated_on")!)", fromDateString: "yyyy-MM-dd HH:mm:ss", toDateString: "hh:mm a")
                 physicianLabel.text = "\(dic.value(forKey: "occupation")!)"
             }
         }
@@ -123,6 +123,8 @@ class TrackViewController: UIViewController,UITableViewDelegate,UITableViewDataS
         
     }
     
+    
+   
     /// When user clicks on the button - Pop back to screen.
     ///
     /// - Parameter sender: UIButton

@@ -63,9 +63,9 @@ struct TrackNurse{
             userID = "ID-\((json.value(forKey: "nurse_details") as! NSDictionary).value(forKey: "unique_number")!)"
             user_id = "\((json.value(forKey: "nurse_details") as! NSDictionary).value(forKey: "id_user")!)"
             
-            appointmentDate =  CommonValidations.getDateStringFromDateString(date: "\(json.value(forKey: "available_date")!)", fromDateString: "yyyy-MM-dd", toDateString: "dd MMM yyyy")
+            appointmentDate =  CommonValidations.getDateUTCStringFromDateString(date: "\(json.value(forKey: "available_date")!)", fromDateString: "yyyy-MM-dd", toDateString: "dd MMM yyyy")
             address = "\((json.value(forKey: "nurse_details") as! NSDictionary).value(forKey: "address")!)"
-           appointmentTime = CommonValidations.getDateStringFromDateString(date: "\(json.value(forKey: "start_time")!)", fromDateString: "HH:mm:ss", toDateString: "hh:mm a")
+           appointmentTime = CommonValidations.getDateUTCStringFromDateString(date: "\(json.value(forKey: "start_time")!)", fromDateString: "HH:mm:ss", toDateString: "hh:mm a")
             //
             let lat = Double("\(((json.value(forKey: "nurse_details") as! NSDictionary).value(forKey: "nurse_location") as! NSDictionary).value(forKey: "latitude")!)")
             let lon = Double("\(((json.value(forKey: "nurse_details") as! NSDictionary).value(forKey: "nurse_location") as! NSDictionary).value(forKey: "longitude")!)")

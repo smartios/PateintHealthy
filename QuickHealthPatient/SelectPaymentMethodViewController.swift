@@ -17,7 +17,8 @@ class SelectPaymentMethodViewController: UIViewController {
     @IBOutlet weak var payViaMpesaBtnOutlet: UIButton!
     @IBOutlet weak var payViaPayPalBtnOutlet: UIButton!
     var id_appt_forPayment = Int()
-    var price_forPayment = Int()
+    var price_forPayment = String()
+    var paymentDic = NSDictionary()
     var from = ""
     var delegate: paymentCancelleDelegate?
     
@@ -39,12 +40,20 @@ class SelectPaymentMethodViewController: UIViewController {
         payViaPayPalBtnOutlet.layer.borderWidth = 1
         payViaPayPalBtnOutlet.layer.borderColor = UIColor(red: 0.0 / 255.0, green: 128.0 / 255.0, blue: 128.0 / 255.0, alpha: 1.0).cgColor
 
-        
-        let attributedString = NSMutableAttributedString(string: "You will be charged $\(price_forPayment) as a consultant fees for the slot of 20min with general physician. Please select you payment method.")
-        
-        attributedString.addAttribute(NSForegroundColorAttributeName, value:UIColor.black , range: attributedString.string.NSRangeFromRange(range: attributedString.string.range(of: "\(price_forPayment)")!))
-
-        textLbl.attributedText = attributedString
+        if from != "prescription_order"
+        {
+            let attributedString = NSMutableAttributedString(string: "You will be charged $\(price_forPayment) as a consultant fees for the slot of 20min with general physician. Please select you payment method.")
+            attributedString.addAttribute(NSForegroundColorAttributeName, value:UIColor.black , range: attributedString.string.NSRangeFromRange(range: attributedString.string.range(of: "\(price_forPayment)")!))
+            
+            textLbl.attributedText = attributedString
+        }
+        else
+        {
+            let attributedString = NSMutableAttributedString(string: "You will be charged $\(price_forPayment) for the order.")
+            attributedString.addAttribute(NSForegroundColorAttributeName, value:UIColor.black , range: attributedString.string.NSRangeFromRange(range: attributedString.string.range(of: "\(price_forPayment)")!))
+            textLbl.attributedText = attributedString
+        }
+      
         // Do any additional setup after loading the view.
     }
 
@@ -67,10 +76,15 @@ class SelectPaymentMethodViewController: UIViewController {
         
         let apiSniper = APISniper()
         
-        let params = NSMutableDictionary()
+        var params = NSMutableDictionary()
         params.setObject(id_appt_forPayment, forKey: "id_appointment" as NSCopying)
         params.setValue(self.from, forKey: "type")
-      //  params.setValue("\((UserDefaults.standard.value(forKey: "user_detail") as! NSDictionary).value(forKey: "user_api_key")!)", forKey: "user_api_key")
+        
+        if(from == "prescription_order")
+        {
+           params = paymentDic.mutableCopy() as! NSMutableDictionary
+        }
+        
         apiSniper.getDataFromWebAPI(WebAPI.paypal_payment_request, params ,{(operation, responseObject) in
             
             if let dataFromServer = responseObject as? NSDictionary

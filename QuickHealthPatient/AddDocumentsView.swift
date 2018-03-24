@@ -543,7 +543,7 @@ class AddDocumentsView: UIViewController,UITableViewDataSource,UITableViewDelega
                     
                     if ((dataFromServer.object(forKey: "data") as! NSDictionary).object(forKey: "price") != nil)
                     {
-                        vc.price_forPayment = Int("\((dataFromServer.object(forKey: "data") as! NSDictionary).object(forKey: "price")!)")!
+                        vc.price_forPayment = "\(Int("\((dataFromServer.object(forKey: "data") as! NSDictionary).object(forKey: "price")!)")!)"
                     }
                     
                     self.navigationController?.pushViewController(vc, animated: true)

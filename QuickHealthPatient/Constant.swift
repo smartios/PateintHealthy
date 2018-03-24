@@ -9,7 +9,6 @@
 import Foundation
 
 
-
 let appDelegate = UIApplication.shared.delegate as! AppDelegate
 let access_token = UserDefaults.standard.object(forKey: "access_token") as! String
 
@@ -19,9 +18,9 @@ let access_token = UserDefaults.standard.object(forKey: "access_token") as! Stri
 //let webServiceUrl = "http://103.15.232.35/singsys-stg3/quickhealth/webservice/" //// Staging Server
 
 //let webServiceUrl = "http://quickhealth4u.com/develop/webservice/" //new Dev
-let webServiceUrl = "https://quickhealth4u.com/webservice/" //new pro
+//let webServiceUrl = "https://quickhealth4u.com/webservice/" //new pro
 
-//let webServiceUrl = "http://192.168.45.67/ci/quickhealth/webservice/" //local
+let webServiceUrl = "http://192.168.5.76/quickhealth/webservice/" //local
 
 
 struct WebAPI {
@@ -30,11 +29,11 @@ struct WebAPI {
     
     //   static let BASE_URLs = "http://115.249.91.204/quickhealth/" // development
     
-    //  static let BASE_URLs = "http://quickhealth4u.com/develop/" //new dev
+//    static let BASE_URLs = "http://quickhealth4u.com/develop/" //new dev
     
-    static let BASE_URLs = "https://quickhealth4u.com/" //new pro
+    //    static let BASE_URLs = "https://quickhealth4u.com/" //new pro
     
-    //   static let BASE_URLs = "http://192.168.45.67/ci/quickhealth/" //local
+    static let BASE_URLs = "http://192.168.5.76/quickhealth/" //local
     
     // static let BASE_URLs = "http://103.15.232.35/singsys-stg3/quickhealth/" // // Staging Server
     

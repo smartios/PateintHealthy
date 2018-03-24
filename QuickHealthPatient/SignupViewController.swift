@@ -19,7 +19,7 @@ class SignupView: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
     var imagetoset = "signupimg"
     var ncode = ""
     var checkBoxSelection = false
-   // let locationManager = CLLocationManager()
+    // let locationManager = CLLocationManager()
     
     var dataArray = [" ","FIRST NAME","LAST NAME","DATE OF BIRTH","GENDER","EMAIL ADDRESS","MOBILE NUMBER","ADDRESS","STREET ADDRESS","CITY","LOCATION","AREA CODE","COUNTRY","PASSWORD","CONFIRM PASSWORD"]
     var signupDataDict = NSMutableDictionary()
@@ -42,7 +42,7 @@ class SignupView: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
         //////////for current location////////////////
         placesClient = GMSPlacesClient.shared()
         if CLLocationManager.locationServicesEnabled() {
-           // appDelegate.locationManager.delegate = self
+            // appDelegate.locationManager.delegate = self
             appDelegate.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters
             appDelegate.locationManager.startUpdatingLocation()
         }
@@ -1147,24 +1147,24 @@ class SignupView: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
             
         }
         
-//        if signupDataDict.object(forKey: "street_address") == nil ||  signupDataDict.object(forKey: "street_address") as! String == ""
-//        {
-//            supportingfuction.showMessageHudWithMessage(message: "Please enter street address.", delay: 2.0)
-//            return
-//        }
-//        
-//        
-//        if signupDataDict.object(forKey: "city") == nil ||  signupDataDict.object(forKey: "city") as! String == ""
-//        {
-//            supportingfuction.showMessageHudWithMessage(message: "Please enter city." as NSString, delay: 2.0)
-//            return
-//        }
-//        
-//        if signupDataDict.object(forKey: "state") == nil ||  signupDataDict.object(forKey: "state") as! String == ""
-//        {
-//            supportingfuction.showMessageHudWithMessage(message: "Please enter location." as NSString, delay: 2.0)
-//            return
-//        }
+        //        if signupDataDict.object(forKey: "street_address") == nil ||  signupDataDict.object(forKey: "street_address") as! String == ""
+        //        {
+        //            supportingfuction.showMessageHudWithMessage(message: "Please enter street address.", delay: 2.0)
+        //            return
+        //        }
+        //
+        //
+        //        if signupDataDict.object(forKey: "city") == nil ||  signupDataDict.object(forKey: "city") as! String == ""
+        //        {
+        //            supportingfuction.showMessageHudWithMessage(message: "Please enter city." as NSString, delay: 2.0)
+        //            return
+        //        }
+        //
+        //        if signupDataDict.object(forKey: "state") == nil ||  signupDataDict.object(forKey: "state") as! String == ""
+        //        {
+        //            supportingfuction.showMessageHudWithMessage(message: "Please enter location." as NSString, delay: 2.0)
+        //            return
+        //        }
         
         
         if signupDataDict.object(forKey: "area_code") == nil ||  signupDataDict.object(forKey: "area_code") as! String == ""
@@ -1452,9 +1452,34 @@ class SignupView: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
         dict.setObject(signupDataDict.object(forKey: "email") as! String, forKey: "email" as NSCopying)
         dict.setObject(signupDataDict.object(forKey: "mobile_number") as! String, forKey: "mobile_number" as NSCopying)
         dict.setObject(signupDataDict.object(forKey: "address") as! String, forKey: "address" as NSCopying)
-        dict.setObject(signupDataDict.object(forKey: "street_address") as! String, forKey: "street_address" as NSCopying)
-        dict.setObject(signupDataDict.object(forKey: "city") as! String, forKey: "city" as NSCopying)
-        dict.setObject(signupDataDict.object(forKey: "state") as! String, forKey: "state" as NSCopying)
+        
+        if(signupDataDict.object(forKey: "street_address") != nil)
+        {
+            dict.setObject(signupDataDict.object(forKey: "street_address") as! String, forKey: "street_address" as NSCopying)
+        }
+        else
+        {
+            dict.setObject("", forKey: "street_address" as NSCopying)
+        }
+        
+        if(signupDataDict.object(forKey: "city") != nil)
+        {
+            dict.setObject(signupDataDict.object(forKey: "city") as! String, forKey: "city" as NSCopying)
+        }
+        else
+        {
+            dict.setObject("", forKey: "city" as NSCopying)
+        }
+        
+        if(signupDataDict.object(forKey: "state") != nil)
+        {
+            dict.setObject(signupDataDict.object(forKey: "state") as! String, forKey: "state" as NSCopying)
+        }
+        else
+        {
+            dict.setObject("", forKey: "state" as NSCopying)
+        }
+        
         dict.setObject(signupDataDict.object(forKey: "area_code") as! String, forKey: "area_code" as NSCopying)
         dict.setObject(signupDataDict.object(forKey: "country") as! String, forKey: "country" as NSCopying)
         dict.setObject(signupDataDict.object(forKey: "password") as! String, forKey: "password" as NSCopying)
@@ -1465,8 +1490,24 @@ class SignupView: UIViewController,UITableViewDataSource,UITableViewDelegate,UIT
         
         let lat = appDelegate.locationManager.location?.coordinate.longitude
         let lon = appDelegate.locationManager.location?.coordinate.latitude
-        dict.setObject("\(lon!)", forKey: "longitude" as NSCopying)
-        dict.setObject("\(lat!)", forKey: "latitude" as NSCopying)
+        
+        if(lat != nil)
+        {
+            dict.setObject("\(lat!)", forKey: "latitude" as NSCopying)
+        }
+        else
+        {
+            dict.setObject("", forKey: "latitude" as NSCopying)
+        }
+        
+        if(lon != nil)
+        {
+            dict.setObject("\(lon!)", forKey: "longitude" as NSCopying)
+        }
+        else
+        {
+            dict.setObject("", forKey: "longitude" as NSCopying)
+        }
         
         let apiSniper = APISniper()
         apiSniper.uploadImages(WebAPI.signup_webMehod,dict, imageData, completeBlock: {(operation, responseObject) in
@@ -1547,6 +1588,7 @@ extension SignupView: GMSAutocompleteViewControllerDelegate {
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
 }
+
 extension SignupView: GMSAutocompleteResultsViewControllerDelegate {
     func resultsController(_ resultsController: GMSAutocompleteResultsViewController,
                            didAutocompleteWith place: GMSPlace) {

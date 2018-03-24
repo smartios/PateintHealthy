@@ -5325,7 +5325,7 @@
                                                     <rect key="frame" x="24" y="0.0" width="272" height="50"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="CHOOSE AVAILABLE SLOT" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JW1-77-Xiq">
-                                                            <rect key="frame" x="0.0" y="16.5" width="272" height="18"/>
+                                                            <rect key="frame" x="0.0" y="16" width="272" height="18"/>
                                                             <fontDescription key="fontDescription" name="OpenSans-Semibold" family="Open Sans" pointSize="13"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -6825,6 +6825,13 @@
                                     <constraint firstAttribute="bottom" secondItem="3Ip-Sh-GAF" secondAttribute="bottom" constant="-20" id="x0C-KR-Y18"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LeH-Ce-xlN" customClass="MedicineHeaderView" customModule="QuickHealthPatient" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="66" width="320" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="azZ-iJ-Bqh"/>
+                                </constraints>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cdz-iO-aKt">
                                 <rect key="frame" x="0.0" y="66" width="320" height="136"/>
                                 <constraints>
@@ -6845,9 +6852,13 @@
                             <constraint firstItem="Frw-do-aVa" firstAttribute="trailing" secondItem="l4m-rk-LNn" secondAttribute="trailing" id="233-JL-pPp"/>
                             <constraint firstItem="Frw-do-aVa" firstAttribute="trailing" secondItem="zgy-7y-KBW" secondAttribute="trailing" id="97f-d9-pI7"/>
                             <constraint firstItem="zgy-7y-KBW" firstAttribute="top" secondItem="cdz-iO-aKt" secondAttribute="bottom" constant="3" id="9fg-YN-OrN"/>
+                            <constraint firstItem="cdz-iO-aKt" firstAttribute="top" secondItem="LeH-Ce-xlN" secondAttribute="bottom" constant="-50" id="E63-Xv-fJU"/>
                             <constraint firstItem="cdz-iO-aKt" firstAttribute="leading" secondItem="Frw-do-aVa" secondAttribute="leading" id="EaA-bf-Wf9"/>
                             <constraint firstItem="l4m-rk-LNn" firstAttribute="top" secondItem="Frw-do-aVa" secondAttribute="top" id="MEK-HS-9IE"/>
                             <constraint firstItem="cdz-iO-aKt" firstAttribute="top" secondItem="l4m-rk-LNn" secondAttribute="bottom" constant="2" id="OVP-K4-yHw"/>
+                            <constraint firstItem="LeH-Ce-xlN" firstAttribute="trailing" secondItem="cdz-iO-aKt" secondAttribute="trailing" id="UeQ-HT-Bdo"/>
+                            <constraint firstItem="LeH-Ce-xlN" firstAttribute="leading" secondItem="cdz-iO-aKt" secondAttribute="leading" id="WiE-BY-pPu"/>
+                            <constraint firstItem="LeH-Ce-xlN" firstAttribute="leading" secondItem="cdz-iO-aKt" secondAttribute="trailing" constant="-320" id="YWN-KP-CYY"/>
                             <constraint firstItem="cdz-iO-aKt" firstAttribute="centerX" secondItem="Frw-do-aVa" secondAttribute="centerX" id="eHg-BJ-2YM"/>
                             <constraint firstItem="Frw-do-aVa" firstAttribute="trailing" secondItem="cdz-iO-aKt" secondAttribute="trailing" id="l5D-sa-40a"/>
                             <constraint firstItem="zgy-7y-KBW" firstAttribute="leading" secondItem="Frw-do-aVa" secondAttribute="leading" id="vNL-0r-Cvo"/>
@@ -6857,10 +6868,10 @@
                         <viewLayoutGuide key="safeArea" id="Frw-do-aVa"/>
                     </view>
                     <connections>
+                        <outlet property="headerView" destination="LeH-Ce-xlN" id="azT-2Q-MSm"/>
                         <outlet property="mapView" destination="zgy-7y-KBW" id="kuM-gc-3l1"/>
                         <outlet property="titleLabel" destination="fsa-Xp-bif" id="aB7-05-egl"/>
                         <outlet property="trackUserView" destination="cdz-iO-aKt" id="iOc-Ln-YfB"/>
-                        <outlet property="viewConstrainsts" destination="fhf-VP-BjL" id="zzb-GT-pCx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hJq-pi-8WG" userLabel="First Responder" sceneMemberID="firstResponder"/>

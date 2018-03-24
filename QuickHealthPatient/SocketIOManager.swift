@@ -13,8 +13,9 @@ class SocketIOManager: NSObject {
     static let sharedInstance = SocketIOManager()
     
     internal private(set) var status = SocketIOClientStatus.notConnected
-    
-    var socket: SocketIOClient = SocketIOClient(socketURL: NSURL(string: "https://quickhealth4u.com:9042")! as URL, config:[.reconnects(true), .reconnectAttempts(5), .reconnectWait(20), .log(false), .forcePolling(false), .forceWebsockets(false),.forceNew(false),.secure(false),.selfSigned(false)]);
+    //192.168.5.76 port : 9091 local ip
+    //https://quickhealth4u.com:9042 prod
+    var socket: SocketIOClient = SocketIOClient(socketURL: NSURL(string: "http://192.168.5.76:9091")! as URL, config:[.reconnects(true), .reconnectAttempts(5), .reconnectWait(20), .log(false), .forcePolling(false), .forceWebsockets(false),.forceNew(false),.secure(false),.selfSigned(false)]);
     //    var socket: SocketIOClient = SocketIOClient(socketURL: NSURL(string: "http://192.168.45.67:3212/")! as URL, config:[.reconnects(true), .reconnectAttempts(5), .reconnectWait(20), .log(false), .forcePolling(false), .forceWebsockets(false),.forceNew(false),.secure(false),.selfSigned(false)]);
     
     

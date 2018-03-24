@@ -151,12 +151,12 @@ class AppointmentListViewController: BaseViewController,UITableViewDelegate, UIT
                 let mathString: String = (((todayApptArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "available_date") as! String))
                 let numbers = mathString.components(separatedBy: [" "])
                 
-                patientDate.text = CommonValidations.getDateStringFromDateString(date: "\(numbers[0])", fromDateString: "YYYY-MM-dd", toDateString: "dd MMM, YYYY")
+                patientDate.text = CommonValidations.getDateUTCStringFromDateString(date: "\(numbers[0])", fromDateString: "YYYY-MM-dd", toDateString: "dd MMM, YYYY")
             }
             
             if ((todayApptArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "start_time") as? String) != nil
             {
-                patientTime.text =  CommonValidations.getDateStringFromDateString(date: "\((todayApptArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "start_time")!)", fromDateString: "HH:mm:ss", toDateString: "hh:mm a")
+                patientTime.text =  CommonValidations.getDateUTCStringFromDateString(date: "\((todayApptArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "start_time")!)", fromDateString: "HH:mm:ss", toDateString: "hh:mm a")
             }
             
             if (((todayApptArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "doctor_detail") as! NSDictionary).object(forKey: "service_title") as? String) != nil
@@ -209,12 +209,12 @@ class AppointmentListViewController: BaseViewController,UITableViewDelegate, UIT
                 let mathString: String = (((upcommingApptArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "available_date") as! String))
                 let numbers = mathString.components(separatedBy: [" "])
                 
-                patientDate.text = CommonValidations.getDateStringFromDateString(date: "\(numbers[0])", fromDateString: "YYYY-MM-dd", toDateString: "dd MMM, YYYY")
+                patientDate.text = CommonValidations.getDateUTCStringFromDateString(date: "\(numbers[0])", fromDateString: "YYYY-MM-dd", toDateString: "dd MMM, YYYY")
             }
             
             if ((upcommingApptArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "start_time") as? String) != nil
             {
-                patientTime.text =  CommonValidations.getDateStringFromDateString(date: "\(((upcommingApptArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "start_time") as! String))", fromDateString: "HH:mm:SS", toDateString: "hh:mm a")
+                patientTime.text =  CommonValidations.getDateUTCStringFromDateString(date: "\(((upcommingApptArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "start_time") as! String))", fromDateString: "HH:mm:SS", toDateString: "hh:mm a")
             }
             
             if (((upcommingApptArray.object(at: indexPath.row) as! NSDictionary).object(forKey: "doctor_detail") as! NSDictionary).object(forKey: "service_title") as? String) != nil

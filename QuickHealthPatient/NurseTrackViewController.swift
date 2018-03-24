@@ -11,7 +11,7 @@ import GoogleMaps
 import GooglePlaces
 
 
-class NurseTrackViewController: UIViewController{
+class NurseTrackViewController: UIViewController, ShowHideMedicineSummary{
     
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var trackUserView: UIView!
@@ -25,23 +25,25 @@ class NurseTrackViewController: UIViewController{
     var zoomLevel: Float = 15.0
     var currentLocationMarker: GMSMarker!
     var polyline:GMSPolyline!
-    @IBOutlet weak var viewConstrainsts: NSLayoutConstraint!
+ 
     var from = ""
+    @IBOutlet weak var headerView: MedicineHeaderView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        headerView.delegate = self
         if(from == "")
         {
-            viewConstrainsts.constant = 136
+           
             trackUserView.addSubview(self.getTrackNurseHeaderView())
             self.trackUserData = TrackNurse(json: dataDic)
             trackNurseView.userTrackData = self.trackUserData
         }
         else
         {
-            viewConstrainsts.constant = 50
+         
             
         }
         
@@ -114,6 +116,31 @@ class NurseTrackViewController: UIViewController{
     
     @IBAction func backButtonClicked(_ sender: UIButton) {
         self.navigationController?.popViewController(animated: true)
+    }
+    
+    
+    func showHideMedicineSummary(isShow: Bool) {
+        if isShow{
+            let summaryVC = MedicineSummaryViewController()
+            self.view.addSubview(summaryVC.view)
+            summaryVC.view.frame = CGRect(x: headerView.frame.origin.x, y: headerView.frame.origin.y + headerView.frame.size.height , width: headerView.frame.size.width, height: 0)
+            UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseIn, animations: {
+                summaryVC.view.frame = CGRect(x: 0, y: self.headerView.frame.origin.y + self.headerView.frame.size.height, width: UIScreen.main.bounds.width, height: 300)
+            }) { _  in
+            }
+            self.addChildViewController(summaryVC)
+        }else{
+            for childController in self.childViewControllers{
+                if childController is MedicineSummaryViewController{
+                    UIView.animate(withDuration: 0.8, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                        childController.view.frame = CGRect(x: 0, y: 162, width: UIScreen.main.bounds.width, height: 0)
+                    }) { _  in
+                        
+                        childController.removeFromParentViewController()
+                    }
+                }
+            }
+        }
     }
     
     func getTrackNurseHeaderView()->TrackNurseView{

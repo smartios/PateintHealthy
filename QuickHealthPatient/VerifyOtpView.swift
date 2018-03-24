@@ -315,8 +315,7 @@ class VerifyOtpView: UIViewController,UITableViewDataSource,UITableViewDelegate,
         let dict = NSMutableDictionary()
         
         dict.setObject((otpDictionary.object(forKey: "text1") as! String) + (otpDictionary.object(forKey: "text2") as! String) + (otpDictionary.object(forKey: "text3") as! String) + (otpDictionary.object(forKey: "text4") as! String), forKey: "otp" as NSCopying)
-        
-        
+        dict.setObject(TimeZone.current.identifier, forKey: "user_time_zone" as NSCopying)
         dict.setObject(user_idToSend, forKey: "user_id" as NSCopying)
         dict.setObject("\(UserDefaults.standard.value(forKey: "device_token")!)", forKey: "device_token" as NSCopying)
         dict.setObject("123", forKey: "device_id" as NSCopying)

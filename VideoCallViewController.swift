@@ -707,7 +707,7 @@ extension VideoCallViewController: WaitingChatRoomDelegate,ExtendVideoDelegate {
         let story = UIStoryboard(name: "TabbarStoryboard", bundle: nil)
         let vc = story.instantiateViewController(withIdentifier: "SelectPaymentMethodViewController") as! SelectPaymentMethodViewController
         vc.id_appt_forPayment = Int("\(UserDefaults.standard.object(forKey: "ongoing_id_appointment")!)")!
-        vc.price_forPayment = Int(Double("\(price)")!)
+        vc.price_forPayment = "\(Int(Double("\(price)")!))"
         vc.from = "extended"
         vc.delegate = self
         supportingfuction.hideProgressHudInView(view: self)
